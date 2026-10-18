@@ -2,7 +2,7 @@
 
 사회 초년생이 채팅으로 물으면 LLM이 질문을 해석해 공공 API를 호출하고, 받을 수 있는 청년 정책을 찾아 설명해 주는 웹 서비스입니다. 중심 데이터는 [온통청년 청년정책 API](https://www.youthcenter.go.kr/cmnFooter/openapiIntro/oaiDoc)입니다.
 
-> **상태: 기획 단계.** 아직 코드는 없습니다. 묶을 API, LLM 업체, 기술 스택은 미정이며 [미정 사항](#미정-사항)이 정해지면 구현 계획을 세웁니다.
+> **상태: 기획 단계.** 아직 코드는 없습니다. 지금 상황·담당·결정 대기는 **[docs/STATUS.md](docs/STATUS.md)**에 있습니다.
 
 - **대상 사용자**: 사회 초년생
 - **형태**: 회원 정보를 저장하지 않는 웹 채팅 서비스
@@ -35,7 +35,7 @@
 
 ## 후보 공공 API
 
-모두 무료이고 개발계정은 자동승인입니다. 자세한 비교는 [docs/proposal.md](docs/proposal.md#확인할-공공-api-목록)에 있습니다.
+모두 무료이고 개발계정은 자동승인입니다. 자세한 비교는 [제안서](docs/reference/proposal.md#확인할-공공-api-목록)에 있습니다.
 
 | 서비스 | 제공기관 | 개발계정 트래픽 | 키 발급처 |
 | --- | --- | --- | --- |
@@ -52,13 +52,21 @@
 ```
 .
 ├── docs/
-│   └── proposal.md                 # 기획 제안서 원문
-├── experiments/
-│   └── context-measurement/        # 다음 단계: API별 컨텍스트 소모량 측정
-├── .claude/settings.json           # AI 코딩 도구가 .env를 읽지 못하게 하는 설정
-├── AGENTS.md                       # AI 코딩 도구 작업 규칙 (CLAUDE.md가 불러옴)
-└── .env.example                    # 필요한 환경변수 목록 (값 없음)
+│   ├── STATUS.md          # 지금 상태·할 일·담당·결정 대기 (작업 시작점)
+│   ├── decisions/         # 정한 것 — 결정 하나에 파일 하나 (D1, D2, …)
+│   ├── log/               # 한 일 — 작업 한 건에 파일 하나 (001, 002, …)
+│   ├── meetings/          # 회의록 — 회의 하나에 파일 하나
+│   ├── process/           # 작업 규칙, 마무리 절차
+│   └── reference/         # 기획 제안서 원문
+├── experiments/           # 실험·측정 (첫 번째: API별 컨텍스트 소모량)
+├── AGENTS.md              # AI 코딩 도구 공통 규칙
+├── CLAUDE.md              # Claude Code용 — AGENTS.md를 불러옴
+├── .claude/settings.json  # Claude Code가 .env를 읽지 못하게 차단
+├── .gemini/settings.json  # Gemini CLI가 AGENTS.md를 읽게 설정
+└── .env.example           # 필요한 환경변수 목록 (값 없음)
 ```
+
+문서 지도와 작업 흐름은 [docs/README.md](docs/README.md)에 있습니다. 코드 디렉토리는 기술 스택이 정해지면 추가합니다.
 
 ## API 키 관리
 
@@ -67,16 +75,12 @@
    cp .env.example .env
    ```
 2. `.env`는 `.gitignore`에 들어 있어 커밋되지 않습니다. 키는 저장소 밖(팀 메신저 등)으로 공유합니다.
-3. AI 코딩 도구용 가드레일은 [AGENTS.md](AGENTS.md)와 [.claude/settings.json](.claude/settings.json)에 있습니다.
+3. **ChatGPT·Claude 같은 채팅 AI에 키나 `.env` 내용을 붙여넣지 않습니다.**
+4. AI 코딩 도구용 규칙은 [AGENTS.md](AGENTS.md)에 있습니다. 실제로 `.env` 읽기를 막는 건 Claude Code(`.claude/settings.json`)뿐이고, 다른 도구에는 지시문으로만 적용됩니다.
 
 ## 미정 사항
 
-- [ ] 온통청년과 함께 묶을 API (측정 결과로 결정)
-- [ ] 사회 초년생이 던질 질문 예시 2~3개
-- [ ] 핵심 변수: 결과를 가장 크게 좌우하는 것
-- [ ] 서술형 자격 조건을 누가 판단할지 (LLM 또는 사용자)
-- [ ] LLM 업체(무료 API 예정)와 팀 인원·역할
-- [ ] 기술 스택
+묶을 API, 대표 질문, 핵심 변수, 자격 판단 주체, LLM 업체·팀 구성, 기술 스택이 미정입니다. 목록과 진행은 [STATUS "결정 대기"](docs/STATUS.md#결정-대기)에서 관리합니다.
 
 ## 일정
 
