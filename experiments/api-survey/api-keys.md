@@ -50,18 +50,28 @@
 
 공공데이터포털에는 "청년"으로 검색되는 API가 이 밖에도 많다. 위 표에 없는 API를 더하는 것은 묶을 API(Q1)를 바꾸는 일이라 지금은 신청하지 않는다. W4 겹침 분석 뒤에 다시 본다.
 
+## 2-1. Groq 키를 받는다 (LLM, Q5 후보)
+
+비교 근거는 [무료 LLM API 비교](../llm-providers/comparison.md)에 있다.
+
+1. [Groq 콘솔](https://console.groq.com)에 가입한다. Google 계정이나 이메일로 가입할 수 있다.
+2. 왼쪽 메뉴 **API Keys**(`console.groq.com/keys`)에서 **Create API Key**를 누르고, 이름을 `youth-policy-agent`로 정한다.
+3. 키는 만들 때 한 번만 보인다. 바로 `.env`의 `GROQ_API_KEY`에 넣는다.
+4. **Settings → Data Controls**(`console.groq.com/settings/data-controls`)에서 데이터 보관 설정을 확인한다. 무보관(Zero Data Retention) 항목이 있으면 켠다. 제3자 자료 중에는 무보관이 기업 계약에서만 된다는 곳도 있어, 화면에서 직접 확인한다.
+5. 한도는 키가 아니라 조직 단위로 센다. 팀원에게는 키를 따로 만들어 주지 말고, 같은 키를 저장소 밖으로 공유한다. 키를 여러 개 만들어도 한도는 늘지 않는다.
+
 ## 3. 키를 `.env`에 넣는다
 
 1. 저장소 루트에서 `.env.example`을 복사한다.
    ```bash
    cp .env.example .env
    ```
-2. `YOUTHCENTER_API_KEY`에 온통청년 키를, `DATA_GO_KR_SERVICE_KEY`에 공공데이터포털 Decoding 키를 넣는다.
+2. `YOUTHCENTER_API_KEY`에 온통청년 키를, `DATA_GO_KR_SERVICE_KEY`에 공공데이터포털 Decoding 키를, `GROQ_API_KEY`에 Groq 키를 넣는다. `.env`를 예전에 만들었다면 `GROQ_API_KEY=` 줄을 직접 추가한다.
 3. 키는 커밋하지 않는다. 팀에는 저장소 밖으로 공유한다. 채팅 AI에 키나 `.env` 내용을 붙여넣지 않는다.
 
 ## 4. 키가 동작하는지 확인한다
 
-저장소 루트에서 실행한다. 서비스마다 한 번씩, 모두 6번 호출한다(복지로 중앙부처는 하루 한도 100 중 1). 키와 요청 URL은 출력하지 않는다.
+저장소 루트에서 실행한다. 서비스마다 한 번씩 호출한다(복지로 중앙부처는 하루 한도 100 중 1, Groq는 모델 목록 조회라 토큰을 쓰지 않는다). 키와 요청 URL은 출력하지 않는다.
 
 ```bash
 python3 experiments/api-survey/check_keys.py

@@ -2,7 +2,7 @@
 
 실행: 저장소 루트에서 `python3 experiments/api-survey/check_keys.py` (Windows는 `py experiments/api-survey/check_keys.py`)
 키는 환경변수나 루트의 `.env`에서 읽는다. 키와 요청 URL은 출력하지 않고, 응답도 저장하지 않는다.
-호출 수: 온통청년 1, 잡알리오 1, LH 2(목록 + 상세), 복지로 중앙부처 1, 복지로 지자체 1.
+호출 수: 온통청년 1, 잡알리오 1, LH 2(목록 + 상세), 복지로 중앙부처 1, 복지로 지자체 1, Groq 1(모델 목록, 토큰 사용 없음).
 """
 
 import json
@@ -30,10 +30,11 @@ def load_env():
         os.environ.setdefault(name.strip(), value.strip().strip("\"'"))
 
 
-def fetch(base, params):
-    url = base + "?" + urllib.parse.urlencode(params)
+def fetch(base, params, headers=None):
+    url = base + ("?" + urllib.parse.urlencode(params) if params else "")
     try:
-        with urllib.request.urlopen(url, timeout=TIMEOUT) as res:
+        req = urllib.request.Request(url, headers=headers or {})
+        with urllib.request.urlopen(req, timeout=TIMEOUT) as res:
             return res.status, res.read().decode("utf-8", errors="replace")
     except urllib.error.HTTPError as e:
         return e.code, e.read().decode("utf-8", errors="replace")
@@ -112,8 +113,9 @@ def main():
     load_env()
     youth_key = os.environ.get("YOUTHCENTER_API_KEY", "")
     data_key = os.environ.get("DATA_GO_KR_SERVICE_KEY", "")
-    if not youth_key and not data_key:
-        print("YOUTHCENTER_API_KEY와 DATA_GO_KR_SERVICE_KEY가 모두 비어 있다. .env를 확인한다.")
+    groq_key = os.environ.get("GROQ_API_KEY", "")
+    if not youth_key and not data_key and not groq_key:
+        print("YOUTHCENTER_API_KEY, DATA_GO_KR_SERVICE_KEY, GROQ_API_KEY가 모두 비어 있다. .env를 확인한다.")
         return 1
 
     results = []
@@ -132,8 +134,27 @@ def main():
     else:
         print("[SKIP] 공공데이터포털 5개: DATA_GO_KR_SERVICE_KEY가 비어 있다")
 
+    if groq_key:
+        results.append(check_groq(groq_key))
+    else:
+        print("[SKIP] Groq: GROQ_API_KEY가 비어 있다")
+
     print(f"\n{sum(results)}/{len(results)} 통과")
     return 0 if all(results) else 1
+
+
+def check_groq(key):
+    """모델 목록만 조회한다. 토큰 한도를 쓰지 않는다."""
+    status, body = fetch("https://api.groq.com/openai/v1/models", {},
+                         {"Authorization": f"Bearer {key}", "User-Agent": "youth-policy-agent/check_keys"})
+    data = parse(body) if status == 200 else None
+    models = sorted(m.get("id", "") for m in (data or {}).get("data", []))
+    if models:
+        wanted = [m for m in models if m.startswith(("openai/gpt-oss", "qwen/"))]
+        print(f"[OK]   Groq: 모델 {len(models)}개 사용 가능 (비교 후보: {', '.join(wanted) or '없음'})")
+        return True
+    print(f"[FAIL] Groq: HTTP {status}, {error_text(body)}")
+    return False
 
 
 def check_data_go_kr(data_key):
