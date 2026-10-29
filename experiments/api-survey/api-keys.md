@@ -67,6 +67,8 @@
 python3 experiments/api-survey/check_keys.py
 ```
 
+Windows PowerShell에서는 `py experiments/api-survey/check_keys.py`로 실행한다. `python3`를 입력했을 때 "Python"만 출력되고 끝나면, Python이 설치되지 않아 Microsoft Store 바로가기가 실행된 것이다. `winget install Python.Python.3.12`로 설치하고 PowerShell 창을 새로 연다.
+
 모두 `[OK]`이면 끝이다. 키를 하나만 넣었으면 다른 쪽은 `[SKIP]`으로 건너뛴다. `[FAIL]` 줄은 그대로 공유해도 된다. 키가 들어 있지 않다.
 
 ## 누구 계정으로 받나

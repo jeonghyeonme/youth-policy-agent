@@ -1,6 +1,6 @@
 """발급받은 API 키가 서비스마다 동작하는지 한 번씩 호출해 확인한다.
 
-실행: 저장소 루트에서 `python3 experiments/api-survey/check_keys.py`
+실행: 저장소 루트에서 `python3 experiments/api-survey/check_keys.py` (Windows는 `py experiments/api-survey/check_keys.py`)
 키는 환경변수나 루트의 `.env`에서 읽는다. 키와 요청 URL은 출력하지 않고, 응답도 저장하지 않는다.
 호출 수: 온통청년 1, 잡알리오 1, LH 2(목록 + 상세), 복지로 중앙부처 1, 복지로 지자체 1.
 """
@@ -22,7 +22,7 @@ def load_env():
     env_file = Path(__file__).resolve().parents[2] / ".env"
     if not env_file.exists():
         return
-    for line in env_file.read_text(encoding="utf-8").splitlines():
+    for line in env_file.read_text(encoding="utf-8-sig").splitlines():
         line = line.strip()
         if not line or line.startswith("#") or "=" not in line:
             continue
