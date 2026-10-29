@@ -1,0 +1,31 @@
+{
+ "model": "groq__gpt-oss-120b",
+ "case": "q02",
+ "status": 200,
+ "latency_s": 1.18,
+ "messages": [
+  {
+   "role": "system",
+   "content": "너는 청년 정책 검색 조건을 뽑는 도구다. 사용자 문장에서 아래 JSON만 출력한다.\n- categories: 관련 정책 분야. ['일자리', '주거', '교육', '복지문화', '참여권리'] 중 하나 이상\n- age: 문장에 나온 만 나이. 없으면 null\n- region: 사는 시도. ['서울', '부산', '대구', '인천', '광주', '대전', '울산', '세종', '경기', '강원', '충북', '충남', '전북', '전남', '경북', '경남', '제주'] 중 하나. 없으면 null\n- job_status: ['재직자', '자영업자', '미취업자', '프리랜서', '일용근로자', '(예비)창업자', '단기근로자', '영농종사자'] 중 하나. 없으면 null\n- education: ['고졸 미만', '고교 재학', '고졸 예정', '고교 졸업', '대학 재학', '대졸 예정', '대학 졸업', '석·박사'] 중 하나. 없으면 null\n문장에 없는 값은 추측하지 말고 null로 둔다."
+  },
+  {
+   "role": "user",
+   "content": "대학 졸업하고 1년째 취업 준비 중이에요. 지원받을 수 있는 거 있나요?"
+  }
+ ],
+ "content": "{\n  \"categories\": [\"일자리\"],\n  \"age\": null,\n  \"region\": null,\n  \"job_status\": \"미취업자\",\n  \"education\": \"대학 졸업\"\n}",
+ "usage": {
+  "queue_time": 0.009507537,
+  "prompt_tokens": 682,
+  "prompt_time": 0.034237468,
+  "completion_tokens": 94,
+  "completion_time": 0.195267238,
+  "total_tokens": 776,
+  "total_time": 0.229504706,
+  "completion_tokens_details": {
+   "reasoning_tokens": 38
+  }
+ },
+ "error": null,
+ "kind": "interpret"
+}

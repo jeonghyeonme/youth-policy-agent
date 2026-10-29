@@ -1,0 +1,28 @@
+{
+ "model": "groq__qwen3.8-27b",
+ "case": "q03",
+ "status": 200,
+ "latency_s": 0.59,
+ "messages": [
+  {
+   "role": "system",
+   "content": "너는 청년 정책 검색 조건을 뽑는 도구다. 사용자 문장에서 아래 JSON만 출력한다.\n- categories: 관련 정책 분야. ['일자리', '주거', '교육', '복지문화', '참여권리'] 중 하나 이상\n- age: 문장에 나온 만 나이. 없으면 null\n- region: 사는 시도. ['서울', '부산', '대구', '인천', '광주', '대전', '울산', '세종', '경기', '강원', '충북', '충남', '전북', '전남', '경북', '경남', '제주'] 중 하나. 없으면 null\n- job_status: ['재직자', '자영업자', '미취업자', '프리랜서', '일용근로자', '(예비)창업자', '단기근로자', '영농종사자'] 중 하나. 없으면 null\n- education: ['고졸 미만', '고교 재학', '고졸 예정', '고교 졸업', '대학 재학', '대졸 예정', '대학 졸업', '석·박사'] 중 하나. 없으면 null\n문장에 없는 값은 추측하지 말고 null로 둔다."
+  },
+  {
+   "role": "user",
+   "content": "부산에서 작은 회사 다니는 25살 직장인입니다. 목돈 모으는 방법 없을까요"
+  }
+ ],
+ "content": "{\"age\": 25, \"categories\": [\"일자리\"], \"education\": null, \"job_status\": \"재직자\", \"region\": \"부산\"}",
+ "usage": {
+  "queue_time": 0.056473367,
+  "prompt_tokens": 305,
+  "prompt_time": 0.023792462,
+  "completion_tokens": 36,
+  "completion_time": 0.071650144,
+  "total_tokens": 341,
+  "total_time": 0.095442606
+ },
+ "error": null,
+ "kind": "interpret"
+}
