@@ -112,17 +112,32 @@ def main():
     load_env()
     youth_key = os.environ.get("YOUTHCENTER_API_KEY", "")
     data_key = os.environ.get("DATA_GO_KR_SERVICE_KEY", "")
-    if not youth_key or not data_key:
-        print("YOUTHCENTER_API_KEY 또는 DATA_GO_KR_SERVICE_KEY가 비어 있다. .env를 확인한다.")
+    if not youth_key and not data_key:
+        print("YOUTHCENTER_API_KEY와 DATA_GO_KR_SERVICE_KEY가 모두 비어 있다. .env를 확인한다.")
         return 1
 
     results = []
 
-    status, body = fetch(
-        "https://www.youthcenter.go.kr/go/ythip/getPlcy",
-        {"apiKeyNm": youth_key, "pageNum": 1, "pageSize": 1, "rtnType": "json"},
-    )
-    results.append(report("온통청년 청년정책", status, body, ["totCount", "totalCount"])[0])
+    if youth_key:
+        status, body = fetch(
+            "https://www.youthcenter.go.kr/go/ythip/getPlcy",
+            {"apiKeyNm": youth_key, "pageNum": 1, "pageSize": 1, "rtnType": "json"},
+        )
+        results.append(report("온통청년 청년정책", status, body, ["totCount", "totalCount"])[0])
+    else:
+        print("[SKIP] 온통청년 청년정책: YOUTHCENTER_API_KEY가 비어 있다")
+
+    if data_key:
+        results += check_data_go_kr(data_key)
+    else:
+        print("[SKIP] 공공데이터포털 5개: DATA_GO_KR_SERVICE_KEY가 비어 있다")
+
+    print(f"\n{sum(results)}/{len(results)} 통과")
+    return 0 if all(results) else 1
+
+
+def check_data_go_kr(data_key):
+    results = []
 
     status, body = fetch(
         "https://apis.data.go.kr/1051000/recruitment/list",
@@ -175,9 +190,7 @@ def main():
         {"serviceKey": data_key, "pageNo": 1, "numOfRows": 1},
     )
     results.append(report("복지로 지자체 목록", status, body, ["totalCount"])[0])
-
-    print(f"\n{sum(results)}/{len(results)} 통과")
-    return 0 if all(results) else 1
+    return results
 
 
 if __name__ == "__main__":
