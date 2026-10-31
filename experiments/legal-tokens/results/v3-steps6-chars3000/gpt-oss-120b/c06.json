@@ -1,0 +1,128 @@
+{
+ "model": "gpt-oss-120b",
+ "case": "c06",
+ "field": "도로교통",
+ "intent": "적용",
+ "question": "우회전하려는데 횡단보도 근처에 사람이 있어요. 어떤 조건에서 멈춰야 하나요?",
+ "max_steps": 6,
+ "max_chars": 3000,
+ "outcome": "answered",
+ "totals": {
+  "prompt_tokens": 7630,
+  "completion_tokens": 861,
+  "total_tokens": 8491,
+  "llm_calls": 4,
+  "tool_calls": 3
+ },
+ "calls": [
+  {
+   "step": 1,
+   "status": 200,
+   "latency_s": 0.48,
+   "usage": {
+    "queue_time": 0.114367424,
+    "prompt_tokens": 791,
+    "prompt_time": 0.032575994,
+    "completion_tokens": 48,
+    "completion_time": 0.099449036,
+    "total_tokens": 839,
+    "total_time": 0.13202503,
+    "completion_tokens_details": {
+     "reasoning_tokens": 10
+    }
+   },
+   "tools": [
+    {
+     "name": "search_law",
+     "args": "{\"query\":\"도로교통법\",\"target\":\"law\"}",
+     "result_chars": 741,
+     "useful": true,
+     "result_head": "[{\"현행연혁코드\": \"현행\", \"법령일련번호\": \"291133\", \"자법타법여부\": \"\", \"법령명한글\": \"도로교통법\", \"법령구분명\": \"",
+     "cached": false
+    }
+   ]
+  },
+  {
+   "step": 2,
+   "status": 200,
+   "latency_s": 0.53,
+   "usage": {
+    "queue_time": 0.048939567,
+    "prompt_tokens": 1292,
+    "prompt_time": 0.037017623,
+    "completion_tokens": 76,
+    "completion_time": 0.165630904,
+    "total_tokens": 1368,
+    "total_time": 0.202648527,
+    "prompt_tokens_details": {
+     "cached_tokens": 512
+    },
+    "completion_tokens_details": {
+     "reasoning_tokens": 38
+    }
+   },
+   "tools": [
+    {
+     "name": "search_law",
+     "args": "{\"body_search\":true,\"query\":\"우회전 보행자 보호\",\"target\":\"law\"}",
+     "result_chars": 1223,
+     "useful": true,
+     "result_head": "[{\"현행연혁코드\": \"현행\", \"법령일련번호\": \"289845\", \"자법타법여부\": \"\", \"법령명한글\": \"교통안전법 시행규칙\", \"법령구분",
+     "cached": false
+    }
+   ]
+  },
+  {
+   "step": 3,
+   "status": 200,
+   "latency_s": 0.9,
+   "usage": {
+    "queue_time": 0.390636121,
+    "prompt_tokens": 2111,
+    "prompt_time": 0.06676796,
+    "completion_tokens": 73,
+    "completion_time": 0.267268005,
+    "total_tokens": 2184,
+    "total_time": 0.334035965,
+    "prompt_tokens_details": {
+     "cached_tokens": 512
+    },
+    "completion_tokens_details": {
+     "reasoning_tokens": 40
+    }
+   },
+   "tools": [
+    {
+     "name": "get_law",
+     "args": "{\"article\":45,\"id\":\"001638\",\"target\":\"law\"}",
+     "result_chars": 3013,
+     "useful": true,
+     "result_head": "{\"법령\": {\n    \"법령키\": \"0016382026101322067\",\n    \"기본정보\": {\n        \"법령명_한글\": \"도로교통",
+     "cached": false
+    }
+   ]
+  },
+  {
+   "step": 4,
+   "status": 200,
+   "latency_s": 1.75,
+   "usage": {
+    "queue_time": 0.050910531,
+    "prompt_tokens": 3436,
+    "prompt_time": 0.10349542,
+    "completion_tokens": 664,
+    "completion_time": 1.413112004,
+    "total_tokens": 4100,
+    "total_time": 1.516607424,
+    "prompt_tokens_details": {
+     "cached_tokens": 1280
+    },
+    "completion_tokens_details": {
+     "reasoning_tokens": 112
+    }
+   },
+   "tools": []
+  }
+ ],
+ "answer": "**질문 의도**: 절차 안내 – 우회전 시 보행자에게 양보해야 하는 조건을 알고 싶으신 경우입니다.  \n\n**답변**  \n\n도로교통법 제45조(보행자·자전거·전동킥보드 등에 대한 양보)에서는 다음과 같이 규정하고 있습니다.\n\n- **자동차·노면전차·전동킥보드·전동자전거 등을 운전하는 사람은 보행자·자전거·전동킥보드·전동자전거·노면전차가 횡단보도를 건널 때에는 그 진행을 방해하거나 위험을 초래하지 않도록 반드시 양보하여야 한다**(제45조 제1항).  \n- 특히 **우회전(좌측 차선에서 우측 차선으로 전진하는 경우) 시에는 횡단보도에 보행자가 있거나 건너려는 경우, 보행자가 완전히 건넜다고 판단될 때까지 정지하거나 속도를 줄여 양보해야 합니다**(동조 제1항).  \n\n따라서, **우회전하려는 도중에 횡단보도 근처에 보행자가 있거나 건너려는 의사가 보이는 경우에는 반드시 정지하거나 속도를 줄여 보행자가 완전히 건널 때까지 양보**해야 합니다.  \n\n**근거**  \n- 도로교통법 제45조(보행자·자전거·전동킥보드·전동자전거·노면전차 등에 대한 양보) – “자동차·노면전차·전동킥보드·전동자전거 등을 운전하는 사람은 보행자·자전거·전동킥보드·전동자전거·노면전차가 횡단보도를 건널 때에는 그 진행을 방해하거나 위험을 초래하지 않도록 반드시 양보하여야 한다.”  \n\n**추가 안내**  \n- 양보 의무를 위반하여 보행자와 충돌하거나 위험을 초래할 경우, 교통법규 위반(벌점·벌금) 및 형사·민사 책임이 따를 수 있습니다.  \n- 보행자가 없는 경우에도 교통신호·표지판에 따라 우회전이 허용되는지 확인하시고, 교통 흐름에 따라 안전하게 진행하시기 바랍니다.  \n\n다른 궁금한 점이 있으면 알려 주세요!"
+}

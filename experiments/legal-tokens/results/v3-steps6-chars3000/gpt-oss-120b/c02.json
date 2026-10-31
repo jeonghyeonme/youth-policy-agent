@@ -1,0 +1,41 @@
+{
+ "model": "gpt-oss-120b",
+ "case": "c02",
+ "field": "학사 규정",
+ "intent": "적용",
+ "question": "우리 학교는 일반휴학을 몇 학기까지 할 수 있나요? 복학했다가 다시 휴학할 수도 있나요?",
+ "max_steps": 6,
+ "max_chars": 3000,
+ "outcome": "answered",
+ "totals": {
+  "prompt_tokens": 792,
+  "completion_tokens": 293,
+  "total_tokens": 1085,
+  "llm_calls": 1,
+  "tool_calls": 0
+ },
+ "calls": [
+  {
+   "step": 1,
+   "status": 200,
+   "latency_s": 1.17,
+   "usage": {
+    "queue_time": 0.213561504,
+    "prompt_tokens": 792,
+    "prompt_time": 0.013607937,
+    "completion_tokens": 293,
+    "completion_time": 0.673745678,
+    "total_tokens": 1085,
+    "total_time": 0.687353615,
+    "prompt_tokens_details": {
+     "cached_tokens": 512
+    },
+    "completion_tokens_details": {
+     "reasoning_tokens": 27
+    }
+   },
+   "tools": []
+  }
+ ],
+ "answer": "질문 의도: **개인 상황 적용** – 귀하가 재학 중인 대학의 학칙·휴학 규정에 관한 안내를 요청하셨습니다.  \n\n현재 저는 이용 가능한 법령·행정규칙·학교 규정 데이터베이스에서 **귀하가 다니는 구체적인 학교명**을 알 수 없기 때문에, 해당 학교의 학칙(휴학·복학에 관한 조항)을 직접 확인할 수 없습니다.  \n\n**확인하지 못함**: 귀하가 재학 중인 대학의 구체적인 학칙·휴학 규정(예: “○○대학교 학사규정 제○조”)은 현재 확인하지 못했습니다.  \n\n---\n\n**다음과 같이 알려 주시면** 보다 정확한 정보를 찾아 드릴 수 있습니다.\n\n1. 학교(대학) 이름  \n2. 혹시 이미 알고 계신 학칙 번호(예: “학사규정 제15조”)가 있으면 함께 알려 주세요.  \n\n위 정보를 알려 주시면 해당 학교의 학칙에서 **‘일반휴학 가능 학기 수’**와 **‘복학 후 재휴학 가능 여부’**를 찾아서 정확히 답변드리겠습니다."
+}

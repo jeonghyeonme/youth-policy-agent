@@ -1,0 +1,8 @@
+{
+ "service": "lawService.do",
+ "params": {
+  "target": "lstrm",
+  "query": "14094"
+ },
+ "body": "{\"Law\": \"일치하는 법령용어가 없습니다.  법령용어명을 확인하여 주십시오.\"}"
+}
