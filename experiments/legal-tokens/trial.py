@@ -26,6 +26,8 @@ from pathlib import Path
 
 HERE = Path(__file__).resolve().parent
 ROOT = HERE.parents[1]
+# v1: 첫 실행. v2: 검색어 안내·본문 검색·되묻기 힌트 추가, 마지막 단계에서 도구를 아예 뺀다.
+TOOL_VERSION = "v2"
 DAILY_TOKENS = 200_000
 TARGET_PER_DAY = 30
 CALL_GAP_SECONDS = 3
@@ -62,14 +64,18 @@ TOOLS = [
     {"type": "function", "function": {
         "name": "search_law",
         "description": "국가법령정보에서 자료 목록을 검색한다. 결과는 최대 5건이다.\n"
+                       "기본 검색은 자료 이름(법령명·용어명·규정명)만 본다. '근로기준법', '고의'처럼 이름 하나를 넣는다. "
+                       "문장이나 여러 낱말을 넣으면 0건이 나오기 쉽다. 조문 내용으로 찾으려면 body_search를 true로 한다.\n"
                        + "\n".join(f"- {k}: {v}" for k, v in TARGETS.items()),
         "parameters": {"type": "object", "properties": {
             "target": {"type": "string", "enum": list(TARGETS)},
-            "query": {"type": "string", "description": "검색어. 사용자 문장이 아니라 핵심 키워드"},
+            "query": {"type": "string", "description": "자료 이름 하나. 사용자 문장을 넣지 않는다"},
+            "body_search": {"type": "boolean", "description": "true면 이름 대신 본문에서 찾는다. lstrm에서는 쓰지 않는다"},
         }, "required": ["target", "query"], "additionalProperties": False}}},
     {"type": "function", "function": {
         "name": "get_law",
-        "description": "search_law 결과에서 고른 자료의 본문을 가져온다. 길면 잘린다.",
+        "description": "search_law 결과에서 고른 자료의 본문을 가져온다. 길면 잘린다. "
+                       "id는 지어내지 말고 search_law 결과에 나온 값을 그대로 쓴다.",
         "parameters": {"type": "object", "properties": {
             "target": {"type": "string", "enum": list(TARGETS)},
             "id": {"type": "string"},
@@ -155,6 +161,17 @@ def first_list(data):
     return None
 
 
+RETRY_HINT = {
+    "search_law": "검색 결과 0건. 자료 이름 하나로 다시 찾거나 body_search를 true로 해 본다.",
+    "get_law": "해당 id의 자료가 없다. search_law 결과에 나온 id를 그대로 쓴다.",
+}
+FAILURE_MARKS = ("검색 결과 0건", "[API 오류]", "[도구", "[알 수 없는", "일치하는", "해당 id의 자료가 없다")
+
+
+def useful(result):
+    return not any(mark in result[:150] for mark in FAILURE_MARKS)
+
+
 def run_tool(api, name, raw_args, max_chars):
     try:
         args = json.loads(raw_args or "{}")
@@ -164,10 +181,13 @@ def run_tool(api, name, raw_args, max_chars):
     except (ValueError, KeyError, TypeError) as e:
         return f"[도구 인자 오류] {e}", None
     if name == "search_law":
-        body, cached = api.call("lawSearch.do", {"target": target, "query": args.get("query", ""), "display": 5})
+        params = {"target": target, "query": args.get("query", ""), "display": 5}
+        if args.get("body_search") and target != "lstrm":
+            params["search"] = 2
+        body, cached = api.call("lawSearch.do", params)
         try:
             items = first_list(json.loads(body)) or []
-            text = json.dumps(items[:5], ensure_ascii=False) if items else "검색 결과 0건"
+            text = json.dumps(items[:5], ensure_ascii=False) if items else RETRY_HINT["search_law"]
         except ValueError:
             text = body
     elif name == "get_law":
@@ -176,6 +196,8 @@ def run_tool(api, name, raw_args, max_chars):
         if target == "law" and args.get("article"):
             params["JO"] = f"{int(args['article']):04d}00"
         text, cached = api.call("lawService.do", params)
+        if "일치하는" in text[:150] and len(text) < 300:
+            text = RETRY_HINT["get_law"]
     else:
         return f"[알 수 없는 도구] {name}", None
     if len(text) > max_chars:
@@ -212,8 +234,12 @@ def run_case(llm, api, model_name, question, max_steps, max_chars):
     calls, answer, outcome = [], None, "forced"
     for step in range(1, max_steps + 1):
         last = step == max_steps
-        body = {**MODELS[model_name], "messages": messages, "tools": TOOLS,
-                "tool_choice": "none" if last else "auto", "max_completion_tokens": 2048}
+        body = {**MODELS[model_name], "messages": messages, "max_completion_tokens": 2048}
+        if last:
+            # gpt-oss는 tool_choice=none이어도 도구를 불러 400이 난다(v1 실측). 마지막에는 도구 정의를 뺀다.
+            body["messages"] = messages + [{"role": "user", "content": "도구는 더 쓸 수 없다. 지금까지 확인한 원문만으로 답한다."}]
+        else:
+            body.update(tools=TOOLS, tool_choice="auto")
         status, response, latency = llm(body)
         if status != 200:
             calls.append({"step": step, "status": status, "error": response.get("error")})
@@ -224,13 +250,15 @@ def run_case(llm, api, model_name, question, max_steps, max_chars):
         calls.append(record)
         tool_calls = message.get("tool_calls") or []
         if not tool_calls:
-            answer, outcome = message.get("content"), "forced" if last else "answered"
+            answer = message.get("content")
+            outcome = "empty" if not (answer or "").strip() else "forced" if last else "answered"
             break
         messages.append({"role": "assistant", "content": message.get("content") or "", "tool_calls": tool_calls})
         for tc in tool_calls:
             result, cached = run_tool(api, tc["function"]["name"], tc["function"].get("arguments"), max_chars)
             record["tools"].append({"name": tc["function"]["name"], "args": tc["function"].get("arguments"),
-                                    "result_chars": len(result), "cached": cached})
+                                    "result_chars": len(result), "useful": useful(result),
+                                    "result_head": result[:80], "cached": cached})
             messages.append({"role": "tool", "tool_call_id": tc["id"], "content": result})
     ok = [c for c in calls if c.get("usage")]
     totals = {k: sum(c["usage"].get(k, 0) for c in ok) for k in ("prompt_tokens", "completion_tokens", "total_tokens")}
@@ -239,7 +267,7 @@ def run_case(llm, api, model_name, question, max_steps, max_chars):
 
 
 def config_name(max_steps, max_chars):
-    return f"steps{max_steps}-chars{max_chars}"
+    return f"{TOOL_VERSION}-steps{max_steps}-chars{max_chars}"
 
 
 def run(models, cases, max_steps, max_chars, budget, results, llm_for, api, gap):
@@ -266,28 +294,44 @@ def run(models, cases, max_steps, max_chars, budget, results, llm_for, api, gap)
     print(f"법령 API 실제 호출 {api.network_calls}회 (나머지는 cache)")
 
 
+def bodies_read(record):
+    """본문 조회(get_law)가 실제 원문을 돌려준 횟수. v1 기록에는 판정이 없어 None."""
+    tools = [t for c in record["calls"] for t in c.get("tools", []) if t["name"] == "get_law"]
+    if any("useful" not in t for t in tools):
+        return None
+    return sum(t["useful"] for t in tools)
+
+
+def summarize(label, records):
+    if not records:
+        print(f"   {label}: 없음")
+        return
+    tokens = [r["totals"]["total_tokens"] for r in records]
+    avg = statistics.mean(tokens)
+    per_day = DAILY_TOKENS // avg
+    verdict = "기준 충족" if per_day >= TARGET_PER_DAY else "기준 미달"
+    print(f"   {label} {len(records)}건: 질문당 평균 {avg:,.0f}, 중앙값 {statistics.median(tokens):,.0f}, "
+          f"최대 {max(tokens):,} → 하루 약 {per_day:.0f}개 (목표 {TARGET_PER_DAY}개: {verdict})")
+
+
 def report(results):
+    print(f"하루 {DAILY_TOKENS:,} 토큰 기준. 유효 = 답을 냈고 본문을 1번 이상 실제로 읽은 사례")
     for config_dir in sorted(p for p in results.glob("*") if p.is_dir()):
         for model_dir in sorted(p for p in config_dir.glob("*") if p.is_dir()):
             records = [json.loads(p.read_text(encoding="utf-8")) for p in sorted(model_dir.glob("*.json"))]
-            done = [r for r in records if r["outcome"] != "error"]
             print(f"## {model_dir.name} · {config_dir.name}")
             for r in records:
-                t = r["totals"]
+                t, read = r["totals"], bodies_read(r)
                 print(f"   {r['case']} {r['field']}/{r['intent']}: {r['outcome']}, LLM {t['llm_calls']}회, "
-                      f"도구 {t['tool_calls']}회, 입력 {t['prompt_tokens']:,} + 출력 {t['completion_tokens']:,} "
-                      f"= {t['total_tokens']:,}")
-            if not done:
-                continue
-            tokens = [r["totals"]["total_tokens"] for r in done]
-            avg = statistics.mean(tokens)
-            per_day = DAILY_TOKENS // avg if avg else 0
-            verdict = "기준 충족" if per_day >= TARGET_PER_DAY else "기준 미달"
-            print(f"   질문당 토큰: 평균 {avg:,.0f}, 중앙값 {statistics.median(tokens):,.0f}, 최대 {max(tokens):,}"
-                  f" → 하루 약 {per_day:.0f}개 (하루 {DAILY_TOKENS:,} 토큰 기준, 목표 {TARGET_PER_DAY}개: {verdict})")
-            limited = [r["case"] for r in done if r["outcome"] == "forced"]
-            if limited:
-                print(f"   단계 상한에 걸려 답을 강제한 사례: {', '.join(limited)}")
+                      f"도구 {t['tool_calls']}회, 본문 확보 {'?' if read is None else read}회, "
+                      f"입력 {t['prompt_tokens']:,} + 출력 {t['completion_tokens']:,} = {t['total_tokens']:,}")
+            finished = [r for r in records if r["outcome"] in ("answered", "forced")]
+            summarize("답을 낸 사례", finished)
+            summarize("유효 사례", [r for r in finished if bodies_read(r)])
+            for outcome, label in (("forced", "단계 상한으로 답을 강제"), ("empty", "빈 답"), ("error", "오류")):
+                cases = [r["case"] for r in records if r["outcome"] == outcome]
+                if cases:
+                    print(f"   {label}: {', '.join(cases)}")
 
 
 def fake_setup(oc="FAKEOC123"):
@@ -303,7 +347,7 @@ def fake_setup(oc="FAKEOC123"):
         def llm(body):
             step = sum(1 for m in body["messages"] if m["role"] == "assistant") + 1
             prompt = sum(len(m.get("content") or "") for m in body["messages"]) // 2
-            if body["tool_choice"] == "none" or step > 2:
+            if "tools" not in body or step > 2:
                 message = {"role": "assistant", "content": "가짜 답변"}
             else:
                 name, args = (("search_law", {"target": "law", "query": "임금"}) if step == 1
