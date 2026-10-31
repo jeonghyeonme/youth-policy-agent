@@ -1,0 +1,150 @@
+{
+ "model": "gpt-oss-120b",
+ "case": "c03",
+ "field": "노동",
+ "intent": "개념",
+ "question": "아르바이트도 휴게시간이 있나요? 일하는 시간에 따라 기준이 달라지나요?",
+ "max_steps": 6,
+ "max_chars": 3000,
+ "outcome": "error",
+ "totals": {
+  "prompt_tokens": 4336,
+  "completion_tokens": 272,
+  "total_tokens": 4608,
+  "llm_calls": 6,
+  "tool_calls": 5
+ },
+ "calls": [
+  {
+   "step": 1,
+   "status": 200,
+   "latency_s": 0.84,
+   "usage": {
+    "queue_time": 0.352177091,
+    "prompt_tokens": 673,
+    "prompt_time": 0.029847579,
+    "completion_tokens": 61,
+    "completion_time": 0.127243146,
+    "total_tokens": 734,
+    "total_time": 0.157090725,
+    "completion_tokens_details": {
+     "reasoning_tokens": 20
+    }
+   },
+   "tools": [
+    {
+     "name": "search_law",
+     "args": "{\"query\":\"휴게시간 근로 기준시간\",\"target\":\"law\"}",
+     "result_chars": 154,
+     "cached": false
+    }
+   ]
+  },
+  {
+   "step": 2,
+   "status": 200,
+   "latency_s": 0.71,
+   "usage": {
+    "queue_time": 0.391406648,
+    "prompt_tokens": 774,
+    "prompt_time": 0.030338275,
+    "completion_tokens": 38,
+    "completion_time": 0.079643145,
+    "total_tokens": 812,
+    "total_time": 0.10998142,
+    "completion_tokens_details": {
+     "reasoning_tokens": 5
+    }
+   },
+   "tools": [
+    {
+     "name": "search_law",
+     "args": "{\"query\":\"휴게시간 근로시간 기준\",\"target\":\"law\"}",
+     "result_chars": 154,
+     "cached": false
+    }
+   ]
+  },
+  {
+   "step": 3,
+   "status": 200,
+   "latency_s": 0.73,
+   "usage": {
+    "queue_time": 0.39331369,
+    "prompt_tokens": 875,
+    "prompt_time": 0.046984811,
+    "completion_tokens": 56,
+    "completion_time": 0.117517025,
+    "total_tokens": 931,
+    "total_time": 0.164501836,
+    "completion_tokens_details": {
+     "reasoning_tokens": 22
+    }
+   },
+   "tools": [
+    {
+     "name": "search_law",
+     "args": "{\"query\":\"근로기준법 휴게시간\",\"target\":\"law\"}",
+     "result_chars": 152,
+     "cached": false
+    }
+   ]
+  },
+  {
+   "step": 4,
+   "status": 200,
+   "latency_s": 0.37,
+   "usage": {
+    "queue_time": 0.048932826,
+    "prompt_tokens": 978,
+    "prompt_time": 0.042662085,
+    "completion_tokens": 52,
+    "completion_time": 0.109545664,
+    "total_tokens": 1030,
+    "total_time": 0.152207749,
+    "completion_tokens_details": {
+     "reasoning_tokens": 23
+    }
+   },
+   "tools": [
+    {
+     "name": "get_law",
+     "args": "{\"article\":55,\"id\":\"3070000\",\"target\":\"law\"}",
+     "result_chars": 42,
+     "cached": false
+    }
+   ]
+  },
+  {
+   "step": 5,
+   "status": 200,
+   "latency_s": 0.65,
+   "usage": {
+    "queue_time": 0.257720759,
+    "prompt_tokens": 1036,
+    "prompt_time": 0.046928556,
+    "completion_tokens": 65,
+    "completion_time": 0.14213356,
+    "total_tokens": 1101,
+    "total_time": 0.189062116,
+    "completion_tokens_details": {
+     "reasoning_tokens": 37
+    }
+   },
+   "tools": [
+    {
+     "name": "search_law",
+     "args": "{\"query\":\"근로기준법\",\"target\":\"law\"}",
+     "result_chars": 1092,
+     "cached": false
+    }
+   ]
+  },
+  {
+   "step": 6,
+   "status": 400,
+   "error": "{\"error\":{\"message\":\"Tool choice is none, but model called a tool\",\"type\":\"invalid_request_error\",\"code\":\"tool_use_failed\",\"failed_generation\":\"{\\\"name\\\": \\\"get_law\\\", \\\"arguments\\\": {\\\"article\\\":55,\\\"id\\\":\\\"001872\\\",\\\"target\\\":\\\"law\\\"}}\"}}\n"
+  }
+ ],
+ "answer": null
+}

@@ -1,0 +1,159 @@
+{
+ "model": "gpt-oss-120b",
+ "case": "c06",
+ "field": "도로교통",
+ "intent": "적용",
+ "question": "우회전하려는데 횡단보도 근처에 사람이 있어요. 어떤 조건에서 멈춰야 하나요?",
+ "max_steps": 6,
+ "max_chars": 3000,
+ "outcome": "error",
+ "totals": {
+  "prompt_tokens": 4500,
+  "completion_tokens": 320,
+  "total_tokens": 4820,
+  "llm_calls": 6,
+  "tool_calls": 5
+ },
+ "calls": [
+  {
+   "step": 1,
+   "status": 200,
+   "latency_s": 0.46,
+   "usage": {
+    "queue_time": 0.05257665,
+    "prompt_tokens": 676,
+    "prompt_time": 0.0265171,
+    "completion_tokens": 60,
+    "completion_time": 0.126835339,
+    "total_tokens": 736,
+    "total_time": 0.153352439,
+    "completion_tokens_details": {
+     "reasoning_tokens": 11
+    }
+   },
+   "tools": [
+    {
+     "name": "search_law",
+     "args": "{\"query\":\"우회전 보행자 멈춤 조건 도로교통법\",\"target\":\"law\"}",
+     "result_chars": 161,
+     "cached": false
+    }
+   ]
+  },
+  {
+   "step": 2,
+   "status": 200,
+   "latency_s": 0.39,
+   "usage": {
+    "queue_time": 0.048540163,
+    "prompt_tokens": 793,
+    "prompt_time": 0.013156317,
+    "completion_tokens": 45,
+    "completion_time": 0.095211345,
+    "total_tokens": 838,
+    "total_time": 0.108367662,
+    "prompt_tokens_details": {
+     "cached_tokens": 512
+    },
+    "completion_tokens_details": {
+     "reasoning_tokens": 9
+    }
+   },
+   "tools": [
+    {
+     "name": "search_law",
+     "args": "{\"query\":\"도로교통법 우회전 보행자\",\"target\":\"law\"}",
+     "result_chars": 155,
+     "cached": false
+    }
+   ]
+  },
+  {
+   "step": 3,
+   "status": 200,
+   "latency_s": 0.51,
+   "usage": {
+    "queue_time": 0.048660237,
+    "prompt_tokens": 900,
+    "prompt_time": 0.006382343,
+    "completion_tokens": 77,
+    "completion_time": 0.161071777,
+    "total_tokens": 977,
+    "total_time": 0.16745412,
+    "prompt_tokens_details": {
+     "cached_tokens": 768
+    },
+    "completion_tokens_details": {
+     "reasoning_tokens": 41
+    }
+   },
+   "tools": [
+    {
+     "name": "search_law",
+     "args": "{\"query\":\"보행자 우회전 정지 도로교통법\",\"target\":\"law\"}",
+     "result_chars": 158,
+     "cached": false
+    }
+   ]
+  },
+  {
+   "step": 4,
+   "status": 200,
+   "latency_s": 0.69,
+   "usage": {
+    "queue_time": 0.175380746,
+    "prompt_tokens": 1013,
+    "prompt_time": 0.021302689,
+    "completion_tokens": 75,
+    "completion_time": 0.1570119,
+    "total_tokens": 1088,
+    "total_time": 0.178314589,
+    "prompt_tokens_details": {
+     "cached_tokens": 512
+    },
+    "completion_tokens_details": {
+     "reasoning_tokens": 43
+    }
+   },
+   "tools": [
+    {
+     "name": "search_law",
+     "args": "{\"query\":\"제43조 보행자 우회전\",\"target\":\"law\"}",
+     "result_chars": 154,
+     "cached": false
+    }
+   ]
+  },
+  {
+   "step": 5,
+   "status": 200,
+   "latency_s": 0.62,
+   "usage": {
+    "queue_time": 0.25363497,
+    "prompt_tokens": 1118,
+    "prompt_time": 0.047288431,
+    "completion_tokens": 63,
+    "completion_time": 0.133375882,
+    "total_tokens": 1181,
+    "total_time": 0.180664313,
+    "completion_tokens_details": {
+     "reasoning_tokens": 28
+    }
+   },
+   "tools": [
+    {
+     "name": "search_law",
+     "args": "{\"query\":\"도로교통법 제44조2항 보행자\",\"target\":\"law\"}",
+     "result_chars": 158,
+     "cached": false
+    }
+   ]
+  },
+  {
+   "step": 6,
+   "status": 400,
+   "error": "{\"error\":{\"message\":\"Tool choice is none, but model called a tool\",\"type\":\"invalid_request_error\",\"code\":\"tool_use_failed\",\"failed_generation\":\"{\\\"name\\\": \\\"search_law\\\", \\\"arguments\\\": {\\\"query\\\":\\\"도로교통법 제44조(보행자·자전거·동력보행자·원동기장치자전거·소형자동차·보행자전용차로·보행자전용차도·횡단보도)\\\",\\\"target\\\":\\\"law\\\"}}\"}}\n"
+  }
+ ],
+ "answer": null
+}

@@ -1,0 +1,9 @@
+{
+ "service": "lawSearch.do",
+ "params": {
+  "target": "law",
+  "query": "보일러 고장 수리비 임대인 부담",
+  "display": 5
+ },
+ "body": "{\"LawSearch\": {\n    \"resultMsg\": \"success\",\n    \"키워드\": \"보일러 고장 수리비 임대인 부담\",\n    \"page\": \"1\",\n    \"resultCode\": \"00\",\n    \"target\": \"law\",\n    \"totalCnt\": \"0\",\n    \"section\": \"lawNm\",\n    \"numOfRows\": \"0\"\n}}"
+}

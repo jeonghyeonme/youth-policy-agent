@@ -1,0 +1,153 @@
+{
+ "model": "gpt-oss-120b",
+ "case": "c04",
+ "field": "노동",
+ "intent": "절차",
+ "question": "카페 아르바이트를 그만뒀는데 마지막 급여를 못 받았어요. 어디에 어떤 자료를 내야 하나요?",
+ "max_steps": 6,
+ "max_chars": 3000,
+ "outcome": "error",
+ "totals": {
+  "prompt_tokens": 4667,
+  "completion_tokens": 343,
+  "total_tokens": 5010,
+  "llm_calls": 6,
+  "tool_calls": 5
+ },
+ "calls": [
+  {
+   "step": 1,
+   "status": 200,
+   "latency_s": 0.87,
+   "usage": {
+    "queue_time": 0.392375367,
+    "prompt_tokens": 681,
+    "prompt_time": 0.029570134,
+    "completion_tokens": 104,
+    "completion_time": 0.217393919,
+    "total_tokens": 785,
+    "total_time": 0.246964053,
+    "completion_tokens_details": {
+     "reasoning_tokens": 55
+    }
+   },
+   "tools": [
+    {
+     "name": "search_law",
+     "args": "{\"query\":\"근로기준법 임금지급 청구 절차 노동청\",\"target\":\"law\"}",
+     "result_chars": 162,
+     "cached": false
+    }
+   ]
+  },
+  {
+   "step": 2,
+   "status": 200,
+   "latency_s": 0.6,
+   "usage": {
+    "queue_time": 0.213883522,
+    "prompt_tokens": 798,
+    "prompt_time": 0.033091979,
+    "completion_tokens": 46,
+    "completion_time": 0.097567022,
+    "total_tokens": 844,
+    "total_time": 0.130659001,
+    "completion_tokens_details": {
+     "reasoning_tokens": 8
+    }
+   },
+   "tools": [
+    {
+     "name": "search_law",
+     "args": "{\"query\":\"임금 체불 근로기준법 제56조\",\"target\":\"law\"}",
+     "result_chars": 158,
+     "cached": false
+    }
+   ]
+  },
+  {
+   "step": 3,
+   "status": 200,
+   "latency_s": 0.92,
+   "usage": {
+    "queue_time": 0.392470005,
+    "prompt_tokens": 909,
+    "prompt_time": 0.102060786,
+    "completion_tokens": 54,
+    "completion_time": 0.112861499,
+    "total_tokens": 963,
+    "total_time": 0.214922285,
+    "completion_tokens_details": {
+     "reasoning_tokens": 19
+    }
+   },
+   "tools": [
+    {
+     "name": "get_law",
+     "args": "{\"article\":56,\"id\":\"0000000000\",\"target\":\"law\"}",
+     "result_chars": 42,
+     "cached": false
+    }
+   ]
+  },
+  {
+   "step": 4,
+   "status": 200,
+   "latency_s": 0.43,
+   "usage": {
+    "queue_time": 0.049199096,
+    "prompt_tokens": 968,
+    "prompt_time": 0.037824704,
+    "completion_tokens": 47,
+    "completion_time": 0.097523402,
+    "total_tokens": 1015,
+    "total_time": 0.135348106,
+    "completion_tokens_details": {
+     "reasoning_tokens": 17
+    }
+   },
+   "tools": [
+    {
+     "name": "search_law",
+     "args": "{\"query\":\"근로기준법\",\"target\":\"lstrm\"}",
+     "result_chars": 561,
+     "cached": false
+    }
+   ]
+  },
+  {
+   "step": 5,
+   "status": 200,
+   "latency_s": 0.58,
+   "usage": {
+    "queue_time": 0.048717361,
+    "prompt_tokens": 1311,
+    "prompt_time": 0.04117327,
+    "completion_tokens": 92,
+    "completion_time": 0.192766886,
+    "total_tokens": 1403,
+    "total_time": 0.233940156,
+    "prompt_tokens_details": {
+     "cached_tokens": 512
+    },
+    "completion_tokens_details": {
+     "reasoning_tokens": 55
+    }
+   },
+   "tools": [
+    {
+     "name": "search_law",
+     "args": "{\"query\":\"근로기준법 제56조 임금 지급\",\"target\":\"law\"}",
+     "result_chars": 158,
+     "cached": false
+    }
+   ]
+  },
+  {
+   "step": 6,
+   "status": 400,
+   "error": "{\"error\":{\"message\":\"Tool choice is none, but model called a tool\",\"type\":\"invalid_request_error\",\"code\":\"tool_use_failed\",\"failed_generation\":\"{\\\"name\\\": \\\"search_law\\\", \\\"arguments\\\": {\\\"query\\\":\\\"근로기준법\\\",\\\"target\\\":\\\"law\\\"}}\"}}\n"
+  }
+ ],
+ "answer": null
+}

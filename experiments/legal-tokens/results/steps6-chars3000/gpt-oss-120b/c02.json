@@ -1,0 +1,63 @@
+{
+ "model": "gpt-oss-120b",
+ "case": "c02",
+ "field": "학사 규정",
+ "intent": "적용",
+ "question": "우리 학교는 일반휴학을 몇 학기까지 할 수 있나요? 복학했다가 다시 휴학할 수도 있나요?",
+ "max_steps": 6,
+ "max_chars": 3000,
+ "outcome": "answered",
+ "totals": {
+  "prompt_tokens": 1475,
+  "completion_tokens": 284,
+  "total_tokens": 1759,
+  "llm_calls": 2,
+  "tool_calls": 1
+ },
+ "calls": [
+  {
+   "step": 1,
+   "status": 200,
+   "latency_s": 0.79,
+   "usage": {
+    "queue_time": 0.392492626,
+    "prompt_tokens": 677,
+    "prompt_time": 0.029562565,
+    "completion_tokens": 58,
+    "completion_time": 0.122094157,
+    "total_tokens": 735,
+    "total_time": 0.151656722,
+    "completion_tokens_details": {
+     "reasoning_tokens": 9
+    }
+   },
+   "tools": [
+    {
+     "name": "search_law",
+     "args": "{\"query\":\"일반휴학 학기 제한 복학 다시 휴학 대학 학칙\",\"target\":\"school\"}",
+     "result_chars": 177,
+     "cached": false
+    }
+   ]
+  },
+  {
+   "step": 2,
+   "status": 200,
+   "latency_s": 1.07,
+   "usage": {
+    "queue_time": 0.349743078,
+    "prompt_tokens": 798,
+    "prompt_time": 0.035227251,
+    "completion_tokens": 226,
+    "completion_time": 0.469116306,
+    "total_tokens": 1024,
+    "total_time": 0.504343557,
+    "completion_tokens_details": {
+     "reasoning_tokens": 12
+    }
+   },
+   "tools": []
+  }
+ ],
+ "answer": "**질문 의도:** 절차·규정 안내 (학교 규정)\n\n현재 제공해 주신 정보만으로는 귀하가 재학 중인 대학의 **학칙·규정**을 확인할 수 없습니다. 각 대학은 ‘학칙’ 또는 ‘학사규정’에 일반휴학(학기당 최대 휴학 가능 학기 수, 복학 후 재휴학 가능 여부 등)을 별도로 정하고 있기 때문에, 학교마다 차이가 있습니다.\n\n따라서 정확한 답변을 드리기 위해 다음을 알려 주시면 좋겠습니다.\n\n1. **재학 중인 대학(또는 학교명)**\n2. **학과·전공(특정 학과에 별도 규정이 있는 경우)**  \n\n해당 정보를 알려 주시면, 해당 학교의 학칙·규정을 찾아 ‘일반휴학 가능 학기 수’와 ‘복학 후 재휴학 가능 여부’를 구체적으로 안내해 드리겠습니다."
+}

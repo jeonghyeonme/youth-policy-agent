@@ -1,0 +1,63 @@
+{
+ "model": "gpt-oss-120b",
+ "case": "c01",
+ "field": "법률용어",
+ "intent": "개념",
+ "question": "법에서 말하는 고의와 과실은 어떻게 다른가요?",
+ "max_steps": 6,
+ "max_chars": 3000,
+ "outcome": "answered",
+ "totals": {
+  "prompt_tokens": 1434,
+  "completion_tokens": 94,
+  "total_tokens": 1528,
+  "llm_calls": 2,
+  "tool_calls": 1
+ },
+ "calls": [
+  {
+   "step": 1,
+   "status": 200,
+   "latency_s": 0.55,
+   "usage": {
+    "queue_time": 0.007486513,
+    "prompt_tokens": 664,
+    "prompt_time": 0.026004277,
+    "completion_tokens": 51,
+    "completion_time": 0.108324091,
+    "total_tokens": 715,
+    "total_time": 0.134328368,
+    "completion_tokens_details": {
+     "reasoning_tokens": 9
+    }
+   },
+   "tools": [
+    {
+     "name": "search_law",
+     "args": "{\"query\":\"고의 과실 차이\",\"target\":\"lstrm\"}",
+     "result_chars": 160,
+     "cached": false
+    }
+   ]
+  },
+  {
+   "step": 2,
+   "status": 200,
+   "latency_s": 0.71,
+   "usage": {
+    "queue_time": 0.31930937,
+    "prompt_tokens": 770,
+    "prompt_time": 0.031959125,
+    "completion_tokens": 43,
+    "completion_time": 0.090211511,
+    "total_tokens": 813,
+    "total_time": 0.122170636,
+    "completion_tokens_details": {
+     "reasoning_tokens": 9
+    }
+   },
+   "tools": []
+  }
+ ],
+ "answer": ""
+}
