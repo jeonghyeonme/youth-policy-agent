@@ -26,8 +26,9 @@ from pathlib import Path
 
 HERE = Path(__file__).resolve().parent
 ROOT = HERE.parents[1]
-# v1: 첫 실행. v2: 검색어 안내·본문 검색·되묻기 힌트 추가, 마지막 단계에서 도구를 아예 뺀다.
-TOOL_VERSION = "v2"
+# v1: 첫 실행. v2: 검색어 안내·본문 검색·재시도 안내 추가, 마지막 단계에서 도구를 뺀다.
+# v3: 0건 판정 버그 수정(v2는 0건을 결과 1건으로 넘겼다), 목록에서 순번 id와 링크를 뺀다.
+TOOL_VERSION = "v3"
 DAILY_TOKENS = 200_000
 TARGET_PER_DAY = 30
 CALL_GAP_SECONDS = 3
@@ -147,18 +148,23 @@ class LawApi:
         return body, False
 
 
-def first_list(data):
-    """검색 응답에서 결과 목록을 찾는다. 자료 종류마다 바깥 키 이름이 달라 처음 나오는 dict 목록을 쓴다."""
-    if isinstance(data, list) and data and all(isinstance(x, dict) for x in data):
-        return data
-    if isinstance(data, dict):
-        for value in data.values():
-            if isinstance(value, dict) and not any(isinstance(v, (dict, list)) for v in value.values()):
-                return [value]
-            found = first_list(value)
-            if found:
-                return found
-    return None
+def search_items(data):
+    """검색 응답 {"<종류>Search": {"<항목>": [...], "totalCnt": ...}}에서 결과 항목만 꺼낸다.
+    결과가 1건이면 목록 대신 dict 하나, 0건이면 항목 키 자체가 없다."""
+    wrapper = next(iter(data.values())) if isinstance(data, dict) and len(data) == 1 else data
+    if not isinstance(wrapper, dict):
+        return []
+    for value in wrapper.values():
+        if isinstance(value, list):
+            items = [x for x in value if isinstance(x, dict)]
+            break
+        if isinstance(value, dict):
+            items = [value]
+            break
+    else:
+        return []
+    # "id"는 목록 순번이라 모델이 본문 id로 착각한다(v2 실측). 링크에는 쓸 정보가 없다.
+    return [{k: v for k, v in item.items() if k != "id" and "링크" not in k} for item in items]
 
 
 RETRY_HINT = {
@@ -186,7 +192,7 @@ def run_tool(api, name, raw_args, max_chars):
             params["search"] = 2
         body, cached = api.call("lawSearch.do", params)
         try:
-            items = first_list(json.loads(body)) or []
+            items = search_items(json.loads(body))
             text = json.dumps(items[:5], ensure_ascii=False) if items else RETRY_HINT["search_law"]
         except ValueError:
             text = body
