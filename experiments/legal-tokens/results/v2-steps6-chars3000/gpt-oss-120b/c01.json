@@ -1,0 +1,173 @@
+{
+ "model": "gpt-oss-120b",
+ "case": "c01",
+ "field": "법률용어",
+ "intent": "개념",
+ "question": "법에서 말하는 고의와 과실은 어떻게 다른가요?",
+ "max_steps": 6,
+ "max_chars": 3000,
+ "outcome": "forced",
+ "totals": {
+  "prompt_tokens": 13412,
+  "completion_tokens": 1054,
+  "total_tokens": 14466,
+  "llm_calls": 6,
+  "tool_calls": 5
+ },
+ "calls": [
+  {
+   "step": 1,
+   "status": 200,
+   "latency_s": 0.74,
+   "usage": {
+    "queue_time": 0.350204549,
+    "prompt_tokens": 779,
+    "prompt_time": 0.030901028,
+    "completion_tokens": 48,
+    "completion_time": 0.101943394,
+    "total_tokens": 827,
+    "total_time": 0.132844422,
+    "completion_tokens_details": {
+     "reasoning_tokens": 10
+    }
+   },
+   "tools": [
+    {
+     "name": "search_law",
+     "args": "{\"query\":\"고의\",\"target\":\"lstrm\"}",
+     "result_chars": 1346,
+     "useful": true,
+     "result_head": "[{\"id\": \"1\", \"법령용어상세링크\": \"/DRF/lawService.do?OC={LAW_API_OC}&target=lstrm&trmSeq",
+     "cached": false
+    }
+   ]
+  },
+  {
+   "step": 2,
+   "status": 200,
+   "latency_s": 0.74,
+   "usage": {
+    "queue_time": 0.392333431,
+    "prompt_tokens": 1530,
+    "prompt_time": 0.059988076,
+    "completion_tokens": 50,
+    "completion_time": 0.106984464,
+    "total_tokens": 1580,
+    "total_time": 0.16697254,
+    "completion_tokens_details": {
+     "reasoning_tokens": 20
+    }
+   },
+   "tools": [
+    {
+     "name": "search_law",
+     "args": "{\"query\":\"과실\",\"target\":\"lstrm\"}",
+     "result_chars": 1291,
+     "useful": true,
+     "result_head": "[{\"id\": \"1\", \"법령용어상세링크\": \"/DRF/lawService.do?OC={LAW_API_OC}&target=lstrm&trmSeq",
+     "cached": false
+    }
+   ]
+  },
+  {
+   "step": 3,
+   "status": 200,
+   "latency_s": 0.64,
+   "usage": {
+    "queue_time": 0.223365256,
+    "prompt_tokens": 2253,
+    "prompt_time": 0.153005715,
+    "completion_tokens": 36,
+    "completion_time": 0.076115646,
+    "total_tokens": 2289,
+    "total_time": 0.229121361,
+    "completion_tokens_details": {
+     "reasoning_tokens": 8
+    }
+   },
+   "tools": [
+    {
+     "name": "get_law",
+     "args": "{\"id\":\"5\",\"target\":\"lstrm\"}",
+     "result_chars": 44,
+     "useful": false,
+     "result_head": "해당 id의 자료가 없다. search_law 결과에 나온 id를 그대로 쓴다.",
+     "cached": false
+    }
+   ]
+  },
+  {
+   "step": 4,
+   "status": 200,
+   "latency_s": 0.69,
+   "usage": {
+    "queue_time": 0.261019575,
+    "prompt_tokens": 2306,
+    "prompt_time": 0.120703743,
+    "completion_tokens": 52,
+    "completion_time": 0.108609348,
+    "total_tokens": 2358,
+    "total_time": 0.229313091,
+    "completion_tokens_details": {
+     "reasoning_tokens": 19
+    }
+   },
+   "tools": [
+    {
+     "name": "search_law",
+     "args": "{\"body_search\":true,\"query\":\"고의와 과실\",\"target\":\"law\"}",
+     "result_chars": 1939,
+     "useful": true,
+     "result_head": "[{\"현행연혁코드\": \"현행\", \"법령일련번호\": \"289579\", \"자법타법여부\": \"\", \"법령상세링크\": \"/DRF/lawService.d",
+     "cached": false
+    }
+   ]
+  },
+  {
+   "step": 5,
+   "status": 200,
+   "latency_s": 0.68,
+   "usage": {
+    "queue_time": 0.210522198,
+    "prompt_tokens": 3479,
+    "prompt_time": 0.141864708,
+    "completion_tokens": 51,
+    "completion_time": 0.106384631,
+    "total_tokens": 3530,
+    "total_time": 0.248249339,
+    "completion_tokens_details": {
+     "reasoning_tokens": 16
+    }
+   },
+   "tools": [
+    {
+     "name": "search_law",
+     "args": "{\"query\":\"고의 정의 법령용어\",\"target\":\"lstrm\"}",
+     "result_chars": 162,
+     "useful": true,
+     "result_head": "[{\"resultMsg\": \"success\", \"키워드\": \"고의 정의 법령용어\", \"page\": \"1\", \"resultCode\": \"00\", ",
+     "cached": false
+    }
+   ]
+  },
+  {
+   "step": 6,
+   "status": 200,
+   "latency_s": 2.21,
+   "usage": {
+    "queue_time": 0.050669154,
+    "prompt_tokens": 3065,
+    "prompt_time": 0.138133454,
+    "completion_tokens": 817,
+    "completion_time": 1.721373379,
+    "total_tokens": 3882,
+    "total_time": 1.859506833,
+    "completion_tokens_details": {
+     "reasoning_tokens": 86
+    }
+   },
+   "tools": []
+  }
+ ],
+ "answer": "**질문 의도 : 개념 설명**  \n\n법에서 “고의”와 “과실”은 행위자의 심리적 상태에 따라 구분됩니다.  \n\n| 구분 | 정의 | 근거(법령·자료) |\n|------|------|----------------|\n| **고의** | 행위자가 결과를 **인식하고** 그 결과가 일어날 것을 **원하거나** 그 발생을 **용인**하는 경우. 즉, 결과를 ‘의도’하거나 ‘알면서도 무시’한 심리 상태를 말합니다. | ‣ 「민법」제 750조(불법행위와 책임) – “고의·과실”이라는 용어가 사용되고, “고의”는 “결과를 인식하고 그 결과를 원하거나 용인한 경우”로 해석됩니다. (※ 민법 자체에 고의·과실의 구체적 정의가 명시되어 있지는 않지만, 대법원 판례·법령용어 사전에서는 위와 같이 정리하고 있습니다.) |\n| **과실** | 행위자가 **주의 의무**를 다하지 않아 결과가 발생한 경우. 주의 의무를 다했어야 할 상황에서 ‘부주의·부주의함(경과실·중과실)’으로 인해 발생한 심리 상태를 말합니다. | ‣ 「민법」제 750조(불법행위와 책임) – “고의·과실”이라는 용어가 함께 규정되어 있으며, 과실은 “주의를 게을리하거나 부주의하게 행동한 경우”로 이해됩니다. <br>‣ 「법령용어」 ‘과실범’(법령용어ID 14500) – 과실에 기초한 범죄를 의미하며, ‘과실’은 “주의 의무를 다하지 않아 결과를 초래한 경우”로 정의됩니다. |\n| **주의 의무·주의 수준** | - **일반 과실** : 일반인이 합리적인 주의를 기울였을 때 피할 수 있었던 행위.<br>- **경과실** : 일반적인 주의 수준보다 약간 떨어진 경우(법령용어 ‘경과실’).<br>- **중과실** : 현저히 낮은 주의 수준(법령용어 ‘고의 또는 중과실…’). | ‣ 「법령용어」 ‘경과실’(법령용어ID 5068618) 및 ‘고의 또는 중과실…’(법령용어ID 5551864)에서 각각의 구분이 제시됩니다. |\n\n**요약**  \n\n- **고의**는 “결과를 알고도 원하거나 용인”하는 의도적 심리 상태이며, 형법·민법 등에서 고의범을 규정할 때 적용됩니다.  \n- **과실**은 “주의 의무를 다하지 않아 결과가 발생”한 부주의·부주의함을 의미하며, 과실범·과실손해배상 등에 적용됩니다.  \n\n위 내용은 「민법」제 750조와 법령용어 사전(‘고의’, ‘과실’, ‘과실범’, ‘경과실’ 등)에 근거한 설명입니다. 추가로 궁금하신 점이 있으면 알려 주세요."
+}

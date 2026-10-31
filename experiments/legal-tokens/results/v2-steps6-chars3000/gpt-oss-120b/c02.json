@@ -1,0 +1,65 @@
+{
+ "model": "gpt-oss-120b",
+ "case": "c02",
+ "field": "학사 규정",
+ "intent": "적용",
+ "question": "우리 학교는 일반휴학을 몇 학기까지 할 수 있나요? 복학했다가 다시 휴학할 수도 있나요?",
+ "max_steps": 6,
+ "max_chars": 3000,
+ "outcome": "answered",
+ "totals": {
+  "prompt_tokens": 1699,
+  "completion_tokens": 413,
+  "total_tokens": 2112,
+  "llm_calls": 2,
+  "tool_calls": 1
+ },
+ "calls": [
+  {
+   "step": 1,
+   "status": 200,
+   "latency_s": 0.67,
+   "usage": {
+    "queue_time": 0.261399099,
+    "prompt_tokens": 792,
+    "prompt_time": 0.03264496,
+    "completion_tokens": 60,
+    "completion_time": 0.12489242,
+    "total_tokens": 852,
+    "total_time": 0.15753738,
+    "completion_tokens_details": {
+     "reasoning_tokens": 14
+    }
+   },
+   "tools": [
+    {
+     "name": "search_law",
+     "args": "{\"query\":\"일반휴학 학기 제한 복학 재휴학\",\"target\":\"school\"}",
+     "result_chars": 169,
+     "useful": true,
+     "result_head": "[{\"resultMsg\": \"success\", \"키워드\": \"일반휴학 학기 제한 복학 재휴학\", \"page\": \"1\", \"resultCode\":",
+     "cached": false
+    }
+   ]
+  },
+  {
+   "step": 2,
+   "status": 200,
+   "latency_s": 1.02,
+   "usage": {
+    "queue_time": 0.050703466,
+    "prompt_tokens": 907,
+    "prompt_time": 0.037790194,
+    "completion_tokens": 353,
+    "completion_time": 0.732755829,
+    "total_tokens": 1260,
+    "total_time": 0.770546023,
+    "completion_tokens_details": {
+     "reasoning_tokens": 16
+    }
+   },
+   "tools": []
+  }
+ ],
+ "answer": "**질문 의도**: 절차 안내 – 학교(대학)의 일반휴학 가능 학기 수와 복학·재휴학에 관한 규정 확인  \n\n**검색 결과**: 현재 국가법령정보·대학 학칙(“school” 자료)에서는 “일반휴학” · “학기 제한” · “복학 후 재휴학”이라는 키워드로 일치하는 자료를 찾지 못했습니다.  \n\n**답변**:  \n- 일반적으로 대학마다 휴학 관련 규정은 각 학교의 학칙·학사규정에 따릅니다.  \n- 공통적으로는 **학년당 2학기**(또는 **1년**) 정도까지 일반휴학을 허용하는 경우가 많지만, 정확한 학기 수와 복학·재휴학 절차는 해당 대학의 **학칙(학사규정)**에 명시되어 있습니다.  \n\n**추가 안내**:  \n- 학교 홈페이지의 “학사정보 → 학칙·학사규정” 메뉴에서 **‘일반휴학’** 혹은 **‘휴학·복학 규정’**을 검색해 보시기 바랍니다.  \n- 해당 규정이 명확하지 않으면 **학생지원센터**·**학사관리팀**에 직접 문의하시면 정확한 안내를 받으실 수 있습니다.  \n\n**다른 도움이 필요하신가요?** (예: 구체적인 학교명을 알려주시면 해당 학칙을 찾아드릴 수 있습니다.)"
+}
