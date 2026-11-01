@@ -74,6 +74,13 @@ PICK_PROMPT_V5 = (
     "need_info에는 답을 실제로 바꾸는 정보 중 질문에 없는 것만 짧게 적는다. 질문에 이미 있는 정보는 넣지 않는다. 없으면 빈 배열.\n"
 )
 
+PICK_PROMPT_TOPICS = (
+    "너는 법률 정보 안내 서비스의 주제 분류기다. 아래 [자주 묻는 주제]에서 질문에 맞는 주제를 0~2개 고른다(topics).\n"
+    "맞는 주제가 없으면 topics를 빈 배열로 둔다. articles는 항상 빈 배열로 둔다.\n"
+    "intent는 질문 의도다(개념: 뜻·기준 설명, 적용: 내 상황에 해당하는지, 절차: 무엇을 어디에 하는지).\n"
+    "need_info에는 답을 실제로 바꾸는 정보 중 질문에 없는 것만 짧게 적는다. 질문에 이미 있는 정보는 넣지 않는다. 없으면 빈 배열.\n"
+)
+
 ANSWER_PROMPT = (
     "너는 대학생·사회초년생에게 법률 정보를 안내하는 도우미다. 법률 상담이나 법적 판단을 하지 않는다.\n"
     "아래에 준 조문 원문만 근거로 쓴다. 근거를 쓸 때는 「법령명」 제N조처럼 법령명과 조문 번호를 붙인다.\n"
@@ -223,7 +230,7 @@ def call(llm, model_name, messages, max_tokens, response_format=None):
         body["response_format"] = response_format
     status, response, latency = llm(body)
     if status != 200:
-        return {"status": status, "error": response.get("error")}, None
+        return {"status": status, "error": response.get("error"), "long_wait": bool(response.get("long_wait"))}, None
     return ({"status": 200, "latency_s": latency, "usage": response.get("usage")},
             response["choices"][0]["message"].get("content"))
 
@@ -231,7 +238,10 @@ def call(llm, model_name, messages, max_tokens, response_format=None):
 def run_case(llm, laws, model_name, field, question, toc_mode, max_chars, topics=None):
     calls, record = [], {"selected": [], "pick": None, "answer": None, "uncited": []}
     domain = field if toc_mode == "domain" else None
-    if topics:
+    if toc_mode == "fallback":
+        # 1회차에는 주제 표만 준다. 맞는 주제가 없을 때만 목차로 한 번 더 고른다(그 질문만 LLM 3회).
+        system = PICK_PROMPT_TOPICS + "\n[자주 묻는 주제]\n" + topic_table(topics, laws, None)
+    elif topics:
         system = (PICK_PROMPT_V5 + "\n[자주 묻는 주제]\n" + topic_table(topics, laws, domain)
                   + "\n\n[조문 목차]\n" + toc(laws, domain))
     else:
@@ -243,6 +253,15 @@ def run_case(llm, laws, model_name, field, question, toc_mode, max_chars, topics
         pick = json.loads(content) if content else None
     except ValueError:
         pick = None
+    if pick and toc_mode == "fallback" and not [t for t in pick.get("topics", []) if t in topics]:
+        meta, content = call(llm, model_name, [
+            {"role": "system", "content": PICK_PROMPT + "\n[조문 목차]\n" + toc(laws, None)},
+            {"role": "user", "content": question}], 1024, pick_schema(laws))
+        calls.append({"step": 1, "fallback": True, **meta})
+        try:
+            pick = {**pick, "articles": json.loads(content)["articles"]} if content else None
+        except (ValueError, KeyError):
+            pick = None
     if not pick:
         return {**record, "outcome": "error", "calls": calls}
     record["pick"] = pick
@@ -297,6 +316,9 @@ def run(models, cases, toc_mode, max_chars, budget, results, llm_for, laws, gap,
                 print(f"  이번 실행 토큰 {spent:,}이 상한 {budget:,}을 넘어 멈춘다")
                 break
             result = run_case(llm_for(model_name), laws, model_name, field, question, toc_mode, max_chars, topics)
+            if any(c.get("long_wait") for c in result["calls"]):
+                print(f"  {case_id}: Groq가 오래 기다리라고 한다(하루 한도로 보임). 여기서 멈춘다. 내일 같은 명령으로 이어서 하면 된다")
+                return
             result["totals"] = totals(result["calls"])
             spent += result["totals"]["total_tokens"]
             record = {"model": model_name, "case": case_id, "field": field, "intent": intent,
@@ -366,7 +388,9 @@ def fake_setup(oc="FAKEOC123"):
             prompt = sum(len(m["content"]) for m in body["messages"]) // 2
             if "response_format" in body:
                 props = body["response_format"]["json_schema"]["schema"]["properties"]
-                extra = {"topics": [props["topics"]["items"]["enum"][0], "없는 주제"]} if "topics" in props else {}
+                hurt = "다쳤" in body["messages"][-1]["content"]
+                extra = ({"topics": [] if hurt else [props["topics"]["items"]["enum"][0], "없는 주제"]}
+                         if "topics" in props else {})
                 content = json.dumps({**extra, "intent": "적용", "need_info": ["근무시간"], "articles": [
                     {"law": "근로기준법", "article": "54"}, {"law": "근로기준법", "article": "제6조의3"},
                     {"law": "민법", "article": "1"}]}, ensure_ascii=False)
@@ -384,8 +408,9 @@ def main():
     parser.add_argument("--fake", action="store_true", help="키·네트워크 없이 흐름만 확인한다. 임시 폴더에 쓴다")
     parser.add_argument("--models", default="gpt-oss-120b", help=f"쉼표로 구분. 후보: {', '.join(MODELS)}")
     parser.add_argument("--cases", default=",".join(c[0] for c in CASES), help="쉼표로 구분한 사례 id")
-    parser.add_argument("--toc", choices=["all", "domain"], default="all",
-                        help="1회차에 넣을 목차. all: 노동·주거 전부, domain: 질문 분야만(사용자가 분야 버튼을 눌렀다고 가정)")
+    parser.add_argument("--toc", choices=["all", "domain", "fallback"], default="all",
+                        help="1회차에 넣을 목차. all: 노동·주거 전부, domain: 질문 분야만(사용자가 분야 버튼을 눌렀다고 가정), "
+                             "fallback: --topics와 함께. 주제 표만 주고 맞는 주제가 없을 때만 목차로 한 번 더 고른다")
     parser.add_argument("--max-chars", type=int, default=1500, help="조문 하나를 2회차에 넘길 최대 글자 수")
     parser.add_argument("--topics", action="store_true", help="v5: topics.json의 주제→조문 표를 1회차에 함께 준다")
     parser.add_argument("--budget", type=int, default=150_000, help="모델마다 이번 실행에서 쓸 토큰 상한")
@@ -424,6 +449,9 @@ def main():
     collect(api, laws_dir)
     laws = load_laws(laws_dir)
     topics = load_topics(laws) if args.topics else None
+    if args.toc == "fallback" and not topics:
+        print("--toc fallback은 --topics와 함께 쓴다")
+        return 2
     print("목차 크기: " + ", ".join(f"{d} {len(toc(laws, d)):,}자" for d in DOMAINS) + f", 전체 {len(toc(laws, None)):,}자")
     if topics:
         print(f"주제 표 크기: 전체 {len(topic_table(topics, laws, None)):,}자")

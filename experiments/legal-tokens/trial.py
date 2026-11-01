@@ -32,6 +32,7 @@ TOOL_VERSION = "v3"
 DAILY_TOKENS = 200_000
 TARGET_PER_DAY = 30
 CALL_GAP_SECONDS = 3
+LONG_WAIT_SECONDS = 90
 LAW_BASE = "https://www.law.go.kr/DRF/"
 GROQ_URL = "https://api.groq.com/openai/v1/chat/completions"
 
@@ -225,6 +226,9 @@ def post_groq(key, body):
             text = e.read().decode("utf-8", errors="replace")
             if e.code == 429 and attempt < 5:
                 wait = float(e.headers.get("retry-after") or 30)
+                if wait > LONG_WAIT_SECONDS:
+                    # 분당 한도는 1분 안에 풀린다. 이보다 길면 하루 한도에 닿은 것이라 기다리지 않는다.
+                    return 429, {"error": f"retry-after {wait:.0f}초. 하루 한도에 닿은 것으로 본다", "long_wait": True}, None
                 print(f"    한도 초과(429), {wait:.0f}초 기다린다")
                 time.sleep(wait)
                 continue
