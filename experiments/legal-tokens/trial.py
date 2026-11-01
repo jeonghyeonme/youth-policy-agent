@@ -228,7 +228,9 @@ def post_groq(key, body):
                 wait = float(e.headers.get("retry-after") or 30)
                 if wait > LONG_WAIT_SECONDS:
                     # 분당 한도는 1분 안에 풀린다. 이보다 길면 하루 한도에 닿은 것이라 기다리지 않는다.
-                    return 429, {"error": f"retry-after {wait:.0f}초. 하루 한도에 닿은 것으로 본다", "long_wait": True}, None
+                    resume = time.strftime("%m-%d %H:%M", time.localtime(time.time() + wait))
+                    return 429, {"error": f"retry-after {wait:.0f}초(약 {wait / 60:.0f}분, {resume} 이후 재실행). "
+                                          f"하루 한도에 닿은 것으로 본다. 응답: {text[:200]}", "long_wait": True}, None
                 print(f"    한도 초과(429), {wait:.0f}초 기다린다")
                 time.sleep(wait)
                 continue

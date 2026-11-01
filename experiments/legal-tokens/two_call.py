@@ -316,8 +316,10 @@ def run(models, cases, toc_mode, max_chars, budget, results, llm_for, laws, gap,
                 print(f"  이번 실행 토큰 {spent:,}이 상한 {budget:,}을 넘어 멈춘다")
                 break
             result = run_case(llm_for(model_name), laws, model_name, field, question, toc_mode, max_chars, topics)
-            if any(c.get("long_wait") for c in result["calls"]):
-                print(f"  {case_id}: Groq가 오래 기다리라고 한다(하루 한도로 보임). 여기서 멈춘다. 내일 같은 명령으로 이어서 하면 된다")
+            waits = [c for c in result["calls"] if c.get("long_wait")]
+            if waits:
+                print(f"  {case_id}: 여기서 멈춘다. {waits[0]['error']}")
+                print("  같은 명령을 다시 실행하면 저장되지 않은 사례부터 이어서 한다")
                 return
             result["totals"] = totals(result["calls"])
             spent += result["totals"]["total_tokens"]
