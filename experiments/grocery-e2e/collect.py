@@ -53,6 +53,7 @@ class Api:
     def __init__(self, key):
         self.key = key
         self.calls = 0
+        self.last_error = None
 
     def get(self, op, params, key_name="ServiceKey"):
         """XML을 받아 cache/에 저장한다. 같은 요청은 cache에서 읽는다. 키는 cache 이름·내용에 넣지 않는다."""
@@ -70,6 +71,7 @@ class Api:
         except urllib.error.HTTPError as e:
             body = e.read().decode("utf-8", errors="replace")
             print(f"  [HTTP {e.code}] {op}: {body[:200]}")
+            self.last_error = f"HTTP {e.code}: {body[:200]}"
             return body, False
         except urllib.error.URLError as e:
             raise SystemExit(f"연결 실패: {e.reason}")
@@ -77,7 +79,8 @@ class Api:
         auth = re.search(r"<(returnAuthMsg|errMsg)>([^<]+)<", body)
         if auth and "NORMAL" not in auth.group(2):
             print(f"  [API 오류] {op}: {auth.group(2)}")
-        if "<" in body and "SERVICE_KEY" not in body and "Unexpected" not in body:
+        self.last_error = None if (body.lstrip().startswith("<") and "SERVICE_KEY" not in body and "Unexpected" not in body) else body[:300]
+        if self.last_error is None:
             CACHE.mkdir(parents=True, exist_ok=True)
             path.write_text(body, encoding="utf-8")
         return body, False
@@ -148,6 +151,12 @@ def main():
     stores, sh = fetch_all(api, "getStoreInfoSvc.do", {})
     products, ph = fetch_all(api, "getProductInfoSvc.do", {})
     std, _ = fetch_all(api, "getStandardInfoSvc.do", {"classCode": "AR"})
+    if not stores and not products:
+        print("판매점과 상품이 모두 0건이다. 데이터를 받지 못한 것으로 보고 요약 파일을 쓰지 않는다.")
+        print("공공데이터포털에서 '한국소비자원_생필품 가격 정보'(15158701) 활용신청이 승인됐는지 확인한다.")
+        if api.last_error:
+            print(f"마지막 응답 앞부분(키는 지움): {api.last_error}")
+        return 1
     out["판매점"] = {"건수": len(stores), "응답머리": sh[0] if sh else {}, "필드": sorted(stores[0]) if stores else [],
                   "예시": stores[:2]}
     out["상품"] = {"건수": len(products), "응답머리": ph[0] if ph else {}, "필드": sorted(products[0]) if products else [],
