@@ -1,0 +1,85 @@
+{
+ "model": "gpt-oss-120b",
+ "case": "c09",
+ "field": "주거",
+ "intent": "개념",
+ "question": "월세 계약이 끝나면 보증금은 언제까지 돌려받을 수 있나요?",
+ "toc": "domain",
+ "max_chars": 1500,
+ "selected": [
+  {
+   "law": "주택임대차보호법",
+   "article": "3의2",
+   "title": "보증금의 회수",
+   "found": true
+  },
+  {
+   "law": "주택임대차보호법",
+   "article": "8",
+   "title": "보증금 중 일정액의 보호",
+   "found": true
+  }
+ ],
+ "pick": {
+  "intent": "적용",
+  "articles": [
+   {
+    "law": "주택임대차보호법",
+    "article": "3의2"
+   },
+   {
+    "law": "주택임대차보호법",
+    "article": "8"
+   }
+  ],
+  "need_info": [
+   "보증금 반환 기한은 계약 종료 후 30일 이내"
+  ]
+ },
+ "answer": "보증금은 임차인이 계약 종료 후 “보증금 반환청구소송의 확정판결” 등을 받아야 회수할 수 있다는 규정이 있습니다만, 계약 종료 후 얼마 안에 반환받아야 한다는 구체적인 기한은 「주택임대차보호법」 본문에 명시되어 있지 않아 확인하지 못했습니다. \n\n보증금 반환 기한이 계약 종료 후 30일 이내라는 내용이 필요하신가요?",
+ "uncited": [],
+ "outcome": "answered",
+ "calls": [
+  {
+   "step": 1,
+   "status": 200,
+   "latency_s": 1.15,
+   "usage": {
+    "queue_time": 0.397328222,
+    "prompt_tokens": 1434,
+    "prompt_time": 0.062980838,
+    "completion_tokens": 187,
+    "completion_time": 0.393633501,
+    "total_tokens": 1621,
+    "total_time": 0.456614339,
+    "completion_tokens_details": {
+     "reasoning_tokens": 80
+    }
+   }
+  },
+  {
+   "step": 2,
+   "status": 200,
+   "latency_s": 0.76,
+   "usage": {
+    "queue_time": 0.0545635,
+    "prompt_tokens": 1546,
+    "prompt_time": 0.0605271,
+    "completion_tokens": 172,
+    "completion_time": 0.35351168,
+    "total_tokens": 1718,
+    "total_time": 0.41403878,
+    "completion_tokens_details": {
+     "reasoning_tokens": 57
+    }
+   }
+  }
+ ],
+ "totals": {
+  "prompt_tokens": 2980,
+  "completion_tokens": 359,
+  "total_tokens": 3339,
+  "llm_calls": 2,
+  "pick_tokens": 1621
+ }
+}

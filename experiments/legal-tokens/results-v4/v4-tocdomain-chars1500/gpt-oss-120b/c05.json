@@ -1,0 +1,83 @@
+{
+ "model": "gpt-oss-120b",
+ "case": "c05",
+ "field": "주거",
+ "intent": "적용",
+ "question": "월세로 사는 집의 보일러가 고장 났어요. 수리비는 누가 부담하고 집주인에게 어떻게 요청하나요?",
+ "toc": "domain",
+ "max_chars": 1500,
+ "selected": [
+  {
+   "law": "민법",
+   "article": "623",
+   "title": "임대인의 의무",
+   "found": true
+  },
+  {
+   "law": "주택임대차보호법",
+   "article": "7",
+   "title": "차임 등의 증감청구권",
+   "found": true
+  }
+ ],
+ "pick": {
+  "intent": "개념",
+  "articles": [
+   {
+    "law": "민법",
+    "article": "623"
+   },
+   {
+    "law": "주택임대차보호법",
+    "article": "7"
+   }
+  ],
+  "need_info": []
+ },
+ "answer": "임대인은 목적물을 임차인에게 인도하고 계약존속 중에 그 사용·수익에 필요한 상태를 유지할 의무가 있습니다. (「민법」 제623조)\n\n따라서 보일러가 고장 난 경우, 임대인이 이를 수리하여 사용·수익에 필요한 상태를 회복하도록 해야 하며, 수리비는 원칙적으로 임대인이 부담합니다.\n\n**집주인에게 요청하는 방법**\n1. **내용을 서면으로 정리**합니다. (예: 보일러 고장 사실, 수리 필요 시점, 수리비 부담 요청 등)  \n2. **우편(내용증명)·이메일·팩스 등 증거가 남는 방법**으로 임대인에게 발송합니다.  \n3. **답변이 없거나 거부될 경우**, 임대인의 유지·보수 의무 위반을 근거로 추후 법적 절차를 검토할 수 있습니다.\n\n※ 차임·보증금 증감에 관한 규정은 보일러 수리비 부담과 직접적인 관련이 없습니다.  \n\n추가로 궁금한 점이 있나요?",
+ "uncited": [],
+ "outcome": "answered",
+ "calls": [
+  {
+   "step": 1,
+   "status": 200,
+   "latency_s": 0.9,
+   "usage": {
+    "queue_time": 0.054335706,
+    "prompt_tokens": 1447,
+    "prompt_time": 0.059825364,
+    "completion_tokens": 240,
+    "completion_time": 0.503943197,
+    "total_tokens": 1687,
+    "total_time": 0.563768561,
+    "completion_tokens_details": {
+     "reasoning_tokens": 161
+    }
+   }
+  },
+  {
+   "step": 2,
+   "status": 200,
+   "latency_s": 0.93,
+   "usage": {
+    "queue_time": 0.050331432,
+    "prompt_tokens": 555,
+    "prompt_time": 0.022807728,
+    "completion_tokens": 294,
+    "completion_time": 0.609413686,
+    "total_tokens": 849,
+    "total_time": 0.632221414,
+    "completion_tokens_details": {
+     "reasoning_tokens": 34
+    }
+   }
+  }
+ ],
+ "totals": {
+  "prompt_tokens": 2002,
+  "completion_tokens": 534,
+  "total_tokens": 2536,
+  "llm_calls": 2,
+  "pick_tokens": 1687
+ }
+}

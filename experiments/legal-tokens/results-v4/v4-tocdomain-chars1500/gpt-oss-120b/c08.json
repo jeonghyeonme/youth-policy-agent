@@ -1,0 +1,93 @@
+{
+ "model": "gpt-oss-120b",
+ "case": "c08",
+ "field": "노동",
+ "intent": "적용",
+ "question": "시급이 최저임금보다 적은 것 같아요. 수습 기간이라고 덜 줘도 되나요?",
+ "toc": "domain",
+ "max_chars": 1500,
+ "selected": [
+  {
+   "law": "최저임금법",
+   "article": "5",
+   "title": "최저임금액",
+   "found": true
+  },
+  {
+   "law": "최저임금법",
+   "article": "6",
+   "title": "최저임금의 효력",
+   "found": true
+  },
+  {
+   "law": "근로기준법",
+   "article": "43",
+   "title": "임금 지급",
+   "found": true
+  }
+ ],
+ "pick": {
+  "intent": "적용",
+  "articles": [
+   {
+    "law": "최저임금법",
+    "article": "5"
+   },
+   {
+    "law": "최저임금법",
+    "article": "6"
+   },
+   {
+    "law": "근로기준법",
+    "article": "43"
+   }
+  ],
+  "need_info": []
+ },
+ "answer": "「최저임금법」 제5조②에 따르면, 근로계약을 체결하고 수습 기간(수습 시작일로부터 3개월 이내)인 경우에는 대통령령이 정하는 바에 따라 최저임금액과 다른 금액으로 임금을 정할 수 있습니다. 다만 “단순노무업무”에 종사하는 근로자는 제외됩니다.  \n\n그 외에 「최저임금법」 제6조①·③은 사용자가 최저임금액 이상의 임금을 지급해야 하며, 최저임금액에 미치지 못하는 부분은 무효가 된다고 명시하고 있습니다. 따라서 수습 기간이라 하더라도 최저임금보다 낮은 시급을 지급하는 것은 원칙적으로 허용되지 않으며, 제5조②에 따라 별도 임금액을 정할 수 있는 경우에도 최저임금액 미만으로는 정할 수 없습니다(단, 대통령령이 정한 예외 직종을 제외).  \n\n요약하면, 수습 기간이라도 최저임금보다 낮은 시급을 지급해서는 안 되며, 최저임금액 또는 대통령령이 허용하는 범위 내에서만 임금을 정할 수 있습니다. 추가로 궁금하신 점이 있으면 알려 주세요.",
+ "uncited": [],
+ "outcome": "answered",
+ "calls": [
+  {
+   "step": 1,
+   "status": 200,
+   "latency_s": 1.09,
+   "usage": {
+    "queue_time": 0.394051065,
+    "prompt_tokens": 2111,
+    "prompt_time": 0.108579925,
+    "completion_tokens": 190,
+    "completion_time": 0.392346285,
+    "total_tokens": 2301,
+    "total_time": 0.50092621,
+    "completion_tokens_details": {
+     "reasoning_tokens": 89
+    }
+   }
+  },
+  {
+   "step": 2,
+   "status": 200,
+   "latency_s": 1.46,
+   "usage": {
+    "queue_time": 0.392659708,
+    "prompt_tokens": 1602,
+    "prompt_time": 0.074354712,
+    "completion_tokens": 358,
+    "completion_time": 0.734149964,
+    "total_tokens": 1960,
+    "total_time": 0.808504676,
+    "completion_tokens_details": {
+     "reasoning_tokens": 47
+    }
+   }
+  }
+ ],
+ "totals": {
+  "prompt_tokens": 3713,
+  "completion_tokens": 548,
+  "total_tokens": 4261,
+  "llm_calls": 2,
+  "pick_tokens": 2301
+ }
+}

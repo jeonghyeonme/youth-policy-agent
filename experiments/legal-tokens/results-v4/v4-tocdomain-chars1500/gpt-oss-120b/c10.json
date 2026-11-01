@@ -1,0 +1,83 @@
+{
+ "model": "gpt-oss-120b",
+ "case": "c10",
+ "field": "주거",
+ "intent": "적용",
+ "question": "계약 기간이 남았는데 집주인이 집을 팔았다고 나가래요. 나가야 하나요?",
+ "toc": "domain",
+ "max_chars": 1500,
+ "selected": [
+  {
+   "law": "주택임대차보호법",
+   "article": "4",
+   "title": "임대차기간 등",
+   "found": true
+  },
+  {
+   "law": "주택임대차보호법",
+   "article": "6",
+   "title": "계약의 갱신",
+   "found": true
+  }
+ ],
+ "pick": {
+  "intent": "적용",
+  "articles": [
+   {
+    "law": "주택임대차보호법",
+    "article": "4"
+   },
+   {
+    "law": "주택임대차보호법",
+    "article": "6"
+   }
+  ],
+  "need_info": []
+ },
+ "answer": "주택임대차보호법 제4조에 따르면 임대차 기간이 남아 있는 경우 그 기간이 그대로 유지됩니다. 또한 제6조는 임대인이 임대차 기간이 끝나는 6개월 전부터 2개월 전까지(또는 임차인이 2개월 전까지) 갱신거절 통지를 하지 않으면 기존 조건으로 계약이 자동으로 갱신된다고 규정하고 있습니다. 따라서 현재 계약 기간이 남아 있고, 임대인이 계약 종료 전까지 적법한 갱신거절 통지를 하지 않았다면, 집이 매매되었더라도 임차인은 기존 계약에 따라 계속 거주할 권리가 있습니다.  \n\n※ 계약 종료 전에 임대인이 적법한 절차 없이 퇴거를 요구한다면, 계약 기간이 남아 있는 한 퇴거 의무는 없습니다. 다만, 계약 종료 시점에 임대인이 갱신을 원하지 않을 경우에는 법정 기간(6개월~2개월 전) 내에 통지를 해야 합니다.  \n\n추가로 궁금한 점이 있으면 알려 주세요.",
+ "uncited": [],
+ "outcome": "answered",
+ "calls": [
+  {
+   "step": 1,
+   "status": 200,
+   "latency_s": 1.09,
+   "usage": {
+    "queue_time": 0.393400338,
+    "prompt_tokens": 1439,
+    "prompt_time": 0.061123202,
+    "completion_tokens": 170,
+    "completion_time": 0.354472339,
+    "total_tokens": 1609,
+    "total_time": 0.415595541,
+    "completion_tokens_details": {
+     "reasoning_tokens": 85
+    }
+   }
+  },
+  {
+   "step": 2,
+   "status": 200,
+   "latency_s": 1.61,
+   "usage": {
+    "queue_time": 0.354821369,
+    "prompt_tokens": 601,
+    "prompt_time": 0.205324039,
+    "completion_tokens": 269,
+    "completion_time": 0.5565092,
+    "total_tokens": 870,
+    "total_time": 0.761833239,
+    "completion_tokens_details": {
+     "reasoning_tokens": 25
+    }
+   }
+  }
+ ],
+ "totals": {
+  "prompt_tokens": 2040,
+  "completion_tokens": 439,
+  "total_tokens": 2479,
+  "llm_calls": 2,
+  "pick_tokens": 1609
+ }
+}

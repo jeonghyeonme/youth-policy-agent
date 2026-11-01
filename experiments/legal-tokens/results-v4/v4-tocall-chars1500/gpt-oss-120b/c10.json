@@ -1,0 +1,95 @@
+{
+ "model": "gpt-oss-120b",
+ "case": "c10",
+ "field": "주거",
+ "intent": "적용",
+ "question": "계약 기간이 남았는데 집주인이 집을 팔았다고 나가래요. 나가야 하나요?",
+ "toc": "all",
+ "max_chars": 1500,
+ "selected": [
+  {
+   "law": "주택임대차보호법",
+   "article": "6",
+   "title": "계약의 갱신",
+   "found": true
+  },
+  {
+   "law": "주택임대차보호법",
+   "article": "6의2",
+   "title": "묵시적 갱신의 경우 계약의 해지",
+   "found": true
+  },
+  {
+   "law": "주택임대차보호법",
+   "article": "3",
+   "title": "대항력 등",
+   "found": true
+  }
+ ],
+ "pick": {
+  "intent": "적용",
+  "articles": [
+   {
+    "law": "주택임대차보호법",
+    "article": "6"
+   },
+   {
+    "law": "주택임대차보호법",
+    "article": "6의2"
+   },
+   {
+    "law": "주택임대차보호법",
+    "article": "3"
+   }
+  ],
+  "need_info": [
+   "임대차 계약의 종류(전세, 월세 등)"
+  ]
+ },
+ "answer": "임대차 계약이 남아 있는 한, 집주인이 집을 팔더라도 임차인의 권리는 그대로 유지됩니다. 「주택임대차보호법」 제3조 제4항에 따라 양수인(새로운 집주인)은 기존 임대인의 지위를 승계하므로, 계약이 종료되기 전까지는 기존 임대차 관계가 그대로 지속됩니다. 따라서 임대차 기간이 끝날 때까지는 퇴거 의무가 없으며, 계약이 자동으로 갱신되는 경우(제6조)에도 동일합니다.  \n\n다만, 계약이 전세인지 월세인지 등에 따라 차임 지급 방식이나 보증금 반환 시기가 달라질 수 있으니, 계약 종류를 알려주시면 보다 구체적인 안내를 드릴 수 있습니다.  \n\n계약 종류(전세·월세 등)를 알려 주시겠어요?",
+ "uncited": [],
+ "outcome": "answered",
+ "calls": [
+  {
+   "step": 1,
+   "status": 200,
+   "latency_s": 1.07,
+   "usage": {
+    "queue_time": 0.217272966,
+    "prompt_tokens": 3148,
+    "prompt_time": 0.132038385,
+    "completion_tokens": 208,
+    "completion_time": 0.433254058,
+    "total_tokens": 3356,
+    "total_time": 0.565292443,
+    "completion_tokens_details": {
+     "reasoning_tokens": 78
+    }
+   }
+  },
+  {
+   "step": 2,
+   "status": 200,
+   "latency_s": 0.92,
+   "usage": {
+    "queue_time": 0.213410599,
+    "prompt_tokens": 1070,
+    "prompt_time": 0.04513574,
+    "completion_tokens": 225,
+    "completion_time": 0.469830818,
+    "total_tokens": 1295,
+    "total_time": 0.514966558,
+    "completion_tokens_details": {
+     "reasoning_tokens": 27
+    }
+   }
+  }
+ ],
+ "totals": {
+  "prompt_tokens": 4218,
+  "completion_tokens": 433,
+  "total_tokens": 4651,
+  "llm_calls": 2,
+  "pick_tokens": 3356
+ }
+}

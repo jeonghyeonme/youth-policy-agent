@@ -1,0 +1,85 @@
+{
+ "model": "gpt-oss-120b",
+ "case": "c08",
+ "field": "노동",
+ "intent": "적용",
+ "question": "시급이 최저임금보다 적은 것 같아요. 수습 기간이라고 덜 줘도 되나요?",
+ "toc": "all",
+ "max_chars": 1500,
+ "selected": [
+  {
+   "law": "최저임금법",
+   "article": "5",
+   "title": "최저임금액",
+   "found": true
+  },
+  {
+   "law": "근로기준법",
+   "article": "5",
+   "title": "근로조건의 준수",
+   "found": true
+  }
+ ],
+ "pick": {
+  "intent": "적용",
+  "articles": [
+   {
+    "law": "최저임금법",
+    "article": "5"
+   },
+   {
+    "law": "근로기준법",
+    "article": "5"
+   }
+  ],
+  "need_info": [
+   "현재 적용받는 시급 금액"
+  ]
+ },
+ "answer": "최저임금법 제5조②에 따르면, “1년 이상의 기간을 정하여 근로계약을 체결하고 수습 중에 있는 근로자로서 수습을 시작한 날부터 3개월 이내인 사람에 대하여는 대통령령으로 정하는 바에 따라 최저임금액과 다른 금액으로 최저임금을 정할 수 있다.” 다만, 고용노동부장관이 고시한 단순노무업무 직종은 제외됩니다. 따라서 수습 기간(3개월 이하)이라면 최저임금보다 낮은 시급을 적용할 수 있지만, 위의 예외에 해당되지 않아야 합니다.  \n\n※ 근로기준법 제5조는 근로계약·취업규칙 등을 성실히 이행할 의무를 규정하고 있습니다.  \n\n현재 적용받고 계신 시급 금액을 알려주시면, 최저임금과 비교하여 판단하는 데 도움이 됩니다.",
+ "uncited": [],
+ "outcome": "answered",
+ "calls": [
+  {
+   "step": 1,
+   "status": 200,
+   "latency_s": 1.2,
+   "usage": {
+    "queue_time": 0.355409215,
+    "prompt_tokens": 3148,
+    "prompt_time": 0.137825445,
+    "completion_tokens": 192,
+    "completion_time": 0.396832548,
+    "total_tokens": 3340,
+    "total_time": 0.534657993,
+    "completion_tokens_details": {
+     "reasoning_tokens": 100
+    }
+   }
+  },
+  {
+   "step": 2,
+   "status": 200,
+   "latency_s": 1.02,
+   "usage": {
+    "queue_time": 0.211388024,
+    "prompt_tokens": 619,
+    "prompt_time": 0.027298825,
+    "completion_tokens": 276,
+    "completion_time": 0.572197761,
+    "total_tokens": 895,
+    "total_time": 0.599496586,
+    "completion_tokens_details": {
+     "reasoning_tokens": 58
+    }
+   }
+  }
+ ],
+ "totals": {
+  "prompt_tokens": 3767,
+  "completion_tokens": 468,
+  "total_tokens": 4235,
+  "llm_calls": 2,
+  "pick_tokens": 3340
+ }
+}

@@ -1,0 +1,85 @@
+{
+ "model": "gpt-oss-120b",
+ "case": "c07",
+ "field": "노동",
+ "intent": "적용",
+ "question": "주 15시간 넘게 편의점 알바를 하는데 주휴수당을 받을 수 있나요?",
+ "toc": "domain",
+ "max_chars": 1500,
+ "selected": [
+  {
+   "law": "근로기준법",
+   "article": "55",
+   "title": "휴일",
+   "found": true
+  },
+  {
+   "law": "근로기준법",
+   "article": "50",
+   "title": "근로시간",
+   "found": true
+  }
+ ],
+ "pick": {
+  "intent": "적용",
+  "articles": [
+   {
+    "law": "근로기준법",
+    "article": "55"
+   },
+   {
+    "law": "근로기준법",
+    "article": "50"
+   }
+  ],
+  "need_info": [
+   "주당 총 근로시간"
+  ]
+ },
+ "answer": "주휴수당은 근로시간이 주 15시간 이상 이고 1주 에 1일 유급휴일을 보장받는 근로자에게 적용됩니다. 다만, 현재 제공해 주신 조문에는 주휴수당에 관한 구체적인 기준이 포함되어 있지 않아 정확히 판단하기 어렵습니다.  \n따라서 귀하의 **주당 총 근로시간**을 알려 주시면 더 자세히 안내드릴 수 있습니다.",
+ "uncited": [],
+ "outcome": "answered",
+ "calls": [
+  {
+   "step": 1,
+   "status": 200,
+   "latency_s": 1.22,
+   "usage": {
+    "queue_time": 0.356381023,
+    "prompt_tokens": 2109,
+    "prompt_time": 0.095195017,
+    "completion_tokens": 244,
+    "completion_time": 0.508912801,
+    "total_tokens": 2353,
+    "total_time": 0.604107818,
+    "completion_tokens_details": {
+     "reasoning_tokens": 154
+    }
+   }
+  },
+  {
+   "step": 2,
+   "status": 200,
+   "latency_s": 1.1,
+   "usage": {
+    "queue_time": 0.391710361,
+    "prompt_tokens": 484,
+    "prompt_time": 0.020918399,
+    "completion_tokens": 186,
+    "completion_time": 0.384151189,
+    "total_tokens": 670,
+    "total_time": 0.405069588,
+    "completion_tokens_details": {
+     "reasoning_tokens": 69
+    }
+   }
+  }
+ ],
+ "totals": {
+  "prompt_tokens": 2593,
+  "completion_tokens": 430,
+  "total_tokens": 3023,
+  "llm_calls": 2,
+  "pick_tokens": 2353
+ }
+}

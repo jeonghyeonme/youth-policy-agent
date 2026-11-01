@@ -1,0 +1,83 @@
+{
+ "model": "gpt-oss-120b",
+ "case": "c05",
+ "field": "주거",
+ "intent": "적용",
+ "question": "월세로 사는 집의 보일러가 고장 났어요. 수리비는 누가 부담하고 집주인에게 어떻게 요청하나요?",
+ "toc": "all",
+ "max_chars": 1500,
+ "selected": [
+  {
+   "law": "주택임대차보호법",
+   "article": "7",
+   "title": "차임 등의 증감청구권",
+   "found": true
+  },
+  {
+   "law": "민법",
+   "article": "623",
+   "title": "임대인의 의무",
+   "found": true
+  }
+ ],
+ "pick": {
+  "intent": "개념",
+  "articles": [
+   {
+    "law": "주택임대차보호법",
+    "article": "7"
+   },
+   {
+    "law": "민법",
+    "article": "623"
+   }
+  ],
+  "need_info": []
+ },
+ "answer": "임대인은 임차인이 사용·수익에 필요한 상태를 유지하도록 할 의무가 있습니다. 따라서 보일러와 같이 임대주택의 설비가 고장 난 경우, 그 수리비는 원칙적으로 임대인이 부담합니다【민법 제623조(임대인의 의무)】.\n\n수리를 요청하실 때는 다음과 같이 진행하시면 됩니다.\n\n1. **문서(전화·문자·이메일 등)로 고장 사실을 알리고, 수리·교체를 요청**합니다.  \n   - 고장 발생 일시, 증상, 사진 등을 함께 첨부하면 좋습니다.  \n2. **수리비 부담에 관한 답변을 서면(문자·이메일)으로 받으세요.**  \n   - 임대인이 수리를 직접 진행하거나, 수리업체에 맡기고 비용을 청구하도록 할 수 있습니다.  \n3. **임대인이 수리를 거부하거나 비용을 임차인에게 전가하려는 경우**, 임대인의 유지·보수 의무 위반이 될 수 있으니, 이를 근거로 내용증명 등을 통해 정식으로 요구하실 수 있습니다.\n\n※ 주택임대차보호법 제7조는 차임·보증금 증감에 관한 규정이며, 설비 고장 및 수리비 부담에 관한 직접적인 규정은 포함하고 있지 않습니다. 따라서 수리비 부담은 민법상의 임대인의 의무에 근거합니다.  \n\n다른 궁금한 점이 있으면 알려 주세요.",
+ "uncited": [],
+ "outcome": "answered",
+ "calls": [
+  {
+   "step": 1,
+   "status": 200,
+   "latency_s": 1.07,
+   "usage": {
+    "queue_time": 0.392949027,
+    "prompt_tokens": 3156,
+    "prompt_time": 0.147393003,
+    "completion_tokens": 143,
+    "completion_time": 0.297913882,
+    "total_tokens": 3299,
+    "total_time": 0.445306885,
+    "completion_tokens_details": {
+     "reasoning_tokens": 64
+    }
+   }
+  },
+  {
+   "step": 2,
+   "status": 200,
+   "latency_s": 1.27,
+   "usage": {
+    "queue_time": 0.054888747,
+    "prompt_tokens": 555,
+    "prompt_time": 0.021626443,
+    "completion_tokens": 398,
+    "completion_time": 0.833690646,
+    "total_tokens": 953,
+    "total_time": 0.855317089,
+    "completion_tokens_details": {
+     "reasoning_tokens": 53
+    }
+   }
+  }
+ ],
+ "totals": {
+  "prompt_tokens": 3711,
+  "completion_tokens": 541,
+  "total_tokens": 4252,
+  "llm_calls": 2,
+  "pick_tokens": 3299
+ }
+}
