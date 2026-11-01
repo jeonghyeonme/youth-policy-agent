@@ -2,6 +2,8 @@
 
 > [문서 지도](../README.md) · 작성: 2026-11-01 (AI 분석, PM 검토 전) · 관련: Q7, [3안 비교](concept-comparison.md)
 >
+> **2026-11-01 갱신**: 세 안을 같은 기준 7개로 다시 매긴 [3안 점수표](concept-scorecard.md)가 이 문서를 대신한다.
+>
 > 두 안 모두 시험을 거친 뒤의 비교다. 표시: **실측**은 저장소에 있는 결과, **문서**는 명세·제안서, **추정**은 판단이다.
 > 근거 위치: 청년 정책은 `claude/exciting-goldberg-y71yhi` 브랜치의 `experiments/llm-providers/`·`experiments/api-survey/`, 법률 정보는 이 브랜치의 [experiments/legal-tokens](../../experiments/legal-tokens/README.md).
 
