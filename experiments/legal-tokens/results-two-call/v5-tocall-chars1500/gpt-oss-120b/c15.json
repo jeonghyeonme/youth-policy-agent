@@ -1,0 +1,63 @@
+{
+ "model": "gpt-oss-120b",
+ "case": "c15",
+ "field": "노동",
+ "intent": "적용",
+ "question": "알바하다가 손을 다쳤는데 치료비를 사장님한테 받을 수 있나요?",
+ "toc": "all",
+ "max_chars": 1500,
+ "topics_on": true,
+ "selected": [],
+ "pick": {
+  "intent": "적용",
+  "topics": [],
+  "articles": [],
+  "need_info": []
+ },
+ "answer": "알바 중에 손을 다친 경우, 치료비 청구와 관련된 구체적인 권리·절차는 제공해 주신 조문에 포함되어 있지 않아 확인하지 못합니다. 필요하신 경우, 관할 기관의 공식 안내를 확인하시기 바랍니다.",
+ "uncited": [],
+ "outcome": "answered",
+ "calls": [
+  {
+   "step": 1,
+   "status": 200,
+   "latency_s": 1.03,
+   "usage": {
+    "queue_time": 0.216356364,
+    "prompt_tokens": 4854,
+    "prompt_time": 0.19450408,
+    "completion_tokens": 147,
+    "completion_time": 0.304257359,
+    "total_tokens": 5001,
+    "total_time": 0.498761439,
+    "completion_tokens_details": {
+     "reasoning_tokens": 109
+    }
+   }
+  },
+  {
+   "step": 2,
+   "status": 200,
+   "latency_s": 0.89,
+   "usage": {
+    "queue_time": 0.39615895,
+    "prompt_tokens": 371,
+    "prompt_time": 0.055343741,
+    "completion_tokens": 83,
+    "completion_time": 0.170112935,
+    "total_tokens": 454,
+    "total_time": 0.225456676,
+    "completion_tokens_details": {
+     "reasoning_tokens": 14
+    }
+   }
+  }
+ ],
+ "totals": {
+  "prompt_tokens": 5225,
+  "completion_tokens": 230,
+  "total_tokens": 5455,
+  "llm_calls": 2,
+  "pick_tokens": 5001
+ }
+}

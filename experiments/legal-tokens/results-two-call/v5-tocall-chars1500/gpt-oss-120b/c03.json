@@ -1,0 +1,108 @@
+{
+ "model": "gpt-oss-120b",
+ "case": "c03",
+ "field": "노동",
+ "intent": "개념",
+ "question": "아르바이트도 휴게시간이 있나요? 일하는 시간에 따라 기준이 달라지나요?",
+ "toc": "all",
+ "max_chars": 1500,
+ "topics_on": true,
+ "selected": [
+  {
+   "law": "근로기준법",
+   "article": "54",
+   "source": "주제",
+   "title": "휴게",
+   "found": true
+  },
+  {
+   "law": "근로기준법",
+   "article": "67",
+   "source": "주제",
+   "title": "근로계약",
+   "found": true
+  },
+  {
+   "law": "근로기준법",
+   "article": "68",
+   "source": "주제",
+   "title": "임금의 청구",
+   "found": true
+  },
+  {
+   "law": "근로기준법",
+   "article": "69",
+   "source": "주제",
+   "title": "근로시간",
+   "found": true
+  }
+ ],
+ "pick": {
+  "topics": [
+   "휴게시간",
+   "미성년자 아르바이트"
+  ],
+  "intent": "개념",
+  "need_info": [],
+  "articles": [
+   {
+    "law": "근로기준법",
+    "article": "54"
+   },
+   {
+    "law": "근로기준법",
+    "article": "67"
+   },
+   {
+    "law": "근로기준법",
+    "article": "69"
+   }
+  ]
+ },
+ "answer": "근로기준법 제54조에 따르면, 사용자는 근로시간이 4시간인 경우 30분 이상, 8시간인 경우 1시간 이상의 휴게시간을 근로시간 중에 주어야 합니다. 따라서 아르바이트를 포함한 모든 근로에는 근로시간에 따라 위와 같은 휴게시간이 적용됩니다. \n\n※ 근로시간이 4시간 미만인 경우에는 법령에 휴게시간 제공 의무가 명시되어 있지 않으니, 근로계약서 등에 별도로 정해진 내용이 있는지 확인하시기 바랍니다.",
+ "uncited": [],
+ "outcome": "answered",
+ "calls": [
+  {
+   "step": 1,
+   "status": 200,
+   "latency_s": 1.68,
+   "usage": {
+    "queue_time": 0.358420714,
+    "prompt_tokens": 4856,
+    "prompt_time": 0.35775636,
+    "completion_tokens": 334,
+    "completion_time": 0.703574069,
+    "total_tokens": 5190,
+    "total_time": 1.061330429,
+    "completion_tokens_details": {
+     "reasoning_tokens": 229
+    }
+   }
+  },
+  {
+   "step": 2,
+   "status": 200,
+   "latency_s": 0.58,
+   "usage": {
+    "queue_time": 0.006783263,
+    "prompt_tokens": 717,
+    "prompt_time": 0.029569092,
+    "completion_tokens": 159,
+    "completion_time": 0.329838465,
+    "total_tokens": 876,
+    "total_time": 0.359407557,
+    "completion_tokens_details": {
+     "reasoning_tokens": 20
+    }
+   }
+  }
+ ],
+ "totals": {
+  "prompt_tokens": 5573,
+  "completion_tokens": 493,
+  "total_tokens": 6066,
+  "llm_calls": 2,
+  "pick_tokens": 5190
+ }
+}

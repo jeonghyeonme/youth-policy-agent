@@ -1,0 +1,96 @@
+{
+ "model": "gpt-oss-120b",
+ "case": "c10",
+ "field": "주거",
+ "intent": "적용",
+ "question": "계약 기간이 남았는데 집주인이 집을 팔았다고 나가래요. 나가야 하나요?",
+ "toc": "all",
+ "max_chars": 1500,
+ "topics_on": true,
+ "selected": [
+  {
+   "law": "주택임대차보호법",
+   "article": "4",
+   "source": "주제",
+   "title": "임대차기간 등",
+   "found": true
+  },
+  {
+   "law": "주택임대차보호법",
+   "article": "3",
+   "source": "주제",
+   "title": "대항력 등",
+   "found": true
+  }
+ ],
+ "pick": {
+  "intent": "적용",
+  "topics": [
+   "계약 기간",
+   "집주인이 바뀜(매매·경매)"
+  ],
+  "articles": [
+   {
+    "law": "주택임대차보호법",
+    "article": "4"
+   },
+   {
+    "law": "주택임대차보호법",
+    "article": "3"
+   }
+  ],
+  "need_info": []
+ },
+ "answer": "주택임대차보호법 제4조에 따르면 계약 기간이 남아 있으면 그 기간은 그대로 유지됩니다. 또한 주택임대차보호법 제3조 제5항은 “임대차의 목적이 된 주택이 매매나 경매의 목적물이 된 경우에는 민법 제575조·제578조를 준용한다”고 규정하고 있어, 매매가 이루어져도 임대차 계약 자체는 그대로 존속합니다. 따라서 계약 기간이 남아 있는 경우, 집주인이 집을 팔았다고 해서 바로 퇴거할 의무는 없습니다. \n\n※ 신고처와 서류는 관할 기관의 공식 안내에서 확인이 필요합니다.",
+ "uncited": [
+  "575",
+  "578"
+ ],
+ "outcome": "answered",
+ "calls": [
+  {
+   "step": 1,
+   "status": 200,
+   "latency_s": 0.74,
+   "usage": {
+    "queue_time": 0.056680507,
+    "prompt_tokens": 4858,
+    "prompt_time": 0.016958624,
+    "completion_tokens": 185,
+    "completion_time": 0.387418779,
+    "total_tokens": 5043,
+    "total_time": 0.404377403,
+    "prompt_tokens_details": {
+     "cached_tokens": 4608
+    },
+    "completion_tokens_details": {
+     "reasoning_tokens": 76
+    }
+   }
+  },
+  {
+   "step": 2,
+   "status": 200,
+   "latency_s": 1.03,
+   "usage": {
+    "queue_time": 0.390262008,
+    "prompt_tokens": 932,
+    "prompt_time": 0.046767924,
+    "completion_tokens": 170,
+    "completion_time": 0.357933028,
+    "total_tokens": 1102,
+    "total_time": 0.404700952,
+    "completion_tokens_details": {
+     "reasoning_tokens": 11
+    }
+   }
+  }
+ ],
+ "totals": {
+  "prompt_tokens": 5790,
+  "completion_tokens": 355,
+  "total_tokens": 6145,
+  "llm_calls": 2,
+  "pick_tokens": 5043
+ }
+}

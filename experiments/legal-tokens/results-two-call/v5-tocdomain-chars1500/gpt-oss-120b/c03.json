@@ -1,0 +1,78 @@
+{
+ "model": "gpt-oss-120b",
+ "case": "c03",
+ "field": "노동",
+ "intent": "개념",
+ "question": "아르바이트도 휴게시간이 있나요? 일하는 시간에 따라 기준이 달라지나요?",
+ "toc": "domain",
+ "max_chars": 1500,
+ "topics_on": true,
+ "selected": [
+  {
+   "law": "근로기준법",
+   "article": "54",
+   "source": "주제",
+   "title": "휴게",
+   "found": true
+  }
+ ],
+ "pick": {
+  "intent": "개념",
+  "topics": [
+   "휴게시간"
+  ],
+  "need_info": [],
+  "articles": [
+   {
+    "law": "근로기준법",
+    "article": "54"
+   }
+  ]
+ },
+ "answer": "아르바이트를 포함한 모든 근로자에게도 휴게시간은 적용됩니다.  \n「근로기준법」 제54조(휴게) ①에 따르면, 사용자는 근로시간이 4시간인 경우 30분 이상, 8시간인 경우 1시간 이상의 휴게시간을 근로시간 도중에 제공해야 합니다. 또한, 제54조 ②에 의하면 그 휴게시간은 근로자가 자유롭게 이용할 수 있습니다.  \n\n따라서 근로시간이 4시간 이하이면 최소 30분, 8시간 이하이면 최소 1시간의 휴게시간이 보장됩니다. 필요하신 추가 정보가 있으면 알려주세요.",
+ "uncited": [],
+ "outcome": "answered",
+ "calls": [
+  {
+   "step": 1,
+   "status": 200,
+   "latency_s": 1.08,
+   "usage": {
+    "queue_time": 0.354289506,
+    "prompt_tokens": 3098,
+    "prompt_time": 0.146071625,
+    "completion_tokens": 122,
+    "completion_time": 0.253067106,
+    "total_tokens": 3220,
+    "total_time": 0.399138731,
+    "completion_tokens_details": {
+     "reasoning_tokens": 56
+    }
+   }
+  },
+  {
+   "step": 2,
+   "status": 200,
+   "latency_s": 0.92,
+   "usage": {
+    "queue_time": 0.221624997,
+    "prompt_tokens": 439,
+    "prompt_time": 0.138144345,
+    "completion_tokens": 170,
+    "completion_time": 0.353501864,
+    "total_tokens": 609,
+    "total_time": 0.491646209,
+    "completion_tokens_details": {
+     "reasoning_tokens": 10
+    }
+   }
+  }
+ ],
+ "totals": {
+  "prompt_tokens": 3537,
+  "completion_tokens": 292,
+  "total_tokens": 3829,
+  "llm_calls": 2,
+  "pick_tokens": 3220
+ }
+}

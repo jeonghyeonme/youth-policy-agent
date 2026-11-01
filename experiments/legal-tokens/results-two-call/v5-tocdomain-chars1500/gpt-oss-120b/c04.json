@@ -1,0 +1,104 @@
+{
+ "model": "gpt-oss-120b",
+ "case": "c04",
+ "field": "노동",
+ "intent": "절차",
+ "question": "카페 아르바이트를 그만뒀는데 마지막 급여를 못 받았어요. 어디에 어떤 자료를 내야 하나요?",
+ "toc": "domain",
+ "max_chars": 1500,
+ "topics_on": true,
+ "selected": [
+  {
+   "law": "근로기준법",
+   "article": "36",
+   "source": "주제",
+   "title": "금품 청산",
+   "found": true
+  },
+  {
+   "law": "근로기준법",
+   "article": "37",
+   "source": "주제",
+   "title": "미지급 임금에 대한 지연이자",
+   "found": true
+  },
+  {
+   "law": "근로기준법",
+   "article": "43",
+   "source": "주제",
+   "title": "임금 지급",
+   "found": true
+  }
+ ],
+ "pick": {
+  "topics": [
+   "그만둔 뒤 못 받은 임금"
+  ],
+  "intent": "절차",
+  "need_info": [
+   "근로계약서(또는 근로계약서 사본)",
+   "근무일지·출퇴근 기록",
+   "급여명세서·임금대장 사본(있다면)"
+  ],
+  "articles": [
+   {
+    "law": "근로기준법",
+    "article": "36"
+   },
+   {
+    "law": "근로기준법",
+    "article": "37"
+   },
+   {
+    "law": "근로기준법",
+    "article": "43"
+   }
+  ]
+ },
+ "answer": "근로기준법 제36조에 따르면 사용자는 퇴직(또는 사망)한 날부터 14일 이내에 임금을 포함한 모든 금품을 지급해야 합니다. 지급이 이루어지지 않을 경우, 근로기준법 제37조에 따라 지연이자를 청구할 수 있습니다.  \n\n따라서, 미지급 급여를 받기 위해서는 다음과 같은 절차가 필요합니다.  \n\n1. **청구 내용 및 기한**  \n   - 퇴직일(또는 급여 지급 사유가 발생한 날)부터 14일 이내에 급여를 지급받지 못했으므로, 그 기간이 지나기 전에 급여 및 지연이자 청구를 해야 합니다.  \n\n2. **제출해야 할 자료**  \n   - 근로계약서(또는 사본)  \n   - 근무일지·출퇴근 기록  \n   - 급여명세서·임금대장 사본(있는 경우)  \n\n3. **신고처와 서류**  \n   - 신고처와 구체적인 제출 서류는 관할 기관의 공식 안내에서 확인이 필요합니다.  \n\n위 자료를 준비하시고, 관할 기관에 청구 절차를 진행해 보시기 바랍니다.  \n\n추가로 제공해 주실 자료가 있으면 알려 주시겠어요? (근로계약서, 근무일지·출퇴근 기록, 급여명세서·임금대장 사본)",
+ "uncited": [],
+ "outcome": "answered",
+ "calls": [
+  {
+   "step": 1,
+   "status": 200,
+   "latency_s": 1.5,
+   "usage": {
+    "queue_time": 0.326369403,
+    "prompt_tokens": 3106,
+    "prompt_time": 0.181961552,
+    "completion_tokens": 356,
+    "completion_time": 0.740481761,
+    "total_tokens": 3462,
+    "total_time": 0.922443313,
+    "completion_tokens_details": {
+     "reasoning_tokens": 195
+    }
+   }
+  },
+  {
+   "step": 2,
+   "status": 200,
+   "latency_s": 1.41,
+   "usage": {
+    "queue_time": 0.390752231,
+    "prompt_tokens": 979,
+    "prompt_time": 0.043801442,
+    "completion_tokens": 352,
+    "completion_time": 0.73206015,
+    "total_tokens": 1331,
+    "total_time": 0.775861592,
+    "completion_tokens_details": {
+     "reasoning_tokens": 17
+    }
+   }
+  }
+ ],
+ "totals": {
+  "prompt_tokens": 4085,
+  "completion_tokens": 708,
+  "total_tokens": 4793,
+  "llm_calls": 2,
+  "pick_tokens": 3462
+ }
+}

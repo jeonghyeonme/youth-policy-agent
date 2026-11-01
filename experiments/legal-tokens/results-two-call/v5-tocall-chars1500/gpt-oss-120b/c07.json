@@ -1,0 +1,94 @@
+{
+ "model": "gpt-oss-120b",
+ "case": "c07",
+ "field": "노동",
+ "intent": "적용",
+ "question": "주 15시간 넘게 편의점 알바를 하는데 주휴수당을 받을 수 있나요?",
+ "toc": "all",
+ "max_chars": 1500,
+ "topics_on": true,
+ "selected": [
+  {
+   "law": "근로기준법",
+   "article": "55",
+   "source": "주제",
+   "title": "휴일",
+   "found": true
+  },
+  {
+   "law": "근로기준법",
+   "article": "18",
+   "source": "주제",
+   "title": "단시간근로자의 근로조건",
+   "found": true
+  }
+ ],
+ "pick": {
+  "intent": "적용",
+  "topics": [
+   "주휴수당"
+  ],
+  "articles": [
+   {
+    "law": "근로기준법",
+    "article": "55"
+   },
+   {
+    "law": "근로기준법",
+    "article": "18"
+   }
+  ],
+  "need_info": [
+   "근로기간 1개월 이상"
+  ]
+ },
+ "answer": "주 15시간을 초과하여 평균 근로시간이 15시간 이상인 경우에는 단시간근로자에 대한 예외 규정(「근로기준법」 제18조 제3항)이 적용되지 않으므로, 「근로기준법」 제55조(휴일)‑에 따라 주 1회 이상의 유급휴일(주휴수당)을 받을 권리가 있습니다.  \n\n근로기간이 1개월 이상인지 여부는 제공된 조문에 명시되어 있지 않아 확인하지 못했습니다.  \n\n추가로 궁금한 점이 있으면 알려 주세요.",
+ "uncited": [],
+ "outcome": "answered",
+ "calls": [
+  {
+   "step": 1,
+   "status": 200,
+   "latency_s": 1.07,
+   "usage": {
+    "queue_time": 0.213804327,
+    "prompt_tokens": 4856,
+    "prompt_time": 0.055066484,
+    "completion_tokens": 276,
+    "completion_time": 0.572012483,
+    "total_tokens": 5132,
+    "total_time": 0.627078967,
+    "prompt_tokens_details": {
+     "cached_tokens": 4608
+    },
+    "completion_tokens_details": {
+     "reasoning_tokens": 171
+    }
+   }
+  },
+  {
+   "step": 2,
+   "status": 200,
+   "latency_s": 1.13,
+   "usage": {
+    "queue_time": 0.360337411,
+    "prompt_tokens": 624,
+    "prompt_time": 0.105406177,
+    "completion_tokens": 232,
+    "completion_time": 0.480007115,
+    "total_tokens": 856,
+    "total_time": 0.585413292,
+    "completion_tokens_details": {
+     "reasoning_tokens": 92
+    }
+   }
+  }
+ ],
+ "totals": {
+  "prompt_tokens": 5480,
+  "completion_tokens": 508,
+  "total_tokens": 5988,
+  "llm_calls": 2,
+  "pick_tokens": 5132
+ }
+}

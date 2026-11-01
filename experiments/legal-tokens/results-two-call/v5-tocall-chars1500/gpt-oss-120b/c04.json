@@ -1,0 +1,96 @@
+{
+ "model": "gpt-oss-120b",
+ "case": "c04",
+ "field": "노동",
+ "intent": "절차",
+ "question": "카페 아르바이트를 그만뒀는데 마지막 급여를 못 받았어요. 어디에 어떤 자료를 내야 하나요?",
+ "toc": "all",
+ "max_chars": 1500,
+ "topics_on": true,
+ "selected": [
+  {
+   "law": "근로기준법",
+   "article": "36",
+   "source": "주제",
+   "title": "금품 청산",
+   "found": true
+  },
+  {
+   "law": "근로기준법",
+   "article": "37",
+   "source": "주제",
+   "title": "미지급 임금에 대한 지연이자",
+   "found": true
+  },
+  {
+   "law": "근로기준법",
+   "article": "43",
+   "source": "주제",
+   "title": "임금 지급",
+   "found": true
+  }
+ ],
+ "pick": {
+  "topics": [
+   "그만둔 뒤 못 받은 임금"
+  ],
+  "intent": "절차",
+  "need_info": [],
+  "articles": [
+   {
+    "law": "근로기준법",
+    "article": "36"
+   },
+   {
+    "law": "근로기준법",
+    "article": "43"
+   }
+  ]
+ },
+ "answer": "근로기준법 제36조에 따르면, 사용자는 퇴직한 경우 급여 등을 지급 사유가 발생한 날부터 14일 이내에 지급해야 합니다. 이 기간이 지나면 근로자는 미지급 임금에 대해 지연이자를 받을 권리가 있습니다(제37조 제1항 1호).  \n\n따라서, 급여를 받지 못하신 경우 퇴직일로부터 14일 이내에 사용자를 상대로 급여 지급을 요구하실 수 있습니다.  \n\n※ 신고처와 필요한 서류는 관할 기관의 공식 안내에서 확인이 필요합니다.  ",
+ "uncited": [],
+ "outcome": "answered",
+ "calls": [
+  {
+   "step": 1,
+   "status": 200,
+   "latency_s": 1.09,
+   "usage": {
+    "queue_time": 0.215185178,
+    "prompt_tokens": 4864,
+    "prompt_time": 0.209899044,
+    "completion_tokens": 184,
+    "completion_time": 0.382378195,
+    "total_tokens": 5048,
+    "total_time": 0.592277239,
+    "completion_tokens_details": {
+     "reasoning_tokens": 90
+    }
+   }
+  },
+  {
+   "step": 2,
+   "status": 200,
+   "latency_s": 0.68,
+   "usage": {
+    "queue_time": 0.05147155,
+    "prompt_tokens": 934,
+    "prompt_time": 0.04386668,
+    "completion_tokens": 168,
+    "completion_time": 0.357388873,
+    "total_tokens": 1102,
+    "total_time": 0.401255553,
+    "completion_tokens_details": {
+     "reasoning_tokens": 24
+    }
+   }
+  }
+ ],
+ "totals": {
+  "prompt_tokens": 5798,
+  "completion_tokens": 352,
+  "total_tokens": 6150,
+  "llm_calls": 2,
+  "pick_tokens": 5048
+ }
+}

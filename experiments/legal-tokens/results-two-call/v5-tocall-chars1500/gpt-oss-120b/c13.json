@@ -1,0 +1,107 @@
+{
+ "model": "gpt-oss-120b",
+ "case": "c13",
+ "field": "주거",
+ "intent": "적용",
+ "question": "재계약하면서 집주인이 월세를 10% 올리겠대요. 그래도 되나요?",
+ "toc": "all",
+ "max_chars": 1500,
+ "topics_on": true,
+ "selected": [
+  {
+   "law": "주택임대차보호법",
+   "article": "6",
+   "source": "주제",
+   "title": "계약의 갱신",
+   "found": true
+  },
+  {
+   "law": "주택임대차보호법",
+   "article": "6의2",
+   "source": "주제",
+   "title": "묵시적 갱신의 경우 계약의 해지",
+   "found": true
+  },
+  {
+   "law": "주택임대차보호법",
+   "article": "6의3",
+   "source": "주제",
+   "title": "계약갱신 요구 등",
+   "found": true
+  },
+  {
+   "law": "주택임대차보호법",
+   "article": "7",
+   "source": "주제",
+   "title": "차임 등의 증감청구권",
+   "found": true
+  }
+ ],
+ "pick": {
+  "topics": [
+   "계약 갱신과 묵시적 갱신",
+   "월세·보증금 인상"
+  ],
+  "intent": "적용",
+  "need_info": [],
+  "articles": [
+   {
+    "law": "주택임대차보호법",
+    "article": "6"
+   },
+   {
+    "law": "주택임대차보호법",
+    "article": "7"
+   }
+  ]
+ },
+ "answer": "주택임대차보호법 제7조(차임 등의 증감청구권)에 따르면, 차임(월세)을 증액하려면 “경제사정의 변동” 등으로 인해 현재 차임이 적절하지 않게 된 경우에 한해 당사자(임대인·임차인)가 증액을 청구할 수 있습니다. 다만,\n\n* 증액청구는 약정한 차임이나 보증금의 **20분의 1(5 %)을 초과하지 못합니다**(제7조 제1항·제2항).  \n* 증액청구는 차임이 증액된 후 **1년 이내에는 다시 할 수 없습니다**(제7조 제1항).\n\n따라서 집주인이 임의로 월세를 10 % 올리는 것은 위 조문의 요건을 충족하지 않으며, 법적으로 허용되지 않을 가능성이 높습니다. 차임 인상을 원한다면, 위 규정에 따라 5 % 이내(특별시·광역시 등에서는 조례에 따라 달리 정해질 수 있음)로 증액을 청구하고, 그 절차와 기한을 준수해야 합니다. \n\n※ 구체적인 절차나 필요한 서류 등은 관할 기관의 공식 안내에서 확인이 필요합니다.",
+ "uncited": [],
+ "outcome": "answered",
+ "calls": [
+  {
+   "step": 1,
+   "status": 200,
+   "latency_s": 0.84,
+   "usage": {
+    "queue_time": 0.058838897,
+    "prompt_tokens": 4856,
+    "prompt_time": 0.019116276,
+    "completion_tokens": 227,
+    "completion_time": 0.4753832,
+    "total_tokens": 5083,
+    "total_time": 0.494499476,
+    "prompt_tokens_details": {
+     "cached_tokens": 4608
+    },
+    "completion_tokens_details": {
+     "reasoning_tokens": 113
+    }
+   }
+  },
+  {
+   "step": 2,
+   "status": 200,
+   "latency_s": 1.36,
+   "usage": {
+    "queue_time": 0.319140232,
+    "prompt_tokens": 1833,
+    "prompt_time": 0.081134047,
+    "completion_tokens": 363,
+    "completion_time": 0.75308317,
+    "total_tokens": 2196,
+    "total_time": 0.834217217,
+    "completion_tokens_details": {
+     "reasoning_tokens": 66
+    }
+   }
+  }
+ ],
+ "totals": {
+  "prompt_tokens": 6689,
+  "completion_tokens": 590,
+  "total_tokens": 7279,
+  "llm_calls": 2,
+  "pick_tokens": 5083
+ }
+}

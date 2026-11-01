@@ -1,0 +1,89 @@
+{
+ "model": "gpt-oss-120b",
+ "case": "c05",
+ "field": "주거",
+ "intent": "적용",
+ "question": "월세로 사는 집의 보일러가 고장 났어요. 수리비는 누가 부담하고 집주인에게 어떻게 요청하나요?",
+ "toc": "all",
+ "max_chars": 1500,
+ "topics_on": true,
+ "selected": [
+  {
+   "law": "민법",
+   "article": "623",
+   "source": "주제",
+   "title": "임대인의 의무",
+   "found": true
+  },
+  {
+   "law": "민법",
+   "article": "626",
+   "source": "주제",
+   "title": "임차인의 상환청구권",
+   "found": true
+  }
+ ],
+ "pick": {
+  "intent": "절차",
+  "topics": [
+   "고장·수리비 부담"
+  ],
+  "articles": [
+   {
+    "law": "민법",
+    "article": "623"
+   },
+   {
+    "law": "민법",
+    "article": "626"
+   }
+  ],
+  "need_info": []
+ },
+ "answer": "임대인은 목적물을 사용·수익에 필요한 상태로 유지할 의무가 있습니다. 따라서 보일러가 고장 난 경우, 임대인은 이를 수리하도록 해야 합니다. 임차인이 직접 수리비를 지출한 경우에는 「민법」 제626조에 따라 그 비용을 임대인에게 상환 청구할 수 있습니다.  \n\n**요청 방법**  \n1. 보일러 고장을 임대인에게 통보하고 수리 요구 → 임대인이 수리를 이행하지 않을 경우, 임차인이 직접 수리비를 지급.  \n2. 수리비 영수증 등 지출 증빙을 확보한 뒤, 임대인에게 상환을 청구합니다.  \n\n※ 신고처와 서류는 관할 기관의 공식 안내에서 확인이 필요합니다.",
+ "uncited": [],
+ "outcome": "answered",
+ "calls": [
+  {
+   "step": 1,
+   "status": 200,
+   "latency_s": 0.85,
+   "usage": {
+    "queue_time": 0.05409305,
+    "prompt_tokens": 4866,
+    "prompt_time": 0.195383715,
+    "completion_tokens": 172,
+    "completion_time": 0.364583377,
+    "total_tokens": 5038,
+    "total_time": 0.559967092,
+    "completion_tokens_details": {
+     "reasoning_tokens": 86
+    }
+   }
+  },
+  {
+   "step": 2,
+   "status": 200,
+   "latency_s": 1.12,
+   "usage": {
+    "queue_time": 0.391925971,
+    "prompt_tokens": 559,
+    "prompt_time": 0.025966041,
+    "completion_tokens": 207,
+    "completion_time": 0.431993527,
+    "total_tokens": 766,
+    "total_time": 0.457959568,
+    "completion_tokens_details": {
+     "reasoning_tokens": 23
+    }
+   }
+  }
+ ],
+ "totals": {
+  "prompt_tokens": 5425,
+  "completion_tokens": 379,
+  "total_tokens": 5804,
+  "llm_calls": 2,
+  "pick_tokens": 5038
+ }
+}

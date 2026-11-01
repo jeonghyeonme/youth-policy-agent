@@ -1,0 +1,96 @@
+{
+ "model": "gpt-oss-120b",
+ "case": "c12",
+ "field": "노동",
+ "intent": "절차",
+ "question": "사장님이 내일부터 나오지 말라고 문자로만 보냈어요. 이래도 되나요?",
+ "toc": "all",
+ "max_chars": 1500,
+ "topics_on": true,
+ "selected": [
+  {
+   "law": "근로기준법",
+   "article": "26",
+   "source": "주제",
+   "title": "해고의 예고",
+   "found": true
+  },
+  {
+   "law": "근로기준법",
+   "article": "27",
+   "source": "주제",
+   "title": "해고사유 등의 서면통지",
+   "found": true
+  },
+  {
+   "law": "근로기준법",
+   "article": "23",
+   "source": "주제",
+   "title": "해고 등의 제한",
+   "found": true
+  }
+ ],
+ "pick": {
+  "intent": "적용",
+  "topics": [
+   "해고와 해고 예고"
+  ],
+  "need_info": [],
+  "articles": [
+   {
+    "law": "근로기준법",
+    "article": "26"
+   },
+   {
+    "law": "근로기준법",
+    "article": "27"
+   }
+  ]
+ },
+ "answer": "사장이 문자만으로 “내일부터 나오지 말라”는 통보를 한 경우, 근로기준법에 따라 적법한 해고 절차를 밟지 않은 것입니다.\n\n- 해고(또는 근로계약 종료)를 하려면 **30일 전에 예고**해야 하며, 예고를 하지 않을 경우 30일분 이상의 통상임금을 지급해야 합니다. (「근로기준법」 제26조)\n- 해고 사유와 해고 시기는 **서면으로 통지**해야 효력이 있습니다. (「근로기준법」 제27조①) 문자·전화 등 구두·전자메시지는 서면 통지에 해당하지 않으므로 효력이 없습니다.\n\n따라서 사장의 문자 통보만으로는 해고가 정당하게 이루어졌다고 볼 수 없습니다. ※ 단, 근로 기간이 3개월 미만 등 예외 사유가 적용되는 경우는 별도로 확인이 필요합니다. (「근로기준법」 제26조 1호)",
+ "uncited": [],
+ "outcome": "answered",
+ "calls": [
+  {
+   "step": 1,
+   "status": 200,
+   "latency_s": 1.1,
+   "usage": {
+    "queue_time": 0.266027411,
+    "prompt_tokens": 4855,
+    "prompt_time": 0.229754944,
+    "completion_tokens": 183,
+    "completion_time": 0.384332825,
+    "total_tokens": 5038,
+    "total_time": 0.614087769,
+    "completion_tokens_details": {
+     "reasoning_tokens": 91
+    }
+   }
+  },
+  {
+   "step": 2,
+   "status": 200,
+   "latency_s": 1.3,
+   "usage": {
+    "queue_time": 0.331432657,
+    "prompt_tokens": 856,
+    "prompt_time": 0.058533257,
+    "completion_tokens": 305,
+    "completion_time": 0.636817306,
+    "total_tokens": 1161,
+    "total_time": 0.695350563,
+    "completion_tokens_details": {
+     "reasoning_tokens": 68
+    }
+   }
+  }
+ ],
+ "totals": {
+  "prompt_tokens": 5711,
+  "completion_tokens": 488,
+  "total_tokens": 6199,
+  "llm_calls": 2,
+  "pick_tokens": 5038
+ }
+}
