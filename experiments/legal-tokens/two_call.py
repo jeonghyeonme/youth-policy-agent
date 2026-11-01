@@ -218,10 +218,22 @@ def normalize_article(raw):
     return article_key(m.group(1), m.group(2)) if m else str(raw)
 
 
-def uncited(answer, given_keys):
-    """답에 나온 '제N조' 중 넘겨주지 않은 번호. 법령명까지는 맞춰 보지 않는다."""
+def allowed_keys(laws, selected):
+    """넘겨준 조문 번호와, 넘겨준 원문 안에서 참조하는 조문 번호(예: 제18조③ 안의 '제60조').
+    원문을 그대로 옮긴 인용을 위반으로 세지 않기 위해서다(v5 c10, fallback c07 오탐)."""
+    keys = set()
+    for sel in selected:
+        article = laws.get(sel["law"], {}).get("articles", {}).get(sel["article"])
+        if article:
+            keys.add(sel["article"])
+            keys |= {article_key(m.group(1), m.group(2)) for m in CITE_RE.finditer(article["text"])}
+    return keys
+
+
+def uncited(answer, allowed):
+    """답에 나온 '제N조' 중 넘겨준 원문 밖의 번호. 법령명과 항 번호까지는 맞춰 보지 않는다."""
     found = {article_key(m.group(1), m.group(2)) for m in CITE_RE.finditer(answer or "")}
-    return sorted(found - given_keys, key=lambda k: (int(k.split("의")[0]), k))
+    return sorted(found - allowed, key=lambda k: (int(k.split("의")[0]), k))
 
 
 def call(llm, model_name, messages, max_tokens, response_format=None):
@@ -286,8 +298,7 @@ def run_case(llm, laws, model_name, field, question, toc_mode, max_chars, topics
     calls.append({"step": 2, **meta})
     if meta["status"] != 200:
         return {**record, "outcome": "error", "calls": calls}
-    given_keys = {s["article"] for s in record["selected"] if s["found"]}
-    record.update(answer=content, uncited=uncited(content, given_keys),
+    record.update(answer=content, uncited=uncited(content, allowed_keys(laws, record["selected"])),
                   outcome="answered" if (content or "").strip() else "empty", calls=calls)
     return record
 
@@ -332,13 +343,15 @@ def run(models, cases, toc_mode, max_chars, budget, results, llm_for, laws, gap,
             time.sleep(gap)
 
 
-def report(results):
+def report(results, laws=None):
     print(f"하루 {DAILY_TOKENS:,} 토큰 기준. 조문 선택이 맞는지는 사람이 제목을 보고 판단한다")
     for config_dir in sorted(p for p in results.glob("*") if p.is_dir()):
         for model_dir in sorted(p for p in config_dir.glob("*") if p.is_dir()):
             records = [json.loads(p.read_text(encoding="utf-8")) for p in sorted(model_dir.glob("*.json"))]
             print(f"## {model_dir.name} · {config_dir.name}")
             for r in records:
+                if laws and r.get("answer"):
+                    r["uncited"] = uncited(r["answer"], allowed_keys(laws, r["selected"]))
                 t = r["totals"]
                 picks = ", ".join(f"{s['law']} {label(s['article'])}({s['title'] or '목차에 없음'})" for s in r["selected"])
                 print(f"   {r['case']} {r['field']}/{r['intent']}: {r['outcome']}, 1회차 {t['pick_tokens']:,} + "
@@ -423,7 +436,7 @@ def main():
         tmp = Path(tempfile.mkdtemp(prefix="legal-v4-"))
         results, cache, laws_dir = tmp / "results", tmp / "cache", tmp / "laws"
     if args.report:
-        report(results)
+        report(results, load_laws(laws_dir) if (laws_dir / "민법.json").exists() else None)
         return 0
 
     models = [m.strip() for m in args.models.split(",") if m.strip()]
@@ -461,7 +474,7 @@ def main():
         0 if args.fake else CALL_GAP_SECONDS, topics)
     print(f"법령 API 실제 호출 {api.network_calls}회 (나머지는 cache)")
     print()
-    report(results)
+    report(results, laws)
     if args.fake:
         print(f"\n가짜 실행 결과 위치: {results.parent}")
     return 0
