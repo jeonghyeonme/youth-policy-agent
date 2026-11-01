@@ -1,0 +1,127 @@
+{
+ "model": "gpt-oss-120b",
+ "case": "q01",
+ "question": "서울 사는 27살인데 월세가 너무 부담돼요",
+ "conditions": {
+  "categories": [
+   "주거"
+  ],
+  "age": 27,
+  "region": "서울",
+  "job_status": null,
+  "education": null,
+  "keywords": [
+   "월세",
+   "전월세",
+   "주거급여",
+   "주거비 지원"
+  ]
+ },
+ "candidates": 88,
+ "top": [
+  {
+   "id": "youthcenter:20240109005400100003",
+   "title": "주거안정월세대출",
+   "source": "youthcenter"
+  },
+  {
+   "id": "youthcenter:20261021005400214208",
+   "title": "2026 청년 월세 지원",
+   "source": "youthcenter"
+  },
+  {
+   "id": "youthcenter:20260923005400113576",
+   "title": "청년 전월세 대출보증",
+   "source": "youthcenter"
+  },
+  {
+   "id": "welfare-central:WLF00004661",
+   "title": "청년월세 지원사업",
+   "source": "welfare-central"
+  },
+  {
+   "id": "welfare-central:WLF00003201",
+   "title": "주거급여(맞춤형 급여)",
+   "source": "welfare-central"
+  },
+  {
+   "id": "welfare-local:WLF00002255",
+   "title": "서울형 주택바우처(저소득층 주택임대료 보조)",
+   "source": "welfare-local"
+  },
+  {
+   "id": "youthcenter:20261021005400214222",
+   "title": "2026 전월세 안심계약 도움서비스 운영",
+   "source": "youthcenter"
+  },
+  {
+   "id": "welfare-local:WLF00006775",
+   "title": "관악구 청년 월세 지원사업",
+   "source": "welfare-local"
+  }
+ ],
+ "calls": [
+  {
+   "step": 1,
+   "status": 200,
+   "latency_s": 0.79,
+   "usage": {
+    "queue_time": 0.21605276,
+    "prompt_tokens": 887,
+    "prompt_time": 0.03735648,
+    "completion_tokens": 122,
+    "completion_time": 0.255960197,
+    "total_tokens": 1009,
+    "total_time": 0.293316677,
+    "completion_tokens_details": {
+     "reasoning_tokens": 48
+    }
+   }
+  },
+  {
+   "step": 2,
+   "status": 200,
+   "latency_s": 1.49,
+   "usage": {
+    "queue_time": 0.215344459,
+    "prompt_tokens": 2301,
+    "prompt_time": 0.104051186,
+    "completion_tokens": 466,
+    "completion_time": 0.974011241,
+    "total_tokens": 2767,
+    "total_time": 1.078062427,
+    "completion_tokens_details": {
+     "reasoning_tokens": 110
+    }
+   }
+  }
+ ],
+ "picks": [
+  {
+   "id": "youthcenter:20261021005400214208",
+   "title": "2026 청년 월세 지원",
+   "in_candidates": true,
+   "explanation": "2026 청년 월세 지원은 월세 최대 20만원을 지원하는 정책입니다. 신청자는 19~39세이며 서울에 거주하고 보증금·월세·재산·소득 기준을 충족해야 합니다. 소득·재산·보증금 여부는 공고에서 확인 필요합니다."
+  },
+  {
+   "id": "welfare-central:WLF00004661",
+   "title": "청년월세 지원사업",
+   "in_candidates": true,
+   "explanation": "청년월세 지원사업은 19~34세 무주택 청년에게 월 최대 20만원을 최대 24개월 지원합니다. 서울에 거주하는 27세이므로 연령·거주 조건은 충족될 가능성이 높습니다. 중위소득 60% 이하인지 등 소득·재산 요건은 공고에서 확인 필요합니다."
+  },
+  {
+   "id": "youthcenter:20260923005400113576",
+   "title": "청년 전월세 대출보증",
+   "in_candidates": true,
+   "explanation": "청년 전월세 대출보증은 월세 보증금·월세액 기준에 맞는 청년에게 대출 보증을 제공하는 제도입니다. 연소득 7천만원 이하, 만 19~34세 무주택 청년을 대상으로 하며, 귀하의 연령은 해당됩니다. 연소득 및 보증금·월세 금액이 기준에 부합하는지는 공고에서 확인 필요합니다."
+  }
+ ],
+ "none_reason": null,
+ "outcome": "answered",
+ "totals": {
+  "prompt_tokens": 3188,
+  "completion_tokens": 588,
+  "total_tokens": 3776,
+  "llm_calls": 2
+ }
+}

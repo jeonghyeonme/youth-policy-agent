@@ -1,0 +1,127 @@
+{
+ "model": "gpt-oss-120b",
+ "case": "q05",
+ "question": "고등학교 졸업했고 경기도에 사는데 직업훈련 받고 싶어요",
+ "conditions": {
+  "categories": [
+   "교육·직업훈련"
+  ],
+  "age": null,
+  "region": "경기",
+  "job_status": null,
+  "education": "고교 졸업",
+  "keywords": [
+   "직업훈련",
+   "역량 강화",
+   "교육비",
+   "온라인 교육"
+  ]
+ },
+ "candidates": 101,
+ "top": [
+  {
+   "id": "youthcenter:20260918005400113448",
+   "title": "STEP 플랫폼을 통한 AI 활용 직업역량 강화 지원 ",
+   "source": "youthcenter"
+  },
+  {
+   "id": "welfare-central:WLF00001125",
+   "title": "산재근로자직업훈련",
+   "source": "welfare-central"
+  },
+  {
+   "id": "welfare-central:WLF00003266",
+   "title": "직업훈련생계비대부",
+   "source": "welfare-central"
+  },
+  {
+   "id": "welfare-central:WLF00006229",
+   "title": "국민내일배움카드제 직업훈련지원(훈련비, 훈련장려금)",
+   "source": "welfare-central"
+  },
+  {
+   "id": "youthcenter:20260326005400212294",
+   "title": "2026년 평택시 4차산업 인재육성 직업훈련 지원",
+   "source": "youthcenter"
+  },
+  {
+   "id": "youthcenter:20260310005400112106",
+   "title": "온국민평생배움터 운영",
+   "source": "youthcenter"
+  },
+  {
+   "id": "welfare-central:WLF00006246",
+   "title": "우수고등학교 해외유학 장학금(드림장학금)",
+   "source": "welfare-central"
+  },
+  {
+   "id": "youthcenter:20261016005400213977",
+   "title": "경기도 지역성장 인재양성체계(앵커) 구축·지원",
+   "source": "youthcenter"
+  }
+ ],
+ "calls": [
+  {
+   "step": 1,
+   "status": 200,
+   "latency_s": 0.87,
+   "usage": {
+    "queue_time": 0.313928414,
+    "prompt_tokens": 892,
+    "prompt_time": 0.039716797,
+    "completion_tokens": 140,
+    "completion_time": 0.293384329,
+    "total_tokens": 1032,
+    "total_time": 0.333101126,
+    "completion_tokens_details": {
+     "reasoning_tokens": 57
+    }
+   }
+  },
+  {
+   "step": 2,
+   "status": 200,
+   "latency_s": 1.32,
+   "usage": {
+    "queue_time": 0.217231939,
+    "prompt_tokens": 1698,
+    "prompt_time": 0.074563432,
+    "completion_tokens": 373,
+    "completion_time": 0.78505544,
+    "total_tokens": 2071,
+    "total_time": 0.859618872,
+    "completion_tokens_details": {
+     "reasoning_tokens": 64
+    }
+   }
+  }
+ ],
+ "picks": [
+  {
+   "id": "youthcenter:20260918005400113448",
+   "title": "STEP 플랫폼을 통한 AI 활용 직업역량 강화 지원 ",
+   "in_candidates": true,
+   "explanation": "STEP 플랫폼을 통해 AI 이론·실습을 온라인으로 교육받을 수 있는 지원입니다. 자격조건이 명시되지 않아 고등학교 졸업자라면 신청 가능성이 높습니다. 신청 전 공고에서 대상 연령·자격 등을 확인하시기 바랍니다."
+  },
+  {
+   "id": "youthcenter:20260326005400212294",
+   "title": "2026년 평택시 4차산업 인재육성 직업훈련 지원",
+   "in_candidates": true,
+   "explanation": "경기 지역 청년(19~39세)에게 4차산업 분야 직업훈련을 제공하는 프로그램입니다. 고등학교 졸업 후 경기도에 거주하신다면 연령 조건에 해당될 가능성이 있습니다. 연령·학력 등 상세 자격은 공고에서 확인해 주세요."
+  },
+  {
+   "id": "welfare-central:WLF00006229",
+   "title": "국민내일배움카드제 직업훈련지원(훈련비, 훈련장려금)",
+   "in_candidates": true,
+   "explanation": "국민내일배움카드제로 훈련비와 장려금을 지원받아 원하는 직업훈련을 수강할 수 있습니다. 자격조건이 명시되지 않아 고등학교 졸업자는 일반적으로 신청 가능할 수 있습니다. 신청 전 공고에서 구체적인 대상 여부를 확인하십시오."
+  }
+ ],
+ "none_reason": null,
+ "outcome": "answered",
+ "totals": {
+  "prompt_tokens": 2590,
+  "completion_tokens": 513,
+  "total_tokens": 3103,
+  "llm_calls": 2
+ }
+}

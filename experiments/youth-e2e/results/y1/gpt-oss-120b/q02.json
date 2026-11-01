@@ -1,0 +1,97 @@
+{
+ "model": "gpt-oss-120b",
+ "case": "q02",
+ "question": "대학 졸업하고 1년째 취업 준비 중이에요. 지원받을 수 있는 거 있나요?",
+ "conditions": {
+  "categories": [
+   "일자리",
+   "교육·직업훈련"
+  ],
+  "age": null,
+  "region": null,
+  "job_status": "미취업자",
+  "education": "대학 졸업",
+  "keywords": [
+   "취업 준비",
+   "구직 지원",
+   "청년 일자리",
+   "직업훈련",
+   "청년 구직 지원"
+  ]
+ },
+ "candidates": 712,
+ "top": [
+  {
+   "id": "youthcenter:20260408005400212579",
+   "title": "청년일자리 도전 지원사업",
+   "source": "youthcenter"
+  },
+  {
+   "id": "youthcenter:20260326005400212294",
+   "title": "2026년 평택시 4차산업 인재육성 직업훈련 지원",
+   "source": "youthcenter"
+  },
+  {
+   "id": "youthcenter:20250220005400210479",
+   "title": "청년 희망날개 지원사업",
+   "source": "youthcenter"
+  },
+  {
+   "id": "youthcenter:20261026005400114418",
+   "title": "찾아가는 청년일자리버스",
+   "source": "youthcenter"
+  },
+  {
+   "id": "welfare-central:WLF00003266",
+   "title": "직업훈련생계비대부",
+   "source": "welfare-central"
+  },
+  {
+   "id": "youthcenter:20260128005400212084",
+   "title": "청년도전지원사업",
+   "source": "youthcenter"
+  },
+  {
+   "id": "youthcenter:20261027005400114442",
+   "title": "경력단절 청년 재취업 지원(새일여성인턴사업)",
+   "source": "youthcenter"
+  },
+  {
+   "id": "youthcenter:20260319005400212229",
+   "title": "안성시 청년맞춤 이력서 사진촬영 지원사업 ",
+   "source": "youthcenter"
+  }
+ ],
+ "calls": [
+  {
+   "step": 1,
+   "status": 200,
+   "latency_s": 1.01,
+   "usage": {
+    "queue_time": 0.394502005,
+    "prompt_tokens": 899,
+    "prompt_time": 0.044054259,
+    "completion_tokens": 170,
+    "completion_time": 0.352984056,
+    "total_tokens": 1069,
+    "total_time": 0.397038315,
+    "completion_tokens_details": {
+     "reasoning_tokens": 72
+    }
+   }
+  },
+  {
+   "step": 2,
+   "status": 400,
+   "error": "{\"error\":{\"message\":\"Failed to validate JSON. Please adjust your prompt. See 'failed_generation' for more details.\",\"type\":\"invalid_request_error\",\"code\":\"json_validate_failed\",\"failed_generation\":\"\"}}\n",
+   "long_wait": false
+  }
+ ],
+ "outcome": "error",
+ "totals": {
+  "prompt_tokens": 899,
+  "completion_tokens": 170,
+  "total_tokens": 1069,
+  "llm_calls": 2
+ }
+}

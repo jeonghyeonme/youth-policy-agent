@@ -1,0 +1,99 @@
+{
+ "model": "gpt-oss-120b",
+ "case": "q06",
+ "question": "인천 사는 29살 프리랜서예요. 건강검진이나 마음 상담 지원 같은 거 있을까요?",
+ "conditions": {
+  "categories": [
+   "금융·복지·문화"
+  ],
+  "age": 29,
+  "region": "인천",
+  "job_status": "프리랜서",
+  "education": null,
+  "keywords": [
+   "건강검진",
+   "마음 상담",
+   "복지 지원",
+   "정신건강",
+   "청년 건강"
+  ]
+ },
+ "candidates": 311,
+ "top": [
+  {
+   "id": "welfare-central:WLF00001133",
+   "title": "장애인 건강검진기관 지원",
+   "source": "welfare-central"
+  },
+  {
+   "id": "welfare-central:WLF00003238",
+   "title": "의료급여수급권자 일반건강검진비 지원",
+   "source": "welfare-central"
+  },
+  {
+   "id": "youthcenter:20260406005400212491",
+   "title": "인천광역시 청년마음건강센터 운영",
+   "source": "youthcenter"
+  },
+  {
+   "id": "youthcenter:20260930005400113723",
+   "title": "청년 마음건강 AI 시스템 등 시범 설치",
+   "source": "youthcenter"
+  },
+  {
+   "id": "youthcenter:20260107005400212076",
+   "title": "심리상담 바우처 사업(구 전국민 마음투자 지원사업)",
+   "source": "youthcenter"
+  },
+  {
+   "id": "welfare-central:WLF00003169",
+   "title": "정신건강복지센터 운영",
+   "source": "welfare-central"
+  },
+  {
+   "id": "youthcenter:20260506005400213159",
+   "title": "(연수구) 청년 정신건강 조기중재사업",
+   "source": "youthcenter"
+  },
+  {
+   "id": "youthcenter:20260930005400113725",
+   "title": "고립·은둔 청년 대상 선제적 sns 상담 실시",
+   "source": "youthcenter"
+  }
+ ],
+ "calls": [
+  {
+   "step": 1,
+   "status": 200,
+   "latency_s": 0.94,
+   "usage": {
+    "queue_time": 0.355720103,
+    "prompt_tokens": 899,
+    "prompt_time": 0.094091577,
+    "completion_tokens": 154,
+    "completion_time": 0.317992498,
+    "total_tokens": 1053,
+    "total_time": 0.412084075,
+    "prompt_tokens_details": {
+     "cached_tokens": 768
+    },
+    "completion_tokens_details": {
+     "reasoning_tokens": 63
+    }
+   }
+  },
+  {
+   "step": 2,
+   "status": 400,
+   "error": "{\"error\":{\"message\":\"Failed to validate JSON. Please adjust your prompt. See 'failed_generation' for more details.\",\"type\":\"invalid_request_error\",\"code\":\"json_validate_failed\",\"failed_generation\":\"\"}}\n",
+   "long_wait": false
+  }
+ ],
+ "outcome": "error",
+ "totals": {
+  "prompt_tokens": 899,
+  "completion_tokens": 154,
+  "total_tokens": 1053,
+  "llm_calls": 2
+ }
+}

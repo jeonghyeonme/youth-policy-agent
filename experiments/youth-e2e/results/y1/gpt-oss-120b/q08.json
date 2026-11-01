@@ -1,0 +1,123 @@
+{
+ "model": "gpt-oss-120b",
+ "case": "q08",
+ "question": "대전 사는 31살인데 전세 보증금 대출 같은 거 알려 주세요",
+ "conditions": {
+  "categories": [
+   "주거",
+   "금융·복지·문화"
+  ],
+  "age": 31,
+  "region": "대전",
+  "job_status": null,
+  "education": null,
+  "keywords": [
+   "전세",
+   "보증금",
+   "대출",
+   "전세자금",
+   "주거대출"
+  ]
+ },
+ "candidates": 352,
+ "top": [
+  {
+   "id": "youthcenter:20240109005400100001",
+   "title": "신생아 특례 구입·전세대출",
+   "source": "youthcenter"
+  },
+  {
+   "id": "youthcenter:20261017005400213978",
+   "title": "청년 신혼부부 주택 전세자금 대출 이자지원",
+   "source": "youthcenter"
+  },
+  {
+   "id": "youthcenter:20240109005400100004",
+   "title": "신혼부부 전용 전세자금",
+   "source": "youthcenter"
+  },
+  {
+   "id": "youthcenter:20260922005400113544",
+   "title": "청년전용 저리대출상품 운영",
+   "source": "youthcenter"
+  },
+  {
+   "id": "welfare-central:WLF00003222",
+   "title": "버팀목전세자금대출",
+   "source": "welfare-central"
+  },
+  {
+   "id": "youthcenter:20260923005400113576",
+   "title": "청년 전월세 대출보증",
+   "source": "youthcenter"
+  },
+  {
+   "id": "youthcenter:20260527005400113223",
+   "title": "전세보증금반환보증 보증료 지원",
+   "source": "youthcenter"
+  },
+  {
+   "id": "youthcenter:20240109005400100003",
+   "title": "주거안정월세대출",
+   "source": "youthcenter"
+  }
+ ],
+ "calls": [
+  {
+   "step": 1,
+   "status": 200,
+   "latency_s": 0.91,
+   "usage": {
+    "queue_time": 0.357130854,
+    "prompt_tokens": 892,
+    "prompt_time": 0.044623549,
+    "completion_tokens": 162,
+    "completion_time": 0.335824449,
+    "total_tokens": 1054,
+    "total_time": 0.380447998,
+    "completion_tokens_details": {
+     "reasoning_tokens": 73
+    }
+   }
+  },
+  {
+   "step": 2,
+   "status": 200,
+   "latency_s": 1.56,
+   "usage": {
+    "queue_time": 0.321367917,
+    "prompt_tokens": 2927,
+    "prompt_time": 0.141909575,
+    "completion_tokens": 402,
+    "completion_time": 0.844093821,
+    "total_tokens": 3329,
+    "total_time": 0.986003396,
+    "completion_tokens_details": {
+     "reasoning_tokens": 124
+    }
+   }
+  }
+ ],
+ "picks": [
+  {
+   "id": "youthcenter:20260922005400113544",
+   "title": "청년전용 저리대출상품 운영",
+   "in_candidates": true,
+   "explanation": "청년전용 저리대출상품은 전세자금이 부족한 청년에게 저금리로 전세자금을 대출해 주는 정책입니다. 사용자는 31세이며, 연령 조건(19~34세)과 무주택 청년이라는 전제에 부합할 가능성이 높습니다. 신청 전, 대상 주택 면적·전세보증금 한도와 소득 조건 등을 공고에서 확인하시기 바랍니다."
+  },
+  {
+   "id": "youthcenter:20260923005400113576",
+   "title": "청년 전월세 대출보증",
+   "in_candidates": true,
+   "explanation": "청년 전월세 대출보증은 전세·월세 대출에 대한 신용보증을 제공해 주거비 부담을 낮춰 주는 제도입니다. 사용자는 31세이며, 연소득 7천만원 이하인 무주택 청년이면 지원 대상이 될 수 있습니다. 보증 한도·소득 기준 등 자세한 자격조건은 해당 정책 공고에서 확인하셔야 합니다."
+  }
+ ],
+ "none_reason": null,
+ "outcome": "answered",
+ "totals": {
+  "prompt_tokens": 3819,
+  "completion_tokens": 564,
+  "total_tokens": 4383,
+  "llm_calls": 2
+ }
+}

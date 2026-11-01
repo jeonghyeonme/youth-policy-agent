@@ -1,0 +1,122 @@
+{
+ "model": "gpt-oss-120b",
+ "case": "q04",
+ "question": "창업하고 싶은데 초기 자금 지원해 주는 데 있어요? 대구 살아요",
+ "conditions": {
+  "categories": [
+   "일자리"
+  ],
+  "age": null,
+  "region": "대구",
+  "job_status": "(예비)창업자",
+  "education": null,
+  "keywords": [
+   "창업",
+   "초기 자금 지원",
+   "창업 지원금",
+   "스타트업",
+   "자금지원"
+  ]
+ },
+ "candidates": 141,
+ "top": [
+  {
+   "id": "youthcenter:20260923005400113570",
+   "title": "유망청년창업기업 보증 지원",
+   "source": "youthcenter"
+  },
+  {
+   "id": "youthcenter:20260929005400113667",
+   "title": "K-디지털 그랜드 챔피언십",
+   "source": "youthcenter"
+  },
+  {
+   "id": "youthcenter:20260417005400112766",
+   "title": "스타트업 원스톱 지원센터",
+   "source": "youthcenter"
+  },
+  {
+   "id": "youthcenter:20260929005400113652",
+   "title": "청년어업인 어촌정착지원",
+   "source": "youthcenter"
+  },
+  {
+   "id": "youthcenter:20260923005400113556",
+   "title": "맞춤형농지지원",
+   "source": "youthcenter"
+  },
+  {
+   "id": "youthcenter:20261021005400214241",
+   "title": "전남형 청년창업 사관학교",
+   "source": "youthcenter"
+  },
+  {
+   "id": "welfare-central:WLF00006264",
+   "title": "생활안정자금(융자)(이차보전)",
+   "source": "welfare-central"
+  },
+  {
+   "id": "youthcenter:20261020005400214141",
+   "title": "청년 귀환 채널구축 사업(고향올래)",
+   "source": "youthcenter"
+  }
+ ],
+ "calls": [
+  {
+   "step": 1,
+   "status": 200,
+   "latency_s": 0.96,
+   "usage": {
+    "queue_time": 0.323157204,
+    "prompt_tokens": 893,
+    "prompt_time": 0.048391937,
+    "completion_tokens": 149,
+    "completion_time": 0.30837269,
+    "total_tokens": 1042,
+    "total_time": 0.356764627,
+    "completion_tokens_details": {
+     "reasoning_tokens": 81
+    }
+   }
+  },
+  {
+   "step": 2,
+   "status": 200,
+   "latency_s": 1.6,
+   "usage": {
+    "queue_time": 0.393709204,
+    "prompt_tokens": 1983,
+    "prompt_time": 0.084743277,
+    "completion_tokens": 429,
+    "completion_time": 0.89677849,
+    "total_tokens": 2412,
+    "total_time": 0.981521767,
+    "completion_tokens_details": {
+     "reasoning_tokens": 160
+    }
+   }
+  }
+ ],
+ "picks": [
+  {
+   "id": "youthcenter:20260923005400113570",
+   "title": "유망청년창업기업 보증 지원",
+   "in_candidates": true,
+   "explanation": "유망청년창업기업 보증 지원은 창업 후 7년 이내의 유망기업에 보증비율을 상향하고 보증료를 감면해 금융기관 대출을 쉽게 해 주는 정책입니다. 만 17세 이상 39세 이하이며 창업 초기 기업이면 해당될 가능성이 높습니다. 실제 지원 가능 여부는 공고에서 창업 연도와 기업 규모 등 상세 요건을 확인하시기 바랍니다."
+  },
+  {
+   "id": "youthcenter:20261020005400214141",
+   "title": "청년 귀환 채널구축 사업(고향올래)",
+   "in_candidates": true,
+   "explanation": "청년 귀환 채널구축 사업은 타지역에 거주하던 청년이 대구로 귀환해 정착하고 창업할 수 있도록 교육·시제품 개발·공간 등을 지원합니다. 대구에 살고 창업을 준비 중인 예비 창업자라면 지원 대상이 될 수 있습니다. 신청 자격과 구체적인 지원 내용은 공고에서 확인 필요합니다."
+  }
+ ],
+ "none_reason": null,
+ "outcome": "answered",
+ "totals": {
+  "prompt_tokens": 2876,
+  "completion_tokens": 578,
+  "total_tokens": 3454,
+  "llm_calls": 2
+ }
+}

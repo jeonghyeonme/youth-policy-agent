@@ -1,0 +1,121 @@
+{
+ "model": "gpt-oss-120b",
+ "case": "q03",
+ "question": "부산에서 작은 회사 다니는 25살 직장인입니다. 목돈 모으는 방법 없을까요",
+ "conditions": {
+  "categories": [
+   "금융·복지·문화"
+  ],
+  "age": 25,
+  "region": "부산",
+  "job_status": "재직자",
+  "education": null,
+  "keywords": [
+   "목돈",
+   "저축",
+   "자산형성",
+   "적금"
+  ]
+ },
+ "candidates": 307,
+ "top": [
+  {
+   "id": "youthcenter:20260918005400113435",
+   "title": "청년자산형성 5종 연계 강화",
+   "source": "youthcenter"
+  },
+  {
+   "id": "welfare-central:WLF00000023",
+   "title": "농어가목돈마련저축 저축장려금 지급",
+   "source": "welfare-central"
+  },
+  {
+   "id": "welfare-central:WLF00006266",
+   "title": "청년미래적금",
+   "source": "welfare-central"
+  },
+  {
+   "id": "welfare-central:WLF00000100",
+   "title": "자산형성지원사업(희망저축계좌Ⅰ, Ⅱ)",
+   "source": "welfare-central"
+  },
+  {
+   "id": "welfare-central:WLF00001020",
+   "title": "북한이탈주민 자산형성지원제도(미래행복통장)",
+   "source": "welfare-central"
+  },
+  {
+   "id": "youthcenter:20260528005400113226",
+   "title": "(문체부) 청년예술인 예술활동 적립계좌",
+   "source": "youthcenter"
+  },
+  {
+   "id": "welfare-central:WLF00006248",
+   "title": "직장인 든든한 점심밥",
+   "source": "welfare-central"
+  },
+  {
+   "id": "youthcenter:20260921005400113480",
+   "title": "직장인 든든한 한끼",
+   "source": "youthcenter"
+  }
+ ],
+ "calls": [
+  {
+   "step": 1,
+   "status": 200,
+   "latency_s": 1.08,
+   "usage": {
+    "queue_time": 0.355664803,
+    "prompt_tokens": 898,
+    "prompt_time": 0.042886208,
+    "completion_tokens": 213,
+    "completion_time": 0.440537552,
+    "total_tokens": 1111,
+    "total_time": 0.48342376,
+    "completion_tokens_details": {
+     "reasoning_tokens": 132
+    }
+   }
+  },
+  {
+   "step": 2,
+   "status": 200,
+   "latency_s": 1.53,
+   "usage": {
+    "queue_time": 0.394040436,
+    "prompt_tokens": 1985,
+    "prompt_time": 0.087375915,
+    "completion_tokens": 398,
+    "completion_time": 0.822886021,
+    "total_tokens": 2383,
+    "total_time": 0.910261936,
+    "completion_tokens_details": {
+     "reasoning_tokens": 86
+    }
+   }
+  }
+ ],
+ "picks": [
+  {
+   "id": "welfare-central:WLF00006266",
+   "title": "청년미래적금",
+   "in_candidates": true,
+   "explanation": "청년미래적금은 정부지원형 적금으로, 매월 최대 50만원을 자유롭게 납입하고 3년 만기에 이자를 포함해 목돈을 만들 수 있습니다. 연령 제한이 명시되지 않아 25세 재직자도 신청 가능성이 높으며, 소득·지역 제한이 없으므로 부산에 사는 직장인에게 적합합니다. 신청 전 ‘청년미래적금’ 공고에서 정확한 자격조건과 신청 방법을 확인하시기 바랍니다."
+  },
+  {
+   "id": "youthcenter:20260918005400113435",
+   "title": "청년자산형성 5종 연계 강화",
+   "in_candidates": true,
+   "explanation": "청년자산형성 5종 연계 강화는 청년미래적금, 청년내일저축계좌 등 다양한 청년 자산형성 상품을 연계해 지원하는 방안이며, 향후 2026년에 구체적인 내용이 마련될 예정입니다. 연령·지역 제한이 없고 ‘청년’ 대상이므로 25세 재직자에게 적용 가능성이 있습니다. 현재는 연구용역 단계이므로 구체적인 지원 내용과 신청 요건은 추후 공고에서 확인하셔야 합니다."
+  }
+ ],
+ "none_reason": null,
+ "outcome": "answered",
+ "totals": {
+  "prompt_tokens": 2883,
+  "completion_tokens": 611,
+  "total_tokens": 3494,
+  "llm_calls": 2
+ }
+}

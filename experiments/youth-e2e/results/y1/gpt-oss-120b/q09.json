@@ -1,0 +1,129 @@
+{
+ "model": "gpt-oss-120b",
+ "case": "q09",
+ "question": "청년 정책 정하는 위원회 같은 데 참여해 보고 싶어요",
+ "conditions": {
+  "categories": [
+   "참여·기반"
+  ],
+  "age": null,
+  "region": null,
+  "job_status": null,
+  "education": null,
+  "keywords": [
+   "청년 참여",
+   "위원회",
+   "정책 기반"
+  ]
+ },
+ "candidates": 243,
+ "top": [
+  {
+   "id": "youthcenter:20261026005400114416",
+   "title": "도 위원회 청년참여 확대",
+   "source": "youthcenter"
+  },
+  {
+   "id": "youthcenter:20260413005400212727",
+   "title": "시 위원회 청년위원 참여비율 향상",
+   "source": "youthcenter"
+  },
+  {
+   "id": "youthcenter:20260918005400113432",
+   "title": "청년정책조정위원회 전문위원회 설치",
+   "source": "youthcenter"
+  },
+  {
+   "id": "youthcenter:20260506005400213166",
+   "title": "(연수구) 청년 정책위원회 운영",
+   "source": "youthcenter"
+  },
+  {
+   "id": "youthcenter:20260406005400212434",
+   "title": "(서해구) 청년정책위원회 및 청년참여단 운영",
+   "source": "youthcenter"
+  },
+  {
+   "id": "youthcenter:20260317005400212178",
+   "title": "(광양시) 시 위원회 청년위원 의무 위촉",
+   "source": "youthcenter"
+  },
+  {
+   "id": "youthcenter:20260506005400213161",
+   "title": "(영종구) 청년정책조정위원회 운영",
+   "source": "youthcenter"
+  },
+  {
+   "id": "youthcenter:20260918005400113431",
+   "title": "정부위원회 청년위원 확대",
+   "source": "youthcenter"
+  }
+ ],
+ "calls": [
+  {
+   "step": 1,
+   "status": 200,
+   "latency_s": 0.92,
+   "usage": {
+    "queue_time": 0.215407092,
+    "prompt_tokens": 888,
+    "prompt_time": 0.005752149,
+    "completion_tokens": 105,
+    "completion_time": 0.495289239,
+    "total_tokens": 993,
+    "total_time": 0.501041388,
+    "prompt_tokens_details": {
+     "cached_tokens": 768
+    },
+    "completion_tokens_details": {
+     "reasoning_tokens": 33
+    }
+   }
+  },
+  {
+   "step": 2,
+   "status": 200,
+   "latency_s": 1.76,
+   "usage": {
+    "queue_time": 0.359519996,
+    "prompt_tokens": 2057,
+    "prompt_time": 0.222620287,
+    "completion_tokens": 448,
+    "completion_time": 0.932669392,
+    "total_tokens": 2505,
+    "total_time": 1.155289679,
+    "completion_tokens_details": {
+     "reasoning_tokens": 109
+    }
+   }
+  }
+ ],
+ "picks": [
+  {
+   "id": "youthcenter:20261026005400114416",
+   "title": "도 위원회 청년참여 확대",
+   "in_candidates": true,
+   "explanation": "청년 위원을 위촉해 도청 위원회에 참여하도록 하는 정책입니다. 나이 제한이 19~39세이며 충청남도 지역 대상이므로, 사용자가 충남에 거주한다면 지원 가능성이 있습니다. 신청 전 해당 위원회가 청년 위촉 의무화 대상인지 공고에서 확인 필요합니다."
+  },
+  {
+   "id": "youthcenter:20260506005400213166",
+   "title": "(연수구) 청년 정책위원회 운영",
+   "in_candidates": true,
+   "explanation": "연수구 청년정책위원회에 참여해 회의 수당을 받는 정책입니다. 연령은 19~39세이고 인천 연수구 주민등록이 필요하므로, 해당 지역에 거주한다면 지원할 수 있습니다. 주민등록 여부와 구체적인 신청 절차는 공고에서 확인 필요합니다."
+  },
+  {
+   "id": "youthcenter:20260406005400212434",
+   "title": "(서해구) 청년정책위원회 및 청년참여단 운영",
+   "in_candidates": true,
+   "explanation": "서해구 청년정책위원회 및 청년참여단에 위촉돼 회의 수당 등 지원을 받는 정책입니다. 나이 제한이 19~39세이며 서구(인천) 주민등록이 필요하니, 해당 지역에 살 경우 지원 가능성이 있습니다. 주민등록 구역과 위촉 절차는 공고에서 확인 필요합니다."
+  }
+ ],
+ "none_reason": null,
+ "outcome": "answered",
+ "totals": {
+  "prompt_tokens": 2945,
+  "completion_tokens": 553,
+  "total_tokens": 3498,
+  "llm_calls": 2
+ }
+}
