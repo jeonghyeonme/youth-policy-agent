@@ -24,6 +24,7 @@ from pathlib import Path
 
 HERE = Path(__file__).resolve().parent
 sys.path.insert(0, str(HERE))
+import trial  # noqa: E402
 from trial import (CALL_GAP_SECONDS, DAILY_TOKENS, MODELS, TARGET_PER_DAY, LawApi,  # noqa: E402
                    load_env, post_groq, search_items)
 
@@ -428,8 +429,12 @@ def main():
                              "fallback: --topics와 함께. 주제 표만 주고 맞는 주제가 없을 때만 목차로 한 번 더 고른다")
     parser.add_argument("--max-chars", type=int, default=1500, help="조문 하나를 2회차에 넘길 최대 글자 수")
     parser.add_argument("--topics", action="store_true", help="v5: topics.json의 주제→조문 표를 1회차에 함께 준다")
+    parser.add_argument("--max-wait", type=int, default=trial.LONG_WAIT_SECONDS,
+                        help="Groq가 이보다 오래(초) 기다리라고 하면 멈춘다. 하루 한도는 24시간 동안 조금씩 풀리므로, "
+                             "크게 주면(예: 1800) 기다렸다가 이어서 한다")
     parser.add_argument("--budget", type=int, default=150_000, help="모델마다 이번 실행에서 쓸 토큰 상한")
     args = parser.parse_args()
+    trial.LONG_WAIT_SECONDS = args.max_wait
 
     results, cache, laws_dir = HERE / "results-two-call", HERE / "cache", HERE / "laws"
     if args.fake:

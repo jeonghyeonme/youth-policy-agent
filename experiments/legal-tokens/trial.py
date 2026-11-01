@@ -231,7 +231,7 @@ def post_groq(key, body):
                     resume = time.strftime("%m-%d %H:%M", time.localtime(time.time() + wait))
                     return 429, {"error": f"retry-after {wait:.0f}초(약 {wait / 60:.0f}분, {resume} 이후 재실행). "
                                           f"하루 한도에 닿은 것으로 본다. 응답: {text[:200]}", "long_wait": True}, None
-                print(f"    한도 초과(429), {wait:.0f}초 기다린다")
+                print(f"    한도 초과(429), {wait:.0f}초 기다린다 ({time.strftime('%H:%M', time.localtime(time.time() + wait))}까지)")
                 time.sleep(wait)
                 continue
             return e.code, {"error": text[:500]}, None
