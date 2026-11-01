@@ -1,0 +1,90 @@
+{
+ "model": "gpt-oss-20b",
+ "case": "c10",
+ "field": "주거",
+ "intent": "적용",
+ "question": "계약 기간이 남았는데 집주인이 집을 팔았다고 나가래요. 나가야 하나요?",
+ "toc": "fallback",
+ "max_chars": 1500,
+ "topics_on": true,
+ "selected": [
+  {
+   "law": "주택임대차보호법",
+   "article": "3",
+   "source": "주제",
+   "title": "대항력 등",
+   "found": true
+  },
+  {
+   "law": "주택임대차보호법",
+   "article": "4",
+   "source": "주제",
+   "title": "임대차기간 등",
+   "found": true
+  }
+ ],
+ "pick": {
+  "intent": "적용",
+  "topics": [
+   "집주인이 바뀜(매매·경매)",
+   "계약 기간"
+  ],
+  "need_info": [],
+  "articles": [
+   {
+    "law": "주택임대차보호법",
+    "article": "3"
+   },
+   {
+    "law": "주택임대차보호법",
+    "article": "4"
+   }
+  ]
+ },
+ "answer": "주택임대차보호법 제4조 제4항에 따르면 임차인이 보증금을 반환받을 때까지는 임대차관계가 존속됩니다. 따라서 집주인이 집을 매각하더라도 임대차 계약은 그대로 효력이 있으므로, 임차인은 계약 기간이 끝나기 전까지 계속 거주할 수 있습니다. 집을 매각한 경우에도 새 주인이 임대차 관계를 승계하므로, 임차인은 퇴거를 요구받을 수 없습니다.  \n\n신고처와 서류는 관할 기관의 공식 안내에서 확인이 필요합니다.",
+ "uncited": [],
+ "outcome": "answered",
+ "calls": [
+  {
+   "step": 1,
+   "status": 200,
+   "latency_s": 0.78,
+   "usage": {
+    "queue_time": 0.047732646,
+    "prompt_tokens": 2066,
+    "prompt_time": 0.123914105,
+    "completion_tokens": 314,
+    "completion_time": 0.357999032,
+    "total_tokens": 2380,
+    "total_time": 0.481913137,
+    "completion_tokens_details": {
+     "reasoning_tokens": 240
+    }
+   }
+  },
+  {
+   "step": 2,
+   "status": 200,
+   "latency_s": 0.55,
+   "usage": {
+    "queue_time": 0.047064441,
+    "prompt_tokens": 932,
+    "prompt_time": 0.06226206,
+    "completion_tokens": 184,
+    "completion_time": 0.227125187,
+    "total_tokens": 1116,
+    "total_time": 0.289387247,
+    "completion_tokens_details": {
+     "reasoning_tokens": 44
+    }
+   }
+  }
+ ],
+ "totals": {
+  "prompt_tokens": 2998,
+  "completion_tokens": 498,
+  "total_tokens": 3496,
+  "llm_calls": 2,
+  "pick_tokens": 2380
+ }
+}

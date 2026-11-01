@@ -1,0 +1,30 @@
+{
+ "model": "gpt-oss-20b",
+ "case": "c07",
+ "field": "노동",
+ "intent": "적용",
+ "question": "주 15시간 넘게 편의점 알바를 하는데 주휴수당을 받을 수 있나요?",
+ "toc": "fallback",
+ "max_chars": 1500,
+ "topics_on": true,
+ "selected": [],
+ "pick": null,
+ "answer": null,
+ "uncited": [],
+ "outcome": "error",
+ "calls": [
+  {
+   "step": 1,
+   "status": 400,
+   "error": "{\"error\":{\"message\":\"Failed to validate JSON. Please adjust your prompt. See 'failed_generation' for more details.\",\"type\":\"invalid_request_error\",\"code\":\"json_validate_failed\",\"failed_generation\":\"\"}}\n",
+   "long_wait": false
+  }
+ ],
+ "totals": {
+  "prompt_tokens": 0,
+  "completion_tokens": 0,
+  "total_tokens": 0,
+  "llm_calls": 1,
+  "pick_tokens": 0
+ }
+}

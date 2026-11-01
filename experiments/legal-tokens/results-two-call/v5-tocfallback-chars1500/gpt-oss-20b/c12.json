@@ -1,0 +1,30 @@
+{
+ "model": "gpt-oss-20b",
+ "case": "c12",
+ "field": "노동",
+ "intent": "절차",
+ "question": "사장님이 내일부터 나오지 말라고 문자로만 보냈어요. 이래도 되나요?",
+ "toc": "fallback",
+ "max_chars": 1500,
+ "topics_on": true,
+ "selected": [],
+ "pick": null,
+ "answer": null,
+ "uncited": [],
+ "outcome": "error",
+ "calls": [
+  {
+   "step": 1,
+   "status": 400,
+   "error": "{\"error\":{\"message\":\"Generated JSON does not match the expected schema. Please adjust your prompt. See 'failed_generation' for more details. Error: jsonschema: '/intent' does not validate with /properties/intent/enum: value must be one of '개념', '적용', '절차'\",\"type\":\"invalid_request_error\",\"code\":\"json_validate_failed\",\"failed_generation\":\"{\\\"intent\\\":\\\"해고와 해고 예고\\\",\\\"topics\\\":[\\\"해고와 해고 예고\\\"],\\\"need_info\\\":[\\\"사장님이 문자로 보낸 날짜와 구체적인 내용(해고 사유)\\\",\\\"사전에 해고 예고를 위한 최소 기간(1주일) 충족 여부\\\"],\\\"articles\\\":[{\\\"law\\\"",
+   "long_wait": false
+  }
+ ],
+ "totals": {
+  "prompt_tokens": 0,
+  "completion_tokens": 0,
+  "total_tokens": 0,
+  "llm_calls": 1,
+  "pick_tokens": 0
+ }
+}

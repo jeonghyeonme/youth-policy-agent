@@ -1,0 +1,85 @@
+{
+ "model": "gpt-oss-20b",
+ "case": "c11",
+ "field": "노동",
+ "intent": "적용",
+ "question": "밤 11시까지 일하는데 밤에 일한 시간은 돈을 더 받을 수 있나요?",
+ "toc": "fallback",
+ "max_chars": 1500,
+ "topics_on": true,
+ "selected": [
+  {
+   "law": "근로기준법",
+   "article": "56",
+   "source": "주제",
+   "title": "연장ㆍ야간 및 휴일 근로",
+   "found": true
+  },
+  {
+   "law": "근로기준법",
+   "article": "11",
+   "source": "주제",
+   "title": "적용 범위",
+   "found": true
+  }
+ ],
+ "pick": {
+  "intent": "적용",
+  "topics": [
+   "야간·휴일·연장 가산수당"
+  ],
+  "need_info": [
+   "근무 시작 시간"
+  ],
+  "articles": []
+ },
+ "answer": "밤 11시까지 일하는 경우 야간근로에 해당합니다.  \n근로기준법 제56조(연장ㆍ야간 및 휴일 근로)③에 따르면, 야간근로(오후 10시부터 다음 날 오전 6시 사이의 근로)는 통상임금의 100분의 50 이상을 가산하여 지급해야 합니다.  \n\n근무 시작 시간이 언제인지에 따라 연장근로 여부가 달라질 수 있으므로, 근무 시작 시간을 알려 주시면 보다 정확히 판단할 수 있습니다.  \n필요한 근무 시작 시간을 말씀해 주시겠습니까?",
+ "uncited": [],
+ "outcome": "answered",
+ "calls": [
+  {
+   "step": 1,
+   "status": 200,
+   "latency_s": 1.36,
+   "usage": {
+    "queue_time": 0.424760446,
+    "prompt_tokens": 2062,
+    "prompt_time": 0.373973822,
+    "completion_tokens": 151,
+    "completion_time": 0.261042809,
+    "total_tokens": 2213,
+    "total_time": 0.635016631,
+    "prompt_tokens_details": {
+     "cached_tokens": 1792
+    },
+    "completion_tokens_details": {
+     "reasoning_tokens": 105
+    }
+   }
+  },
+  {
+   "step": 2,
+   "status": 200,
+   "latency_s": 0.79,
+   "usage": {
+    "queue_time": 0.38853971,
+    "prompt_tokens": 745,
+    "prompt_time": 0.037737539,
+    "completion_tokens": 155,
+    "completion_time": 0.163154395,
+    "total_tokens": 900,
+    "total_time": 0.200891934,
+    "completion_tokens_details": {
+     "reasoning_tokens": 9
+    }
+   }
+  }
+ ],
+ "totals": {
+  "prompt_tokens": 2807,
+  "completion_tokens": 306,
+  "total_tokens": 3113,
+  "llm_calls": 2,
+  "pick_tokens": 2213
+ }
+}

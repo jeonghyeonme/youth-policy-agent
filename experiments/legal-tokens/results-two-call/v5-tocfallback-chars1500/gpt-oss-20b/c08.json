@@ -1,0 +1,83 @@
+{
+ "model": "gpt-oss-20b",
+ "case": "c08",
+ "field": "노동",
+ "intent": "적용",
+ "question": "시급이 최저임금보다 적은 것 같아요. 수습 기간이라고 덜 줘도 되나요?",
+ "toc": "fallback",
+ "max_chars": 1500,
+ "topics_on": true,
+ "selected": [
+  {
+   "law": "최저임금법",
+   "article": "5",
+   "source": "주제",
+   "title": "최저임금액",
+   "found": true
+  },
+  {
+   "law": "최저임금법",
+   "article": "6",
+   "source": "주제",
+   "title": "최저임금의 효력",
+   "found": true
+  }
+ ],
+ "pick": {
+  "intent": "적용",
+  "topics": [
+   "최저임금과 수습 감액"
+  ],
+  "need_info": [
+   "현재 시급",
+   "수습 기간 길이"
+  ],
+  "articles": []
+ },
+ "answer": "시급이 최저임금보다 적은 경우, 「최저임금법」 제5조와 제6조에 따라 최저임금액 이상을 지급해야 합니다. 수습 기간 중이라도 최저임금과 다른 금액을 정할 수 있는 경우는 「최저임금법」 제5조 ② 항에 명시된 3개월 이내의 경우이며, 단순노무업무가 아닌 직종에 한정됩니다. \n\n현재 시급과 수습 기간 길이를 알려주시면 구체적으로 확인해 드릴 수 있습니다.",
+ "uncited": [],
+ "outcome": "answered",
+ "calls": [
+  {
+   "step": 1,
+   "status": 200,
+   "latency_s": 0.91,
+   "usage": {
+    "queue_time": 0.231448638,
+    "prompt_tokens": 2066,
+    "prompt_time": 0.146309178,
+    "completion_tokens": 134,
+    "completion_time": 0.191141812,
+    "total_tokens": 2200,
+    "total_time": 0.33745099,
+    "completion_tokens_details": {
+     "reasoning_tokens": 86
+    }
+   }
+  },
+  {
+   "step": 2,
+   "status": 200,
+   "latency_s": 0.88,
+   "usage": {
+    "queue_time": 0.391903167,
+    "prompt_tokens": 1572,
+    "prompt_time": 0.101693838,
+    "completion_tokens": 144,
+    "completion_time": 0.157000118,
+    "total_tokens": 1716,
+    "total_time": 0.258693956,
+    "completion_tokens_details": {
+     "reasoning_tokens": 11
+    }
+   }
+  }
+ ],
+ "totals": {
+  "prompt_tokens": 3638,
+  "completion_tokens": 278,
+  "total_tokens": 3916,
+  "llm_calls": 2,
+  "pick_tokens": 2200
+ }
+}

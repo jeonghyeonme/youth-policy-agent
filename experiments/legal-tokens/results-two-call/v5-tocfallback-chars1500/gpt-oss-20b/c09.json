@@ -1,0 +1,89 @@
+{
+ "model": "gpt-oss-20b",
+ "case": "c09",
+ "field": "주거",
+ "intent": "개념",
+ "question": "월세 계약이 끝나면 보증금은 언제까지 돌려받을 수 있나요?",
+ "toc": "fallback",
+ "max_chars": 1500,
+ "topics_on": true,
+ "selected": [
+  {
+   "law": "주택임대차보호법",
+   "article": "4",
+   "source": "주제",
+   "title": "임대차기간 등",
+   "found": true
+  },
+  {
+   "law": "주택임대차보호법",
+   "article": "3의2",
+   "source": "주제",
+   "title": "보증금의 회수",
+   "found": true
+  },
+  {
+   "law": "주택임대차보호법",
+   "article": "3의3",
+   "source": "주제",
+   "title": "임차권등기명령",
+   "found": true
+  }
+ ],
+ "pick": {
+  "intent": "절차",
+  "topics": [
+   "보증금 반환"
+  ],
+  "need_info": [
+   "퇴거 일자"
+  ],
+  "articles": []
+ },
+ "answer": "보증금은 임차인에게 반환되어야 하지만, 「주택임대차보호법」 제4조(임대차기간 등) 제2항에 따르면 “임대차기간이 끝난 경우에도 임차인이 보증금을 반환받을 때까지는 임대차관계가 존속되는 것으로 본다.”(제4조 제2항)며, 「주택임대차보호법」 제3조의2(보증금의 회수) 제1항에서도 보증금 반환 청구가 가능하다고 규정되어 있습니다.\n\n따라서, 퇴거 일자 이후 보증금이 반환되지 않으면 임차인은 보증금 반환 청구를 할 수 있습니다. 보증금 반환 청구를 하려면 퇴거한 날짜가 필요합니다.  \n\n퇴거 일자를 알려 주시면, 그 이후 보증금 반환 절차에 대해 더 자세히 안내해 드리겠습니다.",
+ "uncited": [],
+ "outcome": "answered",
+ "calls": [
+  {
+   "step": 1,
+   "status": 200,
+   "latency_s": 0.83,
+   "usage": {
+    "queue_time": 0.389730201,
+    "prompt_tokens": 2061,
+    "prompt_time": 0.114708504,
+    "completion_tokens": 70,
+    "completion_time": 0.073826293,
+    "total_tokens": 2131,
+    "total_time": 0.188534797,
+    "completion_tokens_details": {
+     "reasoning_tokens": 32
+    }
+   }
+  },
+  {
+   "step": 2,
+   "status": 200,
+   "latency_s": 1.17,
+   "usage": {
+    "queue_time": 0.390456558,
+    "prompt_tokens": 2437,
+    "prompt_time": 0.171834679,
+    "completion_tokens": 262,
+    "completion_time": 0.377258506,
+    "total_tokens": 2699,
+    "total_time": 0.549093185,
+    "completion_tokens_details": {
+     "reasoning_tokens": 49
+    }
+   }
+  }
+ ],
+ "totals": {
+  "prompt_tokens": 4498,
+  "completion_tokens": 332,
+  "total_tokens": 4830,
+  "llm_calls": 2,
+  "pick_tokens": 2131
+ }
+}

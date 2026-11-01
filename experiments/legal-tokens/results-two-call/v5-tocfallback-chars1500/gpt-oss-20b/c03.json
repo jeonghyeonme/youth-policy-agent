@@ -1,0 +1,30 @@
+{
+ "model": "gpt-oss-20b",
+ "case": "c03",
+ "field": "노동",
+ "intent": "개념",
+ "question": "아르바이트도 휴게시간이 있나요? 일하는 시간에 따라 기준이 달라지나요?",
+ "toc": "fallback",
+ "max_chars": 1500,
+ "topics_on": true,
+ "selected": [],
+ "pick": null,
+ "answer": null,
+ "uncited": [],
+ "outcome": "error",
+ "calls": [
+  {
+   "step": 1,
+   "status": 400,
+   "error": "{\"error\":{\"message\":\"Generated JSON does not match the expected schema. Please adjust your prompt. See 'failed_generation' for more details. Error: jsonschema: '' does not validate with /required: missing properties: 'intent', 'articles', 'need_info', 'topics'\",\"type\":\"invalid_request_error\",\"code\":\"json_validate_failed\",\"failed_generation\":\"{\\n    \\\"law\\\":\\\"근로기준법\\\",\\n    \\\"article\\\":\\\"54\\\"\\n  }\"}}\n",
+   "long_wait": false
+  }
+ ],
+ "totals": {
+  "prompt_tokens": 0,
+  "completion_tokens": 0,
+  "total_tokens": 0,
+  "llm_calls": 1,
+  "pick_tokens": 0
+ }
+}

@@ -1,0 +1,89 @@
+{
+ "model": "gpt-oss-20b",
+ "case": "c14",
+ "field": "주거",
+ "intent": "절차",
+ "question": "전입신고를 아직 안 했는데 보증금을 지키려면 뭘 해야 하나요?",
+ "toc": "fallback",
+ "max_chars": 1500,
+ "topics_on": true,
+ "selected": [
+  {
+   "law": "주택임대차보호법",
+   "article": "3",
+   "source": "주제",
+   "title": "대항력 등",
+   "found": true
+  },
+  {
+   "law": "주택임대차보호법",
+   "article": "3의2",
+   "source": "주제",
+   "title": "보증금의 회수",
+   "found": true
+  },
+  {
+   "law": "주택임대차보호법",
+   "article": "3의6",
+   "source": "주제",
+   "title": "확정일자 부여 및 임대차 정보제공 등",
+   "found": true
+  }
+ ],
+ "pick": {
+  "intent": "절차",
+  "topics": [
+   "전입신고·확정일자·대항력"
+  ],
+  "articles": [],
+  "need_info": [
+   "전입신고 여부"
+  ]
+ },
+ "answer": "전입신고를 아직 하지 않으셨다면, 보증금 보호를 위해 먼저 주민등록을 마친 뒤 전입신고를 진행하시는 것이 좋습니다.  \n「주택임대차보호법」 제3조①에 따르면, 임대인으로부터 주택을 인도받고 주민등록이 마쳐지면 그 다음 날부터 제삼자에 대하여 효력이 생깁니다. 전입신고를 하면 주민등록이 된 것으로 본다고 명시되어 있으므로, 전입신고를 완료하면 보증금의 우선 변제권이 발생합니다.  \n\n추가로 보증금을 회수하고 싶으시다면 「주택임대차보호법」 제3조의2를 참고하시기 바랍니다. 이 조문은 보증금 반환 청구소송이나 경매 등에서 보증금 회수 절차와 우선 변제권에 대해 규정하고 있습니다.  \n\n전입신고 여부를 알려주시면 보다 정확한 안내가 가능합니다.",
+ "uncited": [],
+ "outcome": "answered",
+ "calls": [
+  {
+   "step": 1,
+   "status": 200,
+   "latency_s": 0.86,
+   "usage": {
+    "queue_time": 0.389415675,
+    "prompt_tokens": 2063,
+    "prompt_time": 0.10374216,
+    "completion_tokens": 102,
+    "completion_time": 0.118506806,
+    "total_tokens": 2165,
+    "total_time": 0.222248966,
+    "completion_tokens_details": {
+     "reasoning_tokens": 36
+    }
+   }
+  },
+  {
+   "step": 2,
+   "status": 200,
+   "latency_s": 0.71,
+   "usage": {
+    "queue_time": 0.005492742,
+    "prompt_tokens": 2329,
+    "prompt_time": 0.116810146,
+    "completion_tokens": 240,
+    "completion_time": 0.283952231,
+    "total_tokens": 2569,
+    "total_time": 0.400762377,
+    "completion_tokens_details": {
+     "reasoning_tokens": 12
+    }
+   }
+  }
+ ],
+ "totals": {
+  "prompt_tokens": 4392,
+  "completion_tokens": 342,
+  "total_tokens": 4734,
+  "llm_calls": 2,
+  "pick_tokens": 2165
+ }
+}

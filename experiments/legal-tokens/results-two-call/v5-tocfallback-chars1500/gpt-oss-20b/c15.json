@@ -1,0 +1,81 @@
+{
+ "model": "gpt-oss-20b",
+ "case": "c15",
+ "field": "노동",
+ "intent": "적용",
+ "question": "알바하다가 손을 다쳤는데 치료비를 사장님한테 받을 수 있나요?",
+ "toc": "fallback",
+ "max_chars": 1500,
+ "topics_on": true,
+ "selected": [],
+ "pick": {
+  "intent": "적용",
+  "topics": [],
+  "articles": [],
+  "need_info": []
+ },
+ "answer": "준 조문으로는 확인하지 못함.",
+ "uncited": [],
+ "outcome": "answered",
+ "calls": [
+  {
+   "step": 1,
+   "status": 200,
+   "latency_s": 0.59,
+   "usage": {
+    "queue_time": 0.081944761,
+    "prompt_tokens": 2062,
+    "prompt_time": 0.156741839,
+    "completion_tokens": 98,
+    "completion_time": 0.120821808,
+    "total_tokens": 2160,
+    "total_time": 0.277563647,
+    "completion_tokens_details": {
+     "reasoning_tokens": 70
+    }
+   }
+  },
+  {
+   "step": 1,
+   "fallback": true,
+   "status": 200,
+   "latency_s": 0.79,
+   "usage": {
+    "queue_time": 0.005504726,
+    "prompt_tokens": 3144,
+    "prompt_time": 0.15976815,
+    "completion_tokens": 364,
+    "completion_time": 0.421400513,
+    "total_tokens": 3508,
+    "total_time": 0.581168663,
+    "completion_tokens_details": {
+     "reasoning_tokens": 339
+    }
+   }
+  },
+  {
+   "step": 2,
+   "status": 200,
+   "latency_s": 0.91,
+   "usage": {
+    "queue_time": 0.388139493,
+    "prompt_tokens": 371,
+    "prompt_time": 0.018248141,
+    "completion_tokens": 49,
+    "completion_time": 0.050675864,
+    "total_tokens": 420,
+    "total_time": 0.068924005,
+    "completion_tokens_details": {
+     "reasoning_tokens": 30
+    }
+   }
+  }
+ ],
+ "totals": {
+  "prompt_tokens": 5577,
+  "completion_tokens": 511,
+  "total_tokens": 6088,
+  "llm_calls": 3,
+  "pick_tokens": 5668
+ }
+}
