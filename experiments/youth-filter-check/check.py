@@ -3,9 +3,7 @@
 청년 정책 브랜치(claude/exciting-goldberg-y71yhi)의 수집 샘플 4,598건과 LLM 시험 질문 10개의 정답 조건을 쓴다.
 LLM 해석은 완벽하다고 보고(시험 v1에서 50칸 중 50 정답), 코드 조건으로 거른 뒤 단순 키워드 순위 상위 3건을 보여 준다.
 
-실행: 청년 정책 브랜치를 다른 폴더에 꺼낸 뒤 그 경로를 넘긴다.
-    git worktree add ../youth-wt origin/claude/exciting-goldberg-y71yhi
-    python3 experiments/youth-filter-check/check.py ../youth-wt
+실행: 저장소 루트에서 `python3 experiments/youth-filter-check/check.py` (청년 정책 실험이 main에 합쳐진 뒤).
 API·LLM을 부르지 않는다.
 """
 
@@ -13,7 +11,7 @@ import re
 import sys
 from pathlib import Path
 
-root = Path(sys.argv[1] if len(sys.argv) > 1 else "../youth-wt").resolve()
+root = Path(sys.argv[1]).resolve() if len(sys.argv) > 1 else Path(__file__).resolve().parents[2]
 sys.path.insert(0, str(root / "experiments/api-survey"))
 from normalize import SOURCES  # noqa: E402
 

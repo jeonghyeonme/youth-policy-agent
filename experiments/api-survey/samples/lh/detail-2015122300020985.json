@@ -1,0 +1,14 @@
+{
+ "source": "lh",
+ "endpoint": "https://apis.data.go.kr/B552555/lhLeaseNoticeDtlInfo1/getLeaseNoticeDtlInfo1",
+ "params": {
+  "SPL_INF_TP_CD": "062",
+  "CCR_CNNT_SYS_DS_CD": "03",
+  "PAN_ID": "2015122300020985",
+  "UPP_AIS_TP_CD": "06",
+  "AIS_TP_CD": "09"
+ },
+ "status": 200,
+ "fetched_at": "2026-10-29T11:32:11",
+ "body": "\r\n\r\n[{\"dsSch\":[{\"PAN_ID\":\"2015122300020985\",\"CCR_CNNT_SYS_DS_CD\":\"03\",\"SPL_INF_TP_CD\":\"062\",\"UPP_AIS_TP_CD\":\"06\",\"AIS_TP_CD\":\"09\"}]},{\"dsSplScdl\":[{\"PPR_SBM_OPE_ANC_DT\":\"\",\"PPR_ACP_CLSG_DT\":\"\",\"PZWR_ANC_DT\":\"2026.10.30\",\"CTRT_ED_DT\":\"\",\"SBD_LGO_NM\":\"\",\"SBSC_ACP_ST_DT\":\"2026.08.10\",\"ACP_DTTM\":\"~\",\"SBSC_ACP_CLSG_DT\":\"2026.08.21\",\"CTRT_ST_DT\":\"\",\"PPR_ACP_ST_DT\":\"\"}],\"dsSbdAhflNm\":[{\"LCC_NT_NM\":\"단지명\",\"AHFL_URL\":\"다운로드\",\"LS_SPL_INF_UPL_FL_DS_CD_NM\":\"파일구분명\",\"CMN_AHFL_NM\":\"첨부파일명\"}],\"dsSbdNm\":[{\"LGDN_ADR\":\"단지주소\",\"LGDN_DTL_ADR\":\"단지상세주소\",\"HSH_CNT\":\"총세대수\",\"HTN_FMLA_DESC\":\"난방방식\",\"LCC_NT_NM\":\"단지명\",\"DDO_AR\":\"전용면적\",\"SPL_INF_GUD_FCTS\":\"안내사항\",\"MVIN_XPC_YM\":\"입주예정월\"}],\"dsEtcInfo\":[{\"ETC_CTS\":\"자세한 사항은 공고문을 반드시 확인하시기 바랍니다.\",\"CRC_RSN\":\"입주자격 검증기간 연장에 따른 당첨자 발표일 연기\"}],\"dsAhflInfo\":[{\"AHFL_URL\":\"https://apply.lh.or.kr/lhapply/lhFile.do?fileid=69183219\",\"SL_PAN_AHFL_DS_CD_NM\":\"공고문(hwp)\",\"CMN_AHFL_NM\":\"정읍수성1영구임대예비입주자모집공고문7월20일모집공고건(1).hwpx\"},{\"AHFL_URL\":\"https://apply.lh.or.kr/lhapply/lhFile.do?fileid=69183209\",\"SL_PAN_AHFL_DS_CD_NM\":\"공고문(PDF)\",\"CMN_AHFL_NM\":\"정읍수성1영구임대예비입주자모집공고문7월20일모집공고건.pdf\"}],\"dsSbd\":[{\"LGDN_ADR\":\"전북특별자치도 정읍시 수성2로 13-12(수성동)\",\"LGDN_DTL_ADR\":\"주공1단지아파트\",\"HSH_CNT\":\"925\",\"HTN_FMLA_DESC\":\"중앙가스난방\",\"LCC_NT_NM\":\"정읍수성1단지\",\"DDO_AR\":\"26.37~31.32\",\"SPL_INF_GUD_FCTS\":\"\",\"MVIN_XPC_YM\":\"1994.12\"}],\"dsSbdAhfl\":[],\"dsCtrtPlcNm\":[{\"CTRT_PLC_DTL_ADR\":\"접수처소재지상세주소\",\"SIL_OFC_GUD_FCTS\":\"접수처안내사항\",\"CTRT_PLC_ADR\":\"접수처소재지주소\",\"TSK_ST_DTTM\":\"운영기간시작일시\",\"TSK_ED_DTTM\":\"운영기간종료일시\",\"SIL_OFC_TLNO\":\"전화번호\"}],\"dsEtcInfoNm\":[{\"ETC_CTS\":\"기타사항\",\"CRC_RSN\":\"정정/취소사유\"}],\"dsAhflInfoNm\":[{\"AHFL_URL\":\"다운로드\",\"SL_PAN_AHFL_DS_CD_NM\":\"파일구분명\",\"CMN_AHFL_NM\":\"첨부파일명\"}],\"dsCtrtPlc\":[{\"CTRT_PLC_DTL_ADR\":\"\",\"SIL_OFC_GUD_FCTS\":\"입주자격 검증기간 연장에 따른 당첨자 발표일 연기\",\"CTRT_PLC_ADR\":\"\",\"TSK_ST_DTTM\":\"2026.08.10\",\"TSK_ED_DTTM\":\"2026.08.21\",\"SIL_OFC_TLNO\":\"063-531-5136\"}],\"dsSplScdlNm\":[{\"PPR_SBM_OPE_ANC_DT\":\"서류제출대상자발표일\",\"PPR_ACP_CLSG_DT\":\"서류접수기간종료일\",\"PZWR_ANC_DT\":\"당첨자발표일\",\"CTRT_ED_DT\":\"계약기간종료일\",\"SBD_LGO_NM\":\"단지명\",\"SBSC_ACP_ST_DT\":\"접수기간시작일\",\"ACP_DTTM\":\"신청일시\",\"SBSC_ACP_CLSG_DT\":\"접수기간종료일\",\"CTRT_ST_DT\":\"계약기간시작일\",\"PPR_ACP_ST_DT\":\"서류접수기간시작일\"}],\"resHeader\":[{\"RS_DTTM\":\"20261029113211\",\"SS_CODE\":\"Y\"}]}]\r\n\r\n"
+}
