@@ -15,7 +15,7 @@
 ## 준비된 것
 
 - [API 조사](api-survey.md): 후보 API 다섯 개의 요청값·응답 형식·키 파라미터·2단계 호출 여부 (공개 문서 기준)
-- [대표 질문 후보](question-candidates.md): Q2 검토용. PM이 정한다
+- [대표 질문](question-candidates.md): A·B로 확정([D2](../../docs/decisions/D2.md))
 - `measure.py`: 저장한 응답 파일(JSON/XML)의 크기를 잰다. API를 호출하지 않는다. 표준 라이브러리만 쓴다
 
   ```bash
@@ -30,7 +30,7 @@
 
 - [ ] API 키 발급: 온통청년 마이페이지, 공공데이터포털 서비스별 활용신청
 - [ ] 토큰 계산 기준 (같은 한국어도 LLM마다 토큰 수가 다름)
-- [ ] 호출 조건: 대표 질문 2~3개 ([후보](question-candidates.md), Q2)
+- [x] 호출 조건: 대표 질문 A·B ([D2](../../docs/decisions/D2.md))
 - [ ] 온통청년 API가 옛 형식(`youthPlcyList.do`)인지 개편 형식인지 확인 ([조사](api-survey.md#온통청년-문서끼리-맞지-않는다))
 - [ ] 추리는 기준: 소모량 상한, 쓸모와의 균형
 
