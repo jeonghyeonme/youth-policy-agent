@@ -2,11 +2,11 @@
 
 > **작업 시작점.** 이 파일은 "지금"만 담고 **덮어쓴다**(80줄 상한). 끝난 일은 지우고 경위는 [log/](log/README.md)로 보낸다.
 > PM이 관리한다. 작업자는 자기 담당 줄의 "상태"만 고치고, 새 일·우선순위 변경은 PM에게 말한다.
-> 마지막 갱신: 2026-11-07 · [log/003](log/003.md)
+> 마지막 갱신: 2026-11-07 · [log/004](log/004.md)
 
 ## 현재 단계
 
-**기획 → API 검증** (실질 개발 4~5주, 주차별 계획 미정). 측정 스크립트만 있음(`experiments/context-measurement/measure.py`). 제안서: [reference/proposal.md](reference/proposal.md)
+**기획 → API 검증** (실질 개발 4~5주, 주차별 계획 미정). 측정 스크립트만 있음(`experiments/context-measurement/measure.py`). PR마다 CI가 돈다([D3](decisions/D3.md)). 제안서: [reference/proposal.md](reference/proposal.md)
 
 ## 할 일
 

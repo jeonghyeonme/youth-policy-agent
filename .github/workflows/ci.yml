@@ -1,0 +1,24 @@
+# 푸시·PR마다 도는 검사. 공공 API를 호출하지 않고 키도 쓰지 않는다(AGENTS.md "트래픽", "API 키").
+name: CI
+
+on:
+  pull_request:
+  push:
+    branches: [archive/youth-policy]
+
+permissions:
+  contents: read
+
+jobs:
+  check:
+    runs-on: ubuntu-latest
+    timeout-minutes: 5
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.12"
+      - name: 측정 스크립트 테스트
+        run: python -m unittest experiments/context-measurement/test_measure.py
+      - name: 문서 상대 링크 확인
+        run: python .github/scripts/check_links.py
