@@ -3,6 +3,8 @@
     python3 -m unittest experiments/context-measurement/test_measure.py
 """
 
+import contextlib
+import io
 import json
 import sys
 import tempfile
@@ -62,7 +64,9 @@ class MeasureTest(unittest.TestCase):
         path = self.write("leak.json", '{"url": "https://x/?serviceKey=abc", "items": []}')
         with self.assertRaises(ValueError):
             measure.measure(path, None)
-        self.assertEqual(measure.main([str(path)]), 1)
+        with contextlib.redirect_stderr(io.StringIO()) as err:
+            self.assertEqual(measure.main([str(path)]), 1)
+        self.assertIn("servicekey", err.getvalue())
 
     def test_keep_file_ignores_comments_and_blanks(self):
         path = self.write("keep.txt", "plcyNm  # 정책명\n\n# 주석\naddAplyQlfcCndCn\n")
