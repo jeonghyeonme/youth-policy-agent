@@ -61,12 +61,10 @@ def is_open(p: Policy) -> bool:
 def eligible(p: Policy, q: Question) -> bool:
     """서버 필터: 지역, 나이, 취업 요건. 지역은 A는 API가 이미 걸렀고, B는 여기서 거른다."""
     in_region = any(c.strip().startswith(q.zip_prefix) for c in p["zipCd"].split(","))
-    if p["sprtTrgtAgeLmtYn"] == "N":
-        age_ok = True
-    else:
-        lo = int(p["sprtTrgtMinAge"] or 0)
-        hi = int(p["sprtTrgtMaxAge"] or 99)
-        age_ok = lo <= q.age <= hi
+    # 나이 제한 여부(sprtTrgtAgeLmtYn)가 N이어도 최소·최대 나이가 적혀 있는 정책이 있다(log/016). 숫자가 있으면 숫자를 믿는다.
+    lo = int(p["sprtTrgtMinAge"].strip() or 0)
+    hi = int(p["sprtTrgtMaxAge"].strip() or 0) or 99
+    age_ok = lo <= q.age <= hi
     job_ok = not q.unemployed or any(c in p["jobCd"] for c in (UNEMPLOYED, ANY_JOB))
     return in_region and age_ok and job_ok
 
