@@ -1,4 +1,4 @@
-# 샘플 수집 기록 (2026-11-08 16:49)
+# 샘플 수집 기록 (2026-11-08 17:26)
 
 > fetch_samples.py가 썼다. 키 값은 지웠다.
 
@@ -6,9 +6,11 @@
 | --- | --- | --- | --- |
 | youthcenter/A_list | 건너뜀(이미 있음) | - | |
 | youthcenter/B_list | 건너뜀(이미 있음) | - | |
-| youthcenter/probe_zip_11110 | 저장 HTTP 200 | 359,116 B | 지역 필터 확인: 종로구 5자리 |
-| youthcenter/probe_zip_11 | 저장 HTTP 200 | 229,961 B | 지역 필터 확인: 서울 앞자리 2자리 |
-| youthcenter/probe_zip_multi | 저장 HTTP 200 | 359,116 B | 지역 필터 확인: 종로구·강남구 두 개 |
+| youthcenter/probe_zip_11110 | 건너뜀(이미 있음) | - | 지역 필터 확인: 종로구 5자리 |
+| youthcenter/probe_zip_11 | 건너뜀(이미 있음) | - | 지역 필터 확인: 서울 앞자리 2자리 |
+| youthcenter/probe_zip_multi | 건너뜀(이미 있음) | - | 지역 필터 확인: 종로구·강남구 두 개 |
+| youthcenter/probe_kywd_subsidy | 저장 HTTP 200 | 275,482 B | Q3 확인: 정책 키워드 보조금 |
+| youthcenter/probe_mclsf_job | 저장 HTTP 200 | 368,869 B | Q3 확인: 중분류 취업 |
 | jobalio/A_list | 건너뜀(이미 있음) | - | 상세 경로(/detail)는 추정 |
 | jobalio/A_detail_1 | 건너뜀(이미 있음) | - | |
 | jobalio/A_detail_2 | 건너뜀(이미 있음) | - | |
