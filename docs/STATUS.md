@@ -2,11 +2,11 @@
 
 > **작업 시작점.** 이 파일은 "지금"만 담고 **덮어쓴다**(80줄 상한). 끝난 일은 지우고 경위는 [log/](log/README.md)로 보낸다.
 > PM이 관리한다. 작업자는 자기 담당 줄의 "상태"만 고치고, 새 일·우선순위 변경은 PM에게 말한다.
-> 마지막 갱신: 2026-11-08 · [log/022](log/022.md)
+> 마지막 갱신: 2026-11-08 · [log/023](log/023.md)
 
 ## 현재 단계
 
-**기획 → API 검증** (실질 개발 4~5주, 주차별 계획 미정). 측정·실험 스크립트만 있음(`experiments/context-measurement/`). 스택은 Next.js + Vercel([D11](decisions/D11.md)). PR마다 CI가 돈다([D3](decisions/D3.md)). 제안서: [reference/proposal.md](reference/proposal.md)
+**기획 → API 검증** (실질 개발 4~5주, 주차별 계획 미정). 측정·실험 스크립트만 있음(`experiments/context-measurement/`). 스택은 Next.js + Vercel([D11](decisions/D11.md)), 코드는 `web/`([D12](decisions/D12.md)). PR마다 CI가 돈다([D3](decisions/D3.md)). 제안서: [reference/proposal.md](reference/proposal.md)
 
 ## 할 일
 
@@ -26,7 +26,6 @@
 | # | 정할 것 | 선택지 / 추천안 | 올린 사람 | 막고 있는 일 |
 | --- | --- | --- | --- | --- |
 | Q5 | 팀 인원·역할 (LLM은 Groq `openai/gpt-oss-120b`로 정함, [D5](decisions/D5.md)·[D7](decisions/D7.md)) | - | PM | T1 |
-| Q7 | 코드를 둘 디렉토리 | **추천: 루트에 `web/`.** 문서(`docs/`)·실험(`experiments/`)과 나란히 두어 Next.js 설정 파일(`package.json` 등)이 저장소 루트에 섞이지 않게 한다. 다른 안: 저장소 루트에 바로(Vercel 기본 설정 그대로) | AI(log/022) | 코드 시작 |
 
 ## 열린 위험
 
