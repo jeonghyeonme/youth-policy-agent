@@ -37,6 +37,8 @@ class Question:
 QUESTIONS = [
     Question("A: 종로구 26살 미취업, 지원금", "samples/youthcenter/probe_zip_11110.json", 26, "11", True,
              ("지원금", "보조금", "수당", "장기미취업")),
+    Question("A': A를 정책 키워드 '보조금'으로 요청 단계에서 좁힘(1단계)", "samples/youthcenter/probe_kywd_subsidy.json", 26, "11", True,
+             ("지원금", "보조금", "수당", "장기미취업")),
     Question("B: 서울 27살 자취, 월세 지원", "samples/youthcenter/B_list.json", 27, "11", False,
              ("월세", "임차", "주거비")),
 ]
