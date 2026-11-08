@@ -119,9 +119,37 @@ def run() -> int:
     return 0
 
 
+ANY = {"schoolCd": "0049010", "mrgSttsCd": "0055003", "jobCd": "0013010", "sbizCd": "0014010"}
+
+
+def server_code_verdict(p: rank.Policy, profile: dict) -> str | None:
+    """코드 요건을 서버가 기계적으로 판정한다(Q4 혼합안). 코드로 결론이 나면 판정을, 아니면 None을 돌려준다.
+    학력·혼인·취업: 목록에 '제한없음'도 사용자 값도 없으면 불가.
+    특화(여성·수급자 등): '제한없음'이 아니고 사용자가 해당 여부를 말하지 않았으면 확인 필요."""
+    for field in ("schoolCd", "mrgSttsCd", "jobCd"):
+        codes = {c.strip() for c in p[field].split(",") if c.strip()}
+        if codes and ANY[field] not in codes and profile[field] not in codes:
+            return "불가"
+    special = {c.strip() for c in p["sbizCd"].split(",") if c.strip()} - {ANY["sbizCd"]}
+    if special and not special & set(profile["sbizCd"]):
+        return "확인 필요"
+    return None
+
+
+def combine(server: str | None, llm: str) -> str:
+    """서버의 코드 판정이 LLM보다 앞선다. 서버가 결론을 못 내면 LLM 판정을 쓴다."""
+    if server == "불가":
+        return "불가"
+    if server == "확인 필요" and llm == "가능":
+        return "확인 필요"
+    return llm
+
+
 def score() -> int:
     total = correct = unsafe = 0
+    mixed_correct = mixed_unsafe = 0
     for key in ("A", "B"):
+        by_name = {p["plcyNm"].strip(): p for p in selected(key)}
         path = OUT / f"judge_{key}.json"
         if not path.exists():
             print(f"{path.name} 없음. 먼저 --run을 로컬에서 실행한다.")
@@ -132,8 +160,8 @@ def score() -> int:
             continue
         answers = {r["plcyNm"].strip(): r for r in json.loads(result["content"])["results"]}
         print(f"\n## 질문 {key} — {result['seconds']}초, 토큰 {result['usage']}")
-        print("| 정책 | 정답 | LLM | 맞음 | LLM 이유 | 사용자에게 물을 질문 |")
-        print("| --- | --- | --- | --- | --- | --- |")
+        print("| 정책 | 정답 | LLM | 맞음 | 서버 코드 판정 | 혼합 | 맞음 | LLM 이유 | 사용자에게 물을 질문 |")
+        print("| --- | --- | --- | --- | --- | --- | --- | --- | --- |")
         for name, (truth, _) in LABELS["labels"][key].items():
             got = answers.get(name.strip(), {})
             verdict = got.get("verdict", "(없음)")
@@ -142,8 +170,15 @@ def score() -> int:
             bad = verdict == "가능" and truth != "가능"
             total, correct, unsafe = total + 1, correct + ok, unsafe + bad
             mark = "O" if ok else ("X(위험)" if bad else "X")
-            print(f"| {name.strip()[:24]} | {truth} | {verdict} | {mark} | {got.get('reason', '')[:50]} | {got.get('ask_user') or ''} |")
-    print(f"\n일치 {correct}/{total}, 정답이 가능이 아닌데 가능이라 한 것 {unsafe}건")
+            server = server_code_verdict(by_name[name.strip()], LABELS["profiles"][key])
+            mixed = combine(server, verdict)
+            m_ok, m_bad = mixed == truth, mixed == "가능" and truth != "가능"
+            mixed_correct, mixed_unsafe = mixed_correct + m_ok, mixed_unsafe + m_bad
+            m_mark = "O" if m_ok else ("X(위험)" if m_bad else "X")
+            print(f"| {name.strip()[:24]} | {truth} | {verdict} | {mark} | {server or '-'} | {mixed} | {m_mark} "
+                  f"| {got.get('reason', '')[:50]} | {got.get('ask_user') or ''} |")
+    print(f"\nLLM 단독: 일치 {correct}/{total}, 정답이 가능이 아닌데 가능이라 한 것 {unsafe}건")
+    print(f"혼합(서버 코드 판정 + LLM): 일치 {mixed_correct}/{total}, 정답이 가능이 아닌데 가능이라 한 것 {mixed_unsafe}건")
     return 0
 
 
