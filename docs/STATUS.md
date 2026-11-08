@@ -2,7 +2,7 @@
 
 > **작업 시작점.** 이 파일은 "지금"만 담고 **덮어쓴다**(80줄 상한). 끝난 일은 지우고 경위는 [log/](log/README.md)로 보낸다.
 > PM이 관리한다. 작업자는 자기 담당 줄의 "상태"만 고치고, 새 일·우선순위 변경은 PM에게 말한다.
-> 마지막 갱신: 2026-11-08 · [log/013](log/013.md)
+> 마지막 갱신: 2026-11-08 · [log/014](log/014.md)
 
 ## 현재 단계
 
@@ -13,7 +13,8 @@
 | # | 할 일 | 담당 | 상태 | 기한 | 근거 |
 | --- | --- | --- | --- | --- | --- |
 | T1 | 팀 인원·역할 확정 | PM | 대기 | - | Q5 |
-| T4 | API별 컨텍스트 소모량 측정 — [1차 결과](../experiments/context-measurement/results.md). 다섯 API 모두 측정함. 지역 필터 확인함(D6 유지). 토큰 환산함(o200k, 정책당 약 280토큰). 남은 것: Groq 무료 한도 확인(사람, 콘솔) | PM | 진행 중 | - | [측정 계획](../experiments/context-measurement/README.md) |
+| T4 | API별 컨텍스트 소모량 측정 — [결과](../experiments/context-measurement/results.md). 남은 것: Groq 무료 한도 확인(콘솔 Settings → Limits, 사람) | PM | 진행 중 | - | [측정 계획](../experiments/context-measurement/README.md) |
+| T6 | 공공데이터포털 운영계정 신청(시연 전, 활용 사례 등록) | PM | 대기 (서비스가 동작한 뒤) | 시연 전 | [D8](decisions/D8.md) |
 | T5 | GitHub 저장소 공개, 팀원 초대 | PM | 대기 | - | - |
 
 상태 값: `대기` · `진행 중` · `막힘(이유)` · `검토 중` — 끝나면 줄을 지우고 `log/`에 남긴다.
