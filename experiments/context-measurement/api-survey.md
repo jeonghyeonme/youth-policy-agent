@@ -25,6 +25,7 @@
 
 - **동작**: `https://www.youthcenter.go.kr/go/ythip/getPlcy` · 키 `apiKeyNm` · `pageNum`, `pageSize`(100 확인), `rtnType=json`, `lclsfNm`(대분류). 응답은 `result.youthPolicyList`, 정책당 필드 60개. 아래 코드정의서의 필드명이 그대로 나온다.
 - **동작 안 함**: 옛 주소 `/opi/youthPlcyList.do`는 시간 초과.
+- 지역 필터: 요청에 `zipCd`(시군구 5자리 코드 하나)를 넣으면 그 시군구 + 시도 전역 + 전국 정책이 나온다. 앞자리(`11`)는 무시된다([실측](results.md#온통청년-지역-필터-2026-11-08-확인)).
 - 서술형 필드: `plcyExplnCn`, `plcySprtCn`, `earnEtcCn`, `addAplyQlfcCndCn`, `ptcpPrpTrgtCn`, `plcyAplyMthdCn`. 지역은 `zipCd`(시군구 코드, 쉼표 구분).
 - 그 밖에 실측으로 확인: 잡알리오 목록 `/list`(ID 필드 `recrutPblntSn`), LH `.../lhLeaseNoticeInfo1/lhLeaseNoticeInfo1`(JSON, `dsList`), 복지로 중앙부처 `NationalWelfarelistV001`·`NationalWelfaredetailedV001`(상세 서술형: `tgtrDtlCn`, `slctCritCn`, `alwServCn`, `wlfareInfoOutlCn`).
 
