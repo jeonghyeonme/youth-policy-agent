@@ -6,7 +6,7 @@
 
 | API | 응답 형식 | 키 파라미터 | 2단계 호출 | 사용자 조건으로 거를 수 있는 요청값 | 서술형 필드 |
 | --- | --- | --- | --- | --- | --- |
-| 온통청년 청년정책 | XML (문서에 "JSON 결과 보기" 링크도 있음) | `openApiVlak`로 보임 (요청 예시에서 추정, 문서에 명시 없음) | 미확인 | 검색어(`query`, `keyword`), 정책 분야 코드. 나이·소득은 요청값이 아니다 | 미확인 (필드 목록 표가 JS로 그려져 못 읽음) |
+| 온통청년 청년정책 | JSON (`rtnType=json`, 실측) | `apiKeyNm` (개편 API, 실측) | 미확인 | 검색어(`query`, `keyword`), 정책 분야 코드. 나이·소득은 요청값이 아니다 | 미확인 (필드 목록 표가 JS로 그려져 못 읽음) |
 | 잡알리오 채용 | JSON/XML (`resultType`, 기본 json) | `serviceKey` | 목록 → 상세(`sn`) | 학력(`acbgCondLst`), 근무지역(`workRgnLst`), 고용유형, 진행여부, 제목 검색 | 미확인 (목록·상세 항목 필드가 문서 표에 없음) |
 | LH 분양·임대 공고 | JSON | `ServiceKey` (대문자 S) | 없음 (목록 1개, 상세는 `DTL_URL` 링크) | 지역(`CNP_CD`), 공고유형(06 임대주택, 13 주거복지 등), 공고상태, 공고명. 공고게시일·마감일이 **필수** | 거의 없음 (공고명뿐. 자격 조건은 상세 URL 웹페이지에 있음) |
 | 복지로 중앙부처 | XML | `serviceKey` | 목록(`callTp=L`) → 상세(`callTp=D`, `servId`) | 나이(`age`), 생애주기, 가구유형, 관심주제, 검색어. `numOfRows` 최대 500 | 미확인 (`wantedList`·`wantedDtl` 아래 필드가 문서 표에 없음) |
@@ -21,7 +21,14 @@
 - **지자체 복지는 지역을 이름 문자열로 받는다**(`ctpvNm=서울특별시`). 온통청년·LH는 코드다. 사용자 선택값 하나를 API마다 다르게 바꿔 보내야 한다.
 - **필드 추리기 파일**: 서술형 필드가 확인된 지자체 복지부터 `--keep` 목록을 만들 수 있다. 나머지는 첫 응답 샘플을 받은 뒤 만든다.
 
-## 온통청년: 문서끼리 맞지 않는다
+## 온통청년: 개편 API가 동작한다 (2026-11-08 실측)
+
+- **동작**: `https://www.youthcenter.go.kr/go/ythip/getPlcy` · 키 `apiKeyNm` · `pageNum`, `pageSize`(100 확인), `rtnType=json`, `lclsfNm`(대분류). 응답은 `result.youthPolicyList`, 정책당 필드 60개. 아래 코드정의서의 필드명이 그대로 나온다.
+- **동작 안 함**: 옛 주소 `/opi/youthPlcyList.do`는 시간 초과.
+- 서술형 필드: `plcyExplnCn`, `plcySprtCn`, `earnEtcCn`, `addAplyQlfcCndCn`, `ptcpPrpTrgtCn`, `plcyAplyMthdCn`. 지역은 `zipCd`(시군구 코드, 쉼표 구분).
+- 그 밖에 실측으로 확인: 잡알리오 목록 `/list`(ID 필드 `recrutPblntSn`), LH `.../lhLeaseNoticeInfo1/lhLeaseNoticeInfo1`(JSON, `dsList`), 복지로 중앙부처 `NationalWelfarelistV001`·`NationalWelfaredetailedV001`(상세 서술형: `tgtrDtlCn`, `slctCritCn`, `alwServCn`, `wlfareInfoOutlCn`).
+
+## 온통청년: 문서끼리 맞지 않는다 (조사 당시 기록)
 
 - 제공목록 페이지의 요청 예시는 옛 형식이다: `https://www.youthcenter.go.kr/opi/youthPlcyList.do`, 파라미터 `openApiVlak`, `pageIndex`, `display`, `query`, `bizTycdSel`, `srchPolyBizSecd`, `keyword`.
 - 같은 페이지의 코드정의서(`API코드정보.xlsx`)는 다른 이름을 쓴다: `earnCndSeCd`, `jobCd`, `schoolCd` 등과 대분류 `lclsfNm`, 중분류 `mclsfNm`, 키워드 `plcyKywdNm`. 개편된 API의 필드명으로 보인다.

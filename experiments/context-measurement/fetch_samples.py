@@ -99,7 +99,6 @@ def calls() -> list[Call]:
     until = (today + dt.timedelta(days=60)).strftime("%Y.%m.%d")
 
     youth_new = "https://www.youthcenter.go.kr/go/ythip/getPlcy"
-    youth_old = "https://www.youthcenter.go.kr/opi/youthPlcyList.do"
     jobalio = "https://apis.data.go.kr/1051000/recruitment"
     lh = "https://apis.data.go.kr/B552555/lhLeaseNoticeInfo1/lhLeaseNoticeInfo1"
     natl = "https://apis.data.go.kr/B554287/NationalWelfareInformationsV001"
@@ -107,36 +106,34 @@ def calls() -> list[Call]:
 
     natl_detail = Detail(r"<servId>([^<]+)</servId>", f"{natl}/NationalWelfaredetailedV001", "servId", {"callTp": "D"})
     local_detail = Detail(r"<servId>([^<]+)</servId>", f"{local}/LcgvWelfaredetailed", "servId")
-    job_detail = Detail(r'"sn"\s*:\s*"?(\d+)', f"{jobalio}/detail", "sn", {"resultType": "json"})
+    job_detail = Detail(r'"recrutPblntSn"\s*:\s*"?(\d+)', f"{jobalio}/detail", "sn", {"resultType": "json"})
 
     return [
-        # 온통청년: 옛 주소와 개편 주소 중 어느 쪽이 동작하는지 함께 본다(api-survey.md)
-        Call("youthcenter", "old_list", youth_old, {"pageIndex": "1", "display": "100"},
-             YOUTH_KEY, "openApiVlak", note="문서의 요청 예시(옛 형식)"),
+        # 온통청년: 개편 주소만 쓴다. 옛 주소(/opi/youthPlcyList.do)는 2026-11-08 시간 초과(api-survey.md)
         Call("youthcenter", "A_list", youth_new, {"pageNum": "1", "pageSize": "100", "rtnType": "json", "lclsfNm": "일자리"},
-             YOUTH_KEY, "apiKeyNm", ext="json", note="개편 형식 주소·파라미터는 추정"),
+             YOUTH_KEY, "apiKeyNm", ext="json"),
         Call("youthcenter", "B_list", youth_new, {"pageNum": "1", "pageSize": "100", "rtnType": "json", "lclsfNm": "주거"},
-             YOUTH_KEY, "apiKeyNm", ext="json", note="개편 형식 주소·파라미터는 추정"),
+             YOUTH_KEY, "apiKeyNm", ext="json"),
         # 잡알리오: A(취업)
         Call("jobalio", "A_list", f"{jobalio}/list", {"resultType": "json", "numOfRows": "50", "pageNo": "1", "ongoingYn": "Y"},
-             DATA_KEY, "serviceKey", ext="json", detail=job_detail, note="오퍼레이션 경로(/list, /detail)는 추정"),
+             DATA_KEY, "serviceKey", ext="json", detail=job_detail, note="상세 경로(/detail)는 추정"),
         # LH: B(주거) — 서울(11), 임대주택(06)
         Call("lh", "B_list", lh, {"PG_SZ": "50", "PAGE": "1", "UPP_AIS_TP_CD": "06", "CNP_CD": "11",
                                   "PAN_NT_ST_DT": since, "CLSG_DT": until},
-             DATA_KEY, "ServiceKey", ext="json", note="오퍼레이션 경로는 추정"),
+             DATA_KEY, "ServiceKey", ext="json"),
         # 복지로 중앙부처: 개발계정 하루 100 — 목록 2 + 상세 최대 10
         Call("welfare_national", "A_list", f"{natl}/NationalWelfarelistV001",
              {"callTp": "L", "pageNo": "1", "numOfRows": "100", "srchKeyCode": "003", "age": "26"},
-             DATA_KEY, "serviceKey", detail=natl_detail, note="오퍼레이션 경로는 추정"),
+             DATA_KEY, "serviceKey", detail=natl_detail),
         Call("welfare_national", "B_list", f"{natl}/NationalWelfarelistV001",
              {"callTp": "L", "pageNo": "1", "numOfRows": "100", "srchKeyCode": "003", "age": "27", "searchWrd": "월세"},
-             DATA_KEY, "serviceKey", detail=natl_detail, note="오퍼레이션 경로는 추정"),
+             DATA_KEY, "serviceKey", detail=natl_detail),
         # 복지로 지자체: 지역은 이름 문자열
         Call("welfare_local", "A_list", f"{local}/LcgvWelfarelist",
-             {"pageNo": "1", "numOfRows": "100", "age": "26", "ctpvNm": "서울특별시"},
+             {"pageNo": "1", "numOfRows": "100", "age": "26"},
              DATA_KEY, "serviceKey", detail=local_detail, note="오퍼레이션 경로는 추정"),
         Call("welfare_local", "B_list", f"{local}/LcgvWelfarelist",
-             {"pageNo": "1", "numOfRows": "100", "age": "27", "ctpvNm": "서울특별시", "searchWrd": "월세"},
+             {"pageNo": "1", "numOfRows": "100", "searchWrd": "월세"},
              DATA_KEY, "serviceKey", detail=local_detail, note="오퍼레이션 경로는 추정"),
     ]
 

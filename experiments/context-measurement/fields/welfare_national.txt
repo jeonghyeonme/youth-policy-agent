@@ -1,0 +1,8 @@
+# 복지로 중앙부처 상세 응답에서 LLM에 넘길 필드 초안 (log/007)
+servNm            # 서비스명
+wlfareInfoOutlCn  # 개요
+tgtrDtlCn         # 대상 상세 (서술형)
+slctCritCn        # 선정 기준 (서술형)
+alwServCn         # 급여·서비스 내용 (서술형)
+jurMnofNm         # 소관 부처
+rprsCtadr         # 대표 연락처

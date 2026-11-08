@@ -49,16 +49,51 @@ def find_key_param(text: str) -> str | None:
     return next((name for name in KEY_PARAM_NAMES if name in lowered), None)
 
 
+# 반복 목록이 문서 내용의 이 비율보다 작으면 목록 응답이 아니라 한 건짜리(상세) 응답으로 본다.
+LIST_SHARE = 0.5
+
+
+def json_value(v: object) -> str:
+    if v is None or v == [] or v == {}:
+        return ""
+    return v.strip() if isinstance(v, str) else json.dumps(v, ensure_ascii=False) if isinstance(v, (list, dict)) else str(v)
+
+
+def scalar_len(node: object) -> int:
+    """리스트·dict 안의 문자열·숫자 값 길이 합. 바로 아래 값만이 아니라 전체를 센다(dict 리스트는 항목의 바로 아래 값만)."""
+    if isinstance(node, list) and node and all(isinstance(x, dict) for x in node):
+        return sum(len(str(v)) for d in node for v in d.values() if not isinstance(v, (list, dict)))
+    if isinstance(node, dict):
+        return sum(scalar_len(v) if isinstance(v, (list, dict)) else len(str(v)) for v in node.values())
+    if isinstance(node, list):
+        return sum(scalar_len(v) if isinstance(v, (list, dict)) else len(str(v)) for v in node)
+    return len(str(node))
+
+
+def flatten_json(node: object, out: Record, prefix: str = "") -> Record:
+    if isinstance(node, dict):
+        for k, v in node.items():
+            flatten_json(v, out, f"{prefix}{k}.")
+    elif isinstance(node, list):
+        for i, v in enumerate(node):
+            flatten_json(v, out, f"{prefix}{i}.")
+    else:
+        out[prefix.rstrip(".")] = json_value(node)
+    return out
+
+
 def records_from_json(data: object) -> list[Record]:
-    """응답 안에서 dict가 가장 많이 든 리스트를 정책·공고 목록으로 본다."""
+    """내용이 가장 많이 든 dict 리스트를 정책·공고 목록으로 본다. 그런 리스트가 없으면 문서 전체가 한 건이다."""
     best: list[dict] = []
+    best_size = 0
 
     def walk(node: object) -> None:
-        nonlocal best
+        nonlocal best, best_size
         if isinstance(node, list):
             dicts = [x for x in node if isinstance(x, dict)]
-            if len(dicts) > len(best):
-                best = dicts
+            size = scalar_len(dicts)  # 다른 목록을 감싸기만 하는 리스트는 0이 된다
+            if dicts and size > best_size:
+                best, best_size = dicts, size
             for x in node:
                 walk(x)
         elif isinstance(node, dict):
@@ -66,21 +101,42 @@ def records_from_json(data: object) -> list[Record]:
                 walk(v)
 
     walk(data)
-    return [{k: "" if v is None else str(v) for k, v in d.items()} for d in best]
+    if best_size < LIST_SHARE * scalar_len(data):
+        return [flatten_json(data, {})]
+    return [{k: json_value(v) for k, v in d.items()} for d in best]
+
+
+def text_len(elem: ET.Element) -> int:
+    return sum(len((e.text or "").strip()) for e in elem.iter())
+
+
+def flatten_xml(elem: ET.Element) -> Record:
+    out: Record = {}
+    for e in elem.iter():
+        if not len(e) and (e.text or "").strip():
+            key, n = e.tag, 2
+            while key in out:
+                key, n = f"{e.tag}.{n}", n + 1
+            out[key] = e.text.strip()
+    return out
 
 
 def records_from_xml(root: ET.Element) -> list[Record]:
-    """같은 이름의 자식 요소가 가장 많이 반복되는 곳을 목록으로 본다."""
+    """같은 이름으로 반복되는 자식 요소 중 내용이 가장 많은 묶음을 목록으로 본다. 작으면 문서 전체가 한 건이다."""
     best: list[ET.Element] = []
+    best_size = 0
     for parent in root.iter():
         groups: dict[str, list[ET.Element]] = {}
         for child in parent:
             if len(child):
                 groups.setdefault(child.tag, []).append(child)
         for group in groups.values():
-            if len(group) > len(best):
-                best = group
-    return [{f.tag: (f.text or "").strip() for f in item} for item in best]
+            size = sum(text_len(g) for g in group) if len(group) > 1 else 0  # 한 번만 나오는 감싸개는 목록이 아니다
+            if size > best_size:
+                best, best_size = group, size
+    if best_size < LIST_SHARE * text_len(root):
+        return [flatten_xml(root)]
+    return [flatten_xml(item) for item in best]
 
 
 def parse_records(text: str) -> list[Record]:
