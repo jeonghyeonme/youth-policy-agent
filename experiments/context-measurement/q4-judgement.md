@@ -1,6 +1,6 @@
 # Q4 추천안: 서술형 자격 조건을 누가 판단하나 (2026-11-08)
 
-> [측정 계획](README.md) · STATUS Q4 · **AI가 올린 추천안이다. 결정은 PM이 한다.**
+> [측정 계획](README.md) · **PM이 혼합 방식과 가안으로 정했다: [D10](../../docs/decisions/D10.md) (2026-11-08).** 아래는 결정 전 실험과 추천안이다.
 > 실험: `python3 experiments/context-measurement/judge_experiment.py` (채점은 API 호출 없음). Groq 호출 결과: `samples/groq/judge_*.json`
 
 ## 실험
