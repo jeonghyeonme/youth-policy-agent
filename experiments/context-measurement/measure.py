@@ -8,6 +8,9 @@ API를 호출하지 않는다. 사람이 받아 둔 응답 파일(JSON 또는 XM
 
 --keep 파일에는 남길 필드 이름을 한 줄에 하나씩 적는다(# 뒤는 주석).
 남긴 필드만으로 다시 재서 "서버 필터링 후" 크기를 본다.
+
+--tokens를 주면 마지막 열(추린 후, 없으면 정리 후)의 토큰 수를 o200k 토크나이저로 센다.
+Groq의 openai/gpt-oss 모델이 쓰는 토크나이저 계열이다(D5). 따로 설치한다: pip install tiktoken
 """
 
 from __future__ import annotations
@@ -42,6 +45,7 @@ class Measurement:
     records: int
     compact: Size
     kept: Size | None
+    payload: str  # LLM에 넘길 텍스트(추린 후, 없으면 정리 후)
 
 
 def find_key_param(text: str) -> str | None:
@@ -49,16 +53,55 @@ def find_key_param(text: str) -> str | None:
     return next((name for name in KEY_PARAM_NAMES if name in lowered), None)
 
 
+# 반복 목록이 문서 내용의 이 비율보다 작으면 목록 응답이 아니라 한 건짜리(상세) 응답으로 본다.
+LIST_SHARE = 0.5
+
+
+def json_value(v: object) -> str:
+    if v is None or v == [] or v == {}:
+        return ""
+    return v.strip() if isinstance(v, str) else json.dumps(v, ensure_ascii=False) if isinstance(v, (list, dict)) else str(v)
+
+
+def scalar_len(node: object) -> int:
+    """리스트·dict 안의 문자열·숫자 값 길이 합. 바로 아래 값만이 아니라 전체를 센다(dict 리스트는 항목의 바로 아래 값만)."""
+    if isinstance(node, list) and node and all(isinstance(x, dict) for x in node):
+        return sum(len(str(v)) for d in node for v in d.values() if not isinstance(v, (list, dict)))
+    if isinstance(node, dict):
+        return sum(scalar_len(v) if isinstance(v, (list, dict)) else len(str(v)) for v in node.values())
+    if isinstance(node, list):
+        return sum(scalar_len(v) if isinstance(v, (list, dict)) else len(str(v)) for v in node)
+    return len(str(node))
+
+
+def flatten_json(node: object, out: Record, name: str = "value") -> Record:
+    """한 건짜리 문서를 필드 이름 → 값으로 편다. 같은 이름이 또 나오면 뒤에 번호를 붙인다(XML과 같은 규칙)."""
+    if isinstance(node, dict):
+        for k, v in node.items():
+            flatten_json(v, out, k)
+    elif isinstance(node, list):
+        for v in node:
+            flatten_json(v, out, name)
+    else:
+        key, n = name, 2
+        while key in out:
+            key, n = f"{name}.{n}", n + 1
+        out[key] = json_value(node)
+    return out
+
+
 def records_from_json(data: object) -> list[Record]:
-    """응답 안에서 dict가 가장 많이 든 리스트를 정책·공고 목록으로 본다."""
+    """내용이 가장 많이 든 dict 리스트를 정책·공고 목록으로 본다. 그런 리스트가 없으면 문서 전체가 한 건이다."""
     best: list[dict] = []
+    best_size = 0
 
     def walk(node: object) -> None:
-        nonlocal best
+        nonlocal best, best_size
         if isinstance(node, list):
             dicts = [x for x in node if isinstance(x, dict)]
-            if len(dicts) > len(best):
-                best = dicts
+            size = scalar_len(dicts)  # 다른 목록을 감싸기만 하는 리스트는 0이 된다
+            if dicts and size > best_size:
+                best, best_size = dicts, size
             for x in node:
                 walk(x)
         elif isinstance(node, dict):
@@ -66,21 +109,42 @@ def records_from_json(data: object) -> list[Record]:
                 walk(v)
 
     walk(data)
-    return [{k: "" if v is None else str(v) for k, v in d.items()} for d in best]
+    if best_size < LIST_SHARE * scalar_len(data):
+        return [flatten_json(data, {})]
+    return [{k: json_value(v) for k, v in d.items()} for d in best]
+
+
+def text_len(elem: ET.Element) -> int:
+    return sum(len((e.text or "").strip()) for e in elem.iter())
+
+
+def flatten_xml(elem: ET.Element) -> Record:
+    out: Record = {}
+    for e in elem.iter():
+        if not len(e) and (e.text or "").strip():
+            key, n = e.tag, 2
+            while key in out:
+                key, n = f"{e.tag}.{n}", n + 1
+            out[key] = e.text.strip()
+    return out
 
 
 def records_from_xml(root: ET.Element) -> list[Record]:
-    """같은 이름의 자식 요소가 가장 많이 반복되는 곳을 목록으로 본다."""
+    """같은 이름으로 반복되는 자식 요소 중 내용이 가장 많은 묶음을 목록으로 본다. 작으면 문서 전체가 한 건이다."""
     best: list[ET.Element] = []
+    best_size = 0
     for parent in root.iter():
         groups: dict[str, list[ET.Element]] = {}
         for child in parent:
             if len(child):
                 groups.setdefault(child.tag, []).append(child)
         for group in groups.values():
-            if len(group) > len(best):
-                best = group
-    return [{f.tag: (f.text or "").strip() for f in item} for item in best]
+            size = sum(text_len(g) for g in group) if len(group) > 1 else 0  # 한 번만 나오는 감싸개는 목록이 아니다
+            if size > best_size:
+                best, best_size = group, size
+    if best_size < LIST_SHARE * text_len(root):
+        return [flatten_xml(root)]
+    return [flatten_xml(item) for item in best]
 
 
 def parse_records(text: str) -> list[Record]:
@@ -102,10 +166,10 @@ def measure(path: Path, keep: list[str] | None) -> Measurement:
     if leaked:
         raise ValueError(f"{path}: '{leaked}'가 들어 있다. 키가 섞였을 수 있어 재지 않는다")
     records = parse_records(text)
-    kept = None
-    if keep is not None:
-        kept = Size.of(compact([{k: r.get(k, "") for k in keep} for r in records]))
-    return Measurement(str(path), Size.of(text), len(records), Size.of(compact(records)), kept)
+    full = compact(records)
+    kept_text = compact([{k: r.get(k, "") for k in keep} for r in records]) if keep is not None else None
+    kept = Size.of(kept_text) if kept_text is not None else None
+    return Measurement(str(path), Size.of(text), len(records), Size.of(full), kept, kept_text or full)
 
 
 def read_keep(path: Path) -> list[str]:
@@ -117,17 +181,22 @@ def per_record(size: Size, n: int) -> str:
     return f"{size.chars // n:,}" if n else "-"
 
 
-def to_markdown(rows: list[Measurement]) -> str:
+def to_markdown(rows: list[Measurement], count_tokens=None) -> str:
     has_kept = any(m.kept for m in rows)
     head = ["파일", "건수", "원본 바이트", "원본 글자", "정리 후 글자", "건당 글자"]
     if has_kept:
         head += ["필드 추린 후 글자", "건당 글자(추린 후)"]
+    if count_tokens:
+        head += ["토큰", "건당 토큰"]
     lines = ["| " + " | ".join(head) + " |", "|" + " --- |" * len(head)]
     for m in rows:
         cells = [m.file, f"{m.records:,}", f"{m.raw.bytes:,}", f"{m.raw.chars:,}",
                  f"{m.compact.chars:,}", per_record(m.compact, m.records)]
         if has_kept:
             cells += [f"{m.kept.chars:,}", per_record(m.kept, m.records)] if m.kept else ["-", "-"]
+        if count_tokens:
+            n = count_tokens(m.payload)
+            cells += [f"{n:,}", f"{n // m.records:,}" if m.records else "-"]
         lines.append("| " + " | ".join(cells) + " |")
     return "\n".join(lines)
 
@@ -136,14 +205,20 @@ def main(argv: list[str] | None = None) -> int:
     parser = argparse.ArgumentParser(description=__doc__, formatter_class=argparse.RawDescriptionHelpFormatter)
     parser.add_argument("samples", nargs="+", type=Path, help="저장한 응답 파일(JSON/XML)")
     parser.add_argument("--keep", type=Path, help="남길 필드 목록 파일")
+    parser.add_argument("--tokens", action="store_true", help="o200k 토큰 수도 센다 (pip install tiktoken)")
     args = parser.parse_args(argv)
+    count_tokens = None
+    if args.tokens:
+        import tiktoken  # 선택 기능이라 여기서만 불러온다
+        encoding = tiktoken.get_encoding("o200k_base")
+        count_tokens = lambda s: len(encoding.encode(s))  # noqa: E731
     keep = read_keep(args.keep) if args.keep else None
     try:
         rows = [measure(p, keep) for p in args.samples]
     except ValueError as e:
         print(e, file=sys.stderr)
         return 1
-    print(to_markdown(rows))
+    print(to_markdown(rows, count_tokens))
     return 0
 
 

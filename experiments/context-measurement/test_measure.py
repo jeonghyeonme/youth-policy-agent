@@ -68,6 +68,30 @@ class MeasureTest(unittest.TestCase):
             self.assertEqual(measure.main([str(path)]), 1)
         self.assertIn("servicekey", err.getvalue())
 
+    def test_detail_document_is_one_record_not_its_small_sublist(self):
+        xml = ("<wantedDtl><servNm>청년 월세 지원</servNm><slctCritCn>" + "무주택 " * 50 + "</slctCritCn>"
+               "<inqplCtadrList><servSeDetailNm>a</servSeDetailNm></inqplCtadrList>"
+               "<inqplCtadrList><servSeDetailNm>b</servSeDetailNm></inqplCtadrList></wantedDtl>")
+        m = measure.measure(self.write("d.xml", xml), None)
+        self.assertEqual(m.records, 1)
+        self.assertGreater(m.compact.chars, 250)
+
+    def test_single_json_document_does_not_grow_when_flattened(self):
+        doc = {"resultCode": 200, "result": {"title": "공고", "aplyQlfcCn": "자격 " * 30,
+                                              "steps": [{"name": "서류"}, {"name": "면접"}], "files": []}}
+        m = measure.measure(self.write("j.json", json.dumps(doc, ensure_ascii=False)), None)
+        self.assertEqual(m.records, 1)
+        self.assertLessEqual(m.compact.chars, m.raw.chars)
+
+    def test_blank_padded_values_count_as_empty(self):
+        rec = measure.records_from_json({"list": [{"a": "        ", "b": "x"}, {"a": "", "b": "y"}]})
+        self.assertEqual(measure.compact(rec), '[{"b":"x"},{"b":"y"}]')
+
+    def test_token_columns_use_given_counter(self):
+        m = measure.measure(self.write("a.json", json.dumps(JSON_SAMPLE, ensure_ascii=False)), ["plcyNm"])
+        table = measure.to_markdown([m], count_tokens=lambda s: 7)
+        self.assertIn("| 7 | 3 |", table)
+
     def test_keep_file_ignores_comments_and_blanks(self):
         path = self.write("keep.txt", "plcyNm  # 정책명\n\n# 주석\naddAplyQlfcCndCn\n")
         self.assertEqual(measure.read_keep(path), ["plcyNm", "addAplyQlfcCndCn"])

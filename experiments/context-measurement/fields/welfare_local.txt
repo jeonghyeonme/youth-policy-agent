@@ -1,0 +1,10 @@
+# 복지로 지자체 상세에서 LLM에 넘길 필드 초안 (log/008)
+servNm        # 서비스명
+servDgst      # 요약
+ctpvNm        # 시도
+sggNm         # 시군구
+sprtTrgtCn    # 지원 대상 (서술형)
+slctCritCn    # 선정 기준 (서술형)
+alwServCn     # 급여·서비스 내용 (서술형)
+aplyMtdCn     # 신청 방법
+bizChrDeptNm  # 담당 부서
