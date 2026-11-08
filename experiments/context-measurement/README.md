@@ -24,7 +24,15 @@
   ```
 
   원본, 빈 값을 뺀 JSON, `--keep`에 적은 필드만 남긴 JSON의 크기를 건수·건당 글자와 함께 표로 낸다. 토큰 기준(Q5)이 정해지기 전이라 바이트·글자 수로 잰다. 파일에 `serviceKey`·`openApiVlak` 같은 키 파라미터 이름이 보이면 재지 않고 멈춘다.
-- 테스트: `python3 -m unittest experiments/context-measurement/test_measure.py` (손으로 만든 작은 샘플 사용)
+- `fetch_samples.py`: **사람이 로컬에서 한 번 실행한다.** 대표 질문 A·B 조건으로 후보 API를 불러 `samples/<api>/`에 저장한다. 키는 `.env`에서 읽고, 응답과 기록에서 키 값을 지운다. 이미 받은 샘플은 다시 부르지 않는다(`--force`로만). 상세 조회는 질문당 5건까지라 한 번 실행에 최대 약 40회 호출. 실행 결과는 `samples/fetch_log.md`에 남는다
+
+  ```bash
+  py experiments/context-measurement/fetch_samples.py        # Windows
+  python3 experiments/context-measurement/fetch_samples.py   # macOS·Linux
+  ```
+
+  온통청년 개편 주소와 data.go.kr 오퍼레이션 경로 일부는 문서로 확인하지 못한 추정이다. 실패한 호출은 `fetch_log.md`에 응답 앞부분이 남으니 그걸 보고 고친다.
+- 테스트: `python3 -m unittest discover -s experiments/context-measurement -p "test_*.py"` (네트워크 없이, 손으로 만든 샘플 사용)
 
 ## 측정 전에 정할 것
 
