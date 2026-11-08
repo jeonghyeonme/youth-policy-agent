@@ -114,6 +114,17 @@ def calls() -> list[Call]:
              YOUTH_KEY, "apiKeyNm", ext="json"),
         Call("youthcenter", "B_list", youth_new, {"pageNum": "1", "pageSize": "100", "rtnType": "json", "lclsfNm": "주거"},
              YOUTH_KEY, "apiKeyNm", ext="json"),
+        # 온통청년 지역 필터 확인(log/011): zipCd가 요청에서 동작하는지, 5자리·시도 앞자리·여러 개 중 무엇을 받는지.
+        # 거르지 못하면 totCount가 A_list와 같은 1,503으로 나온다.
+        Call("youthcenter", "probe_zip_11110", youth_new,
+             {"pageNum": "1", "pageSize": "100", "rtnType": "json", "lclsfNm": "일자리", "zipCd": "11110"},
+             YOUTH_KEY, "apiKeyNm", ext="json", note="지역 필터 확인: 종로구 5자리"),
+        Call("youthcenter", "probe_zip_11", youth_new,
+             {"pageNum": "1", "pageSize": "100", "rtnType": "json", "lclsfNm": "일자리", "zipCd": "11"},
+             YOUTH_KEY, "apiKeyNm", ext="json", note="지역 필터 확인: 서울 앞자리 2자리"),
+        Call("youthcenter", "probe_zip_multi", youth_new,
+             {"pageNum": "1", "pageSize": "100", "rtnType": "json", "lclsfNm": "일자리", "zipCd": "11110,11680"},
+             YOUTH_KEY, "apiKeyNm", ext="json", note="지역 필터 확인: 종로구·강남구 두 개"),
         # 잡알리오: A(취업)
         Call("jobalio", "A_list", f"{jobalio}/list", {"resultType": "json", "numOfRows": "50", "pageNo": "1", "ongoingYn": "Y"},
              DATA_KEY, "serviceKey", ext="json", detail=job_detail, note="상세 경로(/detail)는 추정"),
