@@ -2,7 +2,7 @@
 
 > **작업 시작점.** 이 파일은 "지금"만 담고 **덮어쓴다**(80줄 상한). 끝난 일은 지우고 경위는 [log/](log/README.md)로 보낸다.
 > PM이 관리한다. 작업자는 자기 담당 줄의 "상태"만 고치고, 새 일·우선순위 변경은 PM에게 말한다.
-> 마지막 갱신: 2026-11-08 · [log/007](log/007.md)
+> 마지막 갱신: 2026-11-08 · [log/008](log/008.md)
 
 ## 현재 단계
 
@@ -13,7 +13,7 @@
 | # | 할 일 | 담당 | 상태 | 기한 | 근거 |
 | --- | --- | --- | --- | --- | --- |
 | T1 | 팀 인원·역할 확정 | PM | 대기 | - | Q5 |
-| T4 | API별 컨텍스트 소모량 측정 — [1차 결과](../experiments/context-measurement/results.md). 남은 것: 복지로 지자체·잡알리오 상세 재수집(사람이 `fetch_samples.py` 실행), 온통청년 지역 필터 확인 | PM | 진행 중 | - | [측정 계획](../experiments/context-measurement/README.md) |
+| T4 | API별 컨텍스트 소모량 측정 — [1차 결과](../experiments/context-measurement/results.md). 다섯 API 모두 측정함. 남은 것: 온통청년 지역 필터 확인, 토큰 환산(Groq 모델 정한 뒤) | PM | 진행 중 | - | [측정 계획](../experiments/context-measurement/README.md) |
 | T5 | GitHub 저장소 공개, 팀원 초대 | PM | 대기 | - | - |
 
 상태 값: `대기` · `진행 중` · `막힘(이유)` · `검토 중` — 끝나면 줄을 지우고 `log/`에 남긴다.

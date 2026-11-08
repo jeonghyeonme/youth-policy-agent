@@ -1,0 +1,13 @@
+# 잡알리오 공고에서 LLM에 넘길 필드 초안 (log/008)
+recrutPbancTtl  # 공고 제목
+instNm          # 기관
+workRgnNmLst    # 근무 지역
+hireTypeNmLst   # 고용 형태
+acbgCondNmLst   # 학력 조건
+recrutNope      # 채용 인원
+pbancBgngYmd    # 공고 시작일
+pbancEndYmd     # 공고 마감일
+aplyQlfcCn      # 응시 자격 (서술형)
+disqlfcRsn      # 결격 사유 (서술형)
+prefCn          # 우대 사항
+srcUrl          # 원문 URL

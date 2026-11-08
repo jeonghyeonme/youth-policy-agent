@@ -76,6 +76,13 @@ class MeasureTest(unittest.TestCase):
         self.assertEqual(m.records, 1)
         self.assertGreater(m.compact.chars, 250)
 
+    def test_single_json_document_does_not_grow_when_flattened(self):
+        doc = {"resultCode": 200, "result": {"title": "공고", "aplyQlfcCn": "자격 " * 30,
+                                              "steps": [{"name": "서류"}, {"name": "면접"}], "files": []}}
+        m = measure.measure(self.write("j.json", json.dumps(doc, ensure_ascii=False)), None)
+        self.assertEqual(m.records, 1)
+        self.assertLessEqual(m.compact.chars, m.raw.chars)
+
     def test_blank_padded_values_count_as_empty(self):
         rec = measure.records_from_json({"list": [{"a": "        ", "b": "x"}, {"a": "", "b": "y"}]})
         self.assertEqual(measure.compact(rec), '[{"b":"x"},{"b":"y"}]')

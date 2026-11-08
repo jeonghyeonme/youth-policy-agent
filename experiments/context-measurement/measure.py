@@ -70,15 +70,19 @@ def scalar_len(node: object) -> int:
     return len(str(node))
 
 
-def flatten_json(node: object, out: Record, prefix: str = "") -> Record:
+def flatten_json(node: object, out: Record, name: str = "value") -> Record:
+    """한 건짜리 문서를 필드 이름 → 값으로 편다. 같은 이름이 또 나오면 뒤에 번호를 붙인다(XML과 같은 규칙)."""
     if isinstance(node, dict):
         for k, v in node.items():
-            flatten_json(v, out, f"{prefix}{k}.")
+            flatten_json(v, out, k)
     elif isinstance(node, list):
-        for i, v in enumerate(node):
-            flatten_json(v, out, f"{prefix}{i}.")
+        for v in node:
+            flatten_json(v, out, name)
     else:
-        out[prefix.rstrip(".")] = json_value(node)
+        key, n = name, 2
+        while key in out:
+            key, n = f"{name}.{n}", n + 1
+        out[key] = json_value(node)
     return out
 
 
