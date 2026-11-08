@@ -2,6 +2,7 @@
 
 > [측정 계획](README.md) · STATUS Q3 · **AI가 올린 추천안이다. 결정은 PM이 한다.**
 > 실험: `python3 experiments/context-measurement/rank_experiment.py` (저장된 샘플만 쓴다. API 호출 없음)
+> **PM이 이 추천대로 정했다: [D9](../../docs/decisions/D9.md) (2026-11-08).**
 
 ## 왜 정해야 하나
 
