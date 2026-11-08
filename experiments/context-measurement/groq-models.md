@@ -1,6 +1,6 @@
 # Groq 모델 조사와 토큰 예산 (Q5 검토용, 2026-11-08)
 
-> [측정 계획](README.md) · Q5 · 업체는 Groq로 정했다([D5](../../docs/decisions/D5.md)). **모델은 PM이 정한다.** 아래는 AI가 올린 조사와 추천안이다.
+> [측정 계획](README.md) · 업체 Groq([D5](../../docs/decisions/D5.md)), **모델은 추천대로 `openai/gpt-oss-120b`로 정했다([D7](../../docs/decisions/D7.md), 2026-11-08).** 아래는 결정 전 조사다.
 > 출처: console.groq.com의 docs/models, docs/rate-limits, docs/tool-use, docs/deprecations (2026-11-08 읽음. 페이지에 게시일 표시 없음)
 
 ## 텍스트 모델
