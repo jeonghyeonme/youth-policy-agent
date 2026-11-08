@@ -2,7 +2,7 @@
 
 > **작업 시작점.** 이 파일은 "지금"만 담고 **덮어쓴다**(80줄 상한). 끝난 일은 지우고 경위는 [log/](log/README.md)로 보낸다.
 > PM이 관리한다. 작업자는 자기 담당 줄의 "상태"만 고치고, 새 일·우선순위 변경은 PM에게 말한다.
-> 마지막 갱신: 2026-11-08 · [log/011](log/011.md)
+> 마지막 갱신: 2026-11-08 · [log/012](log/012.md)
 
 ## 현재 단계
 
@@ -13,7 +13,7 @@
 | # | 할 일 | 담당 | 상태 | 기한 | 근거 |
 | --- | --- | --- | --- | --- | --- |
 | T1 | 팀 인원·역할 확정 | PM | 대기 | - | Q5 |
-| T4 | API별 컨텍스트 소모량 측정 — [1차 결과](../experiments/context-measurement/results.md). 다섯 API 모두 측정함. 지역 필터 확인함(D6 유지). 남은 것: 토큰 환산(Groq 모델 정한 뒤) | PM | 진행 중 | - | [측정 계획](../experiments/context-measurement/README.md) |
+| T4 | API별 컨텍스트 소모량 측정 — [1차 결과](../experiments/context-measurement/results.md). 다섯 API 모두 측정함. 지역 필터 확인함(D6 유지). 토큰 환산함(o200k, 정책당 약 280토큰). 남은 것: Groq 무료 한도 확인(사람, 콘솔) | PM | 진행 중 | - | [측정 계획](../experiments/context-measurement/README.md) |
 | T5 | GitHub 저장소 공개, 팀원 초대 | PM | 대기 | - | - |
 
 상태 값: `대기` · `진행 중` · `막힘(이유)` · `검토 중` — 끝나면 줄을 지우고 `log/`에 남긴다.
@@ -26,11 +26,12 @@
 | --- | --- | --- | --- | --- |
 | Q3 | 핵심 변수: 결과를 가장 크게 좌우하는 것 (차별점) | 측정 결과 후보: 걸러진 정책 수십~백여 건 중 무엇을 LLM에 넘길지(순위 기준). [결과](../experiments/context-measurement/results.md) | PM | 구현 계획 |
 | Q4 | 서술형 자격 조건을 누가 판단하나 | LLM / 사용자. 근거: 주거 정책 100건 중 58건이 소득 조건을 글로만 적는다([결과](../experiments/context-measurement/results.md#서술형-조건이-얼마나-되나-q4-근거)) | PM | 구현 계획 |
-| Q5 | LLM **모델**과 팀 인원·역할 (업체는 Groq, [D5](decisions/D5.md)) | - | PM | T1, 측정의 토큰 기준 |
+| Q5 | LLM **모델**과 팀 인원·역할 (업체는 Groq, [D5](decisions/D5.md)) | 모델 추천: `openai/gpt-oss-120b`(Production, 도구 호출, 토큰을 미리 셀 수 있음). 무료 한도는 콘솔에서 확인 필요. [조사](../experiments/context-measurement/groq-models.md) | PM, 모델 추천은 AI(log/012) | T1, 측정의 토큰 기준 |
 | Q6 | 기술 스택 | Q5 이후 | PM | 코드 디렉토리 |
 
 ## 열린 위험
 
+- **Groq 무료 한도**: 분당 8,000토큰이면 서비스 전체가 분당 답변 1번 정도다(키 하나를 모든 사용자가 나눠 씀). 문서끼리 값이 달라 콘솔에서 확인해야 한다. [조사](../experiments/context-measurement/groq-models.md)
 - **걸러도 큰 결과**: 온통청년은 `zipCd`(시군구 코드)로 거를 수 있다. 그래도 대표 질문 A는 지역·나이·취업으로 걸러 약 160건(약 8만 자)이 남는다. 상위 몇 건만 LLM에 넘기는 기준이 필요하다(Q3). [결과](../experiments/context-measurement/results.md#온통청년-지역-필터-2026-11-08-확인)
 - **2단계 호출**: 복지로 두 API·잡알리오는 목록 → 상세라 정책 N건에 N+1번 호출. 복지로 중앙부처 한도 100이면 상세 수십 건으로 하루를 다 쓴다.
 - **복지로 중앙부처 API 개발계정 트래픽 100**: 팀 개발에 빠듯하다. 응답을 저장해 두고 재사용한다(AGENTS.md).

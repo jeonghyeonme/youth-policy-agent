@@ -8,6 +8,9 @@ API를 호출하지 않는다. 사람이 받아 둔 응답 파일(JSON 또는 XM
 
 --keep 파일에는 남길 필드 이름을 한 줄에 하나씩 적는다(# 뒤는 주석).
 남긴 필드만으로 다시 재서 "서버 필터링 후" 크기를 본다.
+
+--tokens를 주면 마지막 열(추린 후, 없으면 정리 후)의 토큰 수를 o200k 토크나이저로 센다.
+Groq의 openai/gpt-oss 모델이 쓰는 토크나이저 계열이다(D5). 따로 설치한다: pip install tiktoken
 """
 
 from __future__ import annotations
@@ -42,6 +45,7 @@ class Measurement:
     records: int
     compact: Size
     kept: Size | None
+    payload: str  # LLM에 넘길 텍스트(추린 후, 없으면 정리 후)
 
 
 def find_key_param(text: str) -> str | None:
@@ -162,10 +166,10 @@ def measure(path: Path, keep: list[str] | None) -> Measurement:
     if leaked:
         raise ValueError(f"{path}: '{leaked}'가 들어 있다. 키가 섞였을 수 있어 재지 않는다")
     records = parse_records(text)
-    kept = None
-    if keep is not None:
-        kept = Size.of(compact([{k: r.get(k, "") for k in keep} for r in records]))
-    return Measurement(str(path), Size.of(text), len(records), Size.of(compact(records)), kept)
+    full = compact(records)
+    kept_text = compact([{k: r.get(k, "") for k in keep} for r in records]) if keep is not None else None
+    kept = Size.of(kept_text) if kept_text is not None else None
+    return Measurement(str(path), Size.of(text), len(records), Size.of(full), kept, kept_text or full)
 
 
 def read_keep(path: Path) -> list[str]:
@@ -177,17 +181,22 @@ def per_record(size: Size, n: int) -> str:
     return f"{size.chars // n:,}" if n else "-"
 
 
-def to_markdown(rows: list[Measurement]) -> str:
+def to_markdown(rows: list[Measurement], count_tokens=None) -> str:
     has_kept = any(m.kept for m in rows)
     head = ["파일", "건수", "원본 바이트", "원본 글자", "정리 후 글자", "건당 글자"]
     if has_kept:
         head += ["필드 추린 후 글자", "건당 글자(추린 후)"]
+    if count_tokens:
+        head += ["토큰", "건당 토큰"]
     lines = ["| " + " | ".join(head) + " |", "|" + " --- |" * len(head)]
     for m in rows:
         cells = [m.file, f"{m.records:,}", f"{m.raw.bytes:,}", f"{m.raw.chars:,}",
                  f"{m.compact.chars:,}", per_record(m.compact, m.records)]
         if has_kept:
             cells += [f"{m.kept.chars:,}", per_record(m.kept, m.records)] if m.kept else ["-", "-"]
+        if count_tokens:
+            n = count_tokens(m.payload)
+            cells += [f"{n:,}", f"{n // m.records:,}" if m.records else "-"]
         lines.append("| " + " | ".join(cells) + " |")
     return "\n".join(lines)
 
@@ -196,14 +205,20 @@ def main(argv: list[str] | None = None) -> int:
     parser = argparse.ArgumentParser(description=__doc__, formatter_class=argparse.RawDescriptionHelpFormatter)
     parser.add_argument("samples", nargs="+", type=Path, help="저장한 응답 파일(JSON/XML)")
     parser.add_argument("--keep", type=Path, help="남길 필드 목록 파일")
+    parser.add_argument("--tokens", action="store_true", help="o200k 토큰 수도 센다 (pip install tiktoken)")
     args = parser.parse_args(argv)
+    count_tokens = None
+    if args.tokens:
+        import tiktoken  # 선택 기능이라 여기서만 불러온다
+        encoding = tiktoken.get_encoding("o200k_base")
+        count_tokens = lambda s: len(encoding.encode(s))  # noqa: E731
     keep = read_keep(args.keep) if args.keep else None
     try:
         rows = [measure(p, keep) for p in args.samples]
     except ValueError as e:
         print(e, file=sys.stderr)
         return 1
-    print(to_markdown(rows))
+    print(to_markdown(rows, count_tokens))
     return 0
 
 

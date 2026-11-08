@@ -32,6 +32,7 @@
   ```
 
   온통청년 개편 주소와 data.go.kr 오퍼레이션 경로 일부는 문서로 확인하지 못한 추정이다. 실패한 호출은 `fetch_log.md`에 응답 앞부분이 남으니 그걸 보고 고친다.
+- `measure.py --tokens`: o200k 토큰 수도 센다(`pip install tiktoken` 필요, 선택). [Groq 모델 조사와 토큰 예산](groq-models.md)
 - 테스트: `python3 -m unittest discover -s experiments/context-measurement -p "test_*.py"` (네트워크 없이, 손으로 만든 샘플 사용)
 
 ## 측정 전에 정할 것

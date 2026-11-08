@@ -87,6 +87,11 @@ class MeasureTest(unittest.TestCase):
         rec = measure.records_from_json({"list": [{"a": "        ", "b": "x"}, {"a": "", "b": "y"}]})
         self.assertEqual(measure.compact(rec), '[{"b":"x"},{"b":"y"}]')
 
+    def test_token_columns_use_given_counter(self):
+        m = measure.measure(self.write("a.json", json.dumps(JSON_SAMPLE, ensure_ascii=False)), ["plcyNm"])
+        table = measure.to_markdown([m], count_tokens=lambda s: 7)
+        self.assertIn("| 7 | 3 |", table)
+
     def test_keep_file_ignores_comments_and_blanks(self):
         path = self.write("keep.txt", "plcyNm  # 정책명\n\n# 주석\naddAplyQlfcCndCn\n")
         self.assertEqual(measure.read_keep(path), ["plcyNm", "addAplyQlfcCndCn"])

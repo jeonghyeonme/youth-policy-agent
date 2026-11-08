@@ -1,7 +1,7 @@
 # 측정 결과 (2026-11-08, 재수집 반영)
 
 > [측정 계획](README.md) · T4 · 대표 질문 A·B([D2](../../docs/decisions/D2.md)) · 샘플: `samples/`(수집 기록 [fetch_log.md](samples/fetch_log.md))
-> 단위는 **글자 수**다. LLM 업체는 Groq로 정했지만([D5](../../docs/decisions/D5.md)) 모델이 정해지지 않아 토큰으로 바꾸지 않았다.
+> 단위는 **글자 수**다. 토큰 환산(o200k, 정책당 약 280토큰)과 Groq 한도 계산은 [groq-models.md](groq-models.md)에 있다.
 
 ## 한 줄 요약
 
@@ -95,4 +95,4 @@
 
 ## 아직 못 한 것
 
-- 토큰 환산: Groq 모델이 정해진 뒤
+- Groq 무료 한도 확인(콘솔, 사람)
