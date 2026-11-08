@@ -34,6 +34,7 @@
   온통청년 개편 주소와 data.go.kr 오퍼레이션 경로 일부는 문서로 확인하지 못한 추정이다. 실패한 호출은 `fetch_log.md`에 응답 앞부분이 남으니 그걸 보고 고친다.
 - `measure.py --tokens`: o200k 토큰 수도 센다(`pip install tiktoken` 필요, 선택). [Groq 모델 조사와 토큰 예산](groq-models.md)
 - `rank_experiment.py`: Q3 순위 기준 후보를 샘플에 돌려 상위 10건을 비교한다(API 호출 없음). [Q3 추천안](q3-ranking.md)
+- `judge_experiment.py`: Q4 실험. 서술형 자격 조건을 Groq가 판단한 결과를 정답표(`q4/labels.json`)와 비교한다. `--run`은 사람이 로컬에서(Groq 2회 호출), 채점은 누구나
 - 테스트: `python3 -m unittest discover -s experiments/context-measurement -p "test_*.py"` (네트워크 없이, 손으로 만든 샘플 사용)
 
 ## 측정 전에 정할 것
