@@ -28,7 +28,7 @@
 | 항목 | 원칙 |
 | --- | --- |
 | 대화 저장 | 브라우저 `sessionStorage`만 사용. 탭을 닫으면 사라짐. 서버 DB 저장 없음 |
-| LLM 전송 | 선택지로 받은 값만 LLM에 보냄 |
+| LLM 전송 | 선택지로 받은 값만 LLM에 보냄(나이, 지역, 취업 상태, 소득 구간, 주택 여부, 학력, 가구원 수 — [D10](docs/decisions/D10.md)) |
 | 서버 로그 | 채팅 내용과 선택값을 남기지 않음 |
 | 공공 API 검색어 | 사용자 문장을 그대로 넣지 않고 LLM이 뽑은 키워드만 보냄 |
 | API 키 | `.env`에 두고 커밋하지 않음 ([키 관리](#api-키-관리)) |
@@ -58,6 +58,7 @@
 │   ├── process/           # 작업 규칙, 마무리 절차
 │   └── reference/         # 기획 제안서 원문
 ├── experiments/           # 실험·측정 (첫 번째: API별 컨텍스트 소모량)
+├── web/                   # 서비스 코드 — Next.js(TypeScript), Vercel 배포 (D11·D12, 아직 없음)
 ├── AGENTS.md              # AI 코딩 도구 공통 규칙
 ├── CLAUDE.md              # Claude Code용 — AGENTS.md를 불러옴
 ├── .claude/settings.json  # Claude Code가 .env를 읽지 못하게 차단
@@ -65,7 +66,7 @@
 └── .env.example           # 필요한 환경변수 목록 (값 없음)
 ```
 
-문서 지도와 작업 흐름은 [docs/README.md](docs/README.md)에 있습니다. 코드 디렉토리는 기술 스택이 정해지면 추가합니다.
+문서 지도와 작업 흐름은 [docs/README.md](docs/README.md)에 있습니다. 서비스 코드는 `web/`에 둡니다([D12](docs/decisions/D12.md)).
 
 ## API 키 관리
 

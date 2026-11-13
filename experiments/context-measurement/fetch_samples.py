@@ -125,6 +125,13 @@ def calls() -> list[Call]:
         Call("youthcenter", "probe_zip_multi", youth_new,
              {"pageNum": "1", "pageSize": "100", "rtnType": "json", "lclsfNm": "일자리", "zipCd": "11110,11680"},
              YOUTH_KEY, "apiKeyNm", ext="json", note="지역 필터 확인: 종로구·강남구 두 개"),
+        # Q3 확인(log/015): 정책 키워드·중분류로 요청 단계에서 좁힐 수 있는지. 못 거르면 totCount가 297(종로구·일자리)로 나온다.
+        Call("youthcenter", "probe_kywd_subsidy", youth_new,
+             {"pageNum": "1", "pageSize": "100", "rtnType": "json", "lclsfNm": "일자리", "zipCd": "11110", "plcyKywdNm": "보조금"},
+             YOUTH_KEY, "apiKeyNm", ext="json", note="Q3 확인: 정책 키워드 보조금"),
+        Call("youthcenter", "probe_mclsf_job", youth_new,
+             {"pageNum": "1", "pageSize": "100", "rtnType": "json", "lclsfNm": "일자리", "zipCd": "11110", "mclsfNm": "취업"},
+             YOUTH_KEY, "apiKeyNm", ext="json", note="Q3 확인: 중분류 취업"),
         # 잡알리오: A(취업)
         Call("jobalio", "A_list", f"{jobalio}/list", {"resultType": "json", "numOfRows": "50", "pageNo": "1", "ongoingYn": "Y"},
              DATA_KEY, "serviceKey", ext="json", detail=job_detail, note="상세 경로(/detail)는 추정"),
