@@ -6,7 +6,7 @@
 
 ## 현재 단계
 
-**기획 → API 검증** (실질 개발 4~5주, 주차별 계획 미정). 측정·실험 스크립트만 있음(`experiments/context-measurement/`). [5주 구현 계획](plan.md) 작성, 시작 가정 11/16. 스택은 Next.js + Vercel([D11](decisions/D11.md)), 코드는 `web/`([D12](decisions/D12.md)). PR마다 CI가 돈다([D3](decisions/D3.md)). 제안서: [reference/proposal.md](reference/proposal.md)
+**기획 끝 → 구현 준비.** [5주 구현 계획](plan.md)(시작 가정 11/16, 할 일 T7~T10). 아직 서비스 코드는 없고 측정·실험 스크립트만 있음(`experiments/context-measurement/`). 스택은 Next.js + Vercel([D11](decisions/D11.md)), 코드는 `web/`([D12](decisions/D12.md)). PR마다 CI가 돈다([D3](decisions/D3.md)). 제안서: [reference/proposal.md](reference/proposal.md)
 
 ## 할 일
 
