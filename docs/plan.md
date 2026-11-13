@@ -24,7 +24,7 @@ web/                          Next.js(TypeScript), Vercel Root Directory = web
 │   │   ├── youthcenter.ts
 │   │   └── lh.ts
 │   └── llm/                  Groq 호출, 도구 정의, 프롬프트, 토큰 예산
-└── test/fixtures/            experiments/의 저장된 샘플 일부 (테스트는 API를 부르지 않는다)
+└── lib/test/fixtures.ts      experiments/의 저장 샘플을 그대로 읽는다(복사하지 않음). 테스트는 API를 부르지 않는다
 ```
 
 ## 주차별

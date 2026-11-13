@@ -2,11 +2,11 @@
 
 > **작업 시작점.** 이 파일은 "지금"만 담고 **덮어쓴다**(80줄 상한). 끝난 일은 지우고 경위는 [log/](log/README.md)로 보낸다.
 > PM이 관리한다. 작업자는 자기 담당 줄의 "상태"만 고치고, 새 일·우선순위 변경은 PM에게 말한다.
-> 마지막 갱신: 2026-11-13 · [log/024](log/024.md)
+> 마지막 갱신: 2026-11-13 · [log/026](log/026.md)
 
 ## 현재 단계
 
-**기획 끝 → 구현 준비.** [5주 구현 계획](plan.md)(시작 가정 11/16, 할 일 T7~T10). 아직 서비스 코드는 없고 측정·실험 스크립트만 있음(`experiments/context-measurement/`). 스택은 Next.js + Vercel([D11](decisions/D11.md)), 코드는 `web/`([D12](decisions/D12.md)). PR마다 CI가 돈다([D3](decisions/D3.md)). 제안서: [reference/proposal.md](reference/proposal.md)
+**기획 끝 → 구현 준비.** [5주 구현 계획](plan.md)(시작 가정 11/16, 할 일 T7~T10). `web/`에 Next.js 골격과 정책 로직(T7, 테스트 10개)이 있다. 화면·LLM 연결은 아직 없다. 스택은 Next.js + Vercel([D11](decisions/D11.md)), 코드는 `web/`([D12](decisions/D12.md)). PR마다 CI가 돈다([D3](decisions/D3.md)). 제안서: [reference/proposal.md](reference/proposal.md)
 
 ## 할 일
 
@@ -16,7 +16,7 @@
 | T4 | API별 컨텍스트 소모량 측정 — [결과](../experiments/context-measurement/results.md). 남은 것: Groq 무료 한도 확인(콘솔 Settings → Limits, 사람) | PM | 진행 중 | - | [측정 계획](../experiments/context-measurement/README.md) |
 | T6 | 공공데이터포털 운영계정 신청(시연 전, 활용 사례 등록) | PM | 대기 (서비스가 동작한 뒤) | 시연 전 | [D8](decisions/D8.md) |
 | T5 | GitHub 저장소 공개, 팀원 초대 | PM | 대기 | - | - |
-| T7 | 1주: `web/` 골격·CI, 정책 로직(filter·rank·codeVerdict) 옮기고 테스트, 온통청년 클라이언트 | 미정 | 대기 | 11/22 | [계획](plan.md) |
+| T7 | 1주: `web/` 골격·CI, 정책 로직(filter·rank·codeVerdict) 옮기고 테스트, 온통청년 클라이언트 | AI(Claude Code) | 검토 중 (log/025) | 11/22 | [계획](plan.md) |
 | T8 | 2주: Groq 한 턴, 도구 정의, 서술형 판정 프롬프트, `api/chat` (M1) | 미정 | 대기 (T7 후) | 11/29 | [계획](plan.md) |
 | T9 | 3주: 채팅 화면, 선택지, 판정 카드, Vercel 첫 배포 (M2) | 미정 | 대기 (T8 후) | 12/6 | [계획](plan.md) |
 | T10 | 4주: LH 연결, 오류 처리, 개인정보 점검, 품질 점검 (M3) | 미정 | 대기 (T9 후) | 12/13 | [계획](plan.md) |
