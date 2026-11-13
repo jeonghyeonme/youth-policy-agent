@@ -14,11 +14,12 @@
 | [STATUS.md](STATUS.md) | 지금 어디까지 왔고, 누가 무엇을 하고, 무엇이 막혀 있나 | 덮어쓴다(80줄 상한). 끝난 일은 지우고 경위는 `log/`로 | PM이 관리, 작업자는 자기 줄만 고친다 |
 | [decisions/](decisions/README.md) | 그건 언제, 왜 그렇게 정했나 | 결정 하나에 파일 하나(`D1.md`). 고치지 않고 새 번호로 대체 | PM 승인 후 올린 사람 |
 | [log/](log/README.md) | 과거에 무슨 일이 있었나 | 작업 한 건에 파일 하나(`001.md`), append-only | 작업을 마친 사람 |
+| [plan.md](plan.md) | 앞으로 몇 주 동안 무엇을, 어떤 순서로 만드나 | 주마다 고친다. 할 일은 STATUS의 T 번호로 옮긴다 | PM |
 | [process/](process/) | 일은 어떤 절차로 하나 | [작업 규칙](process/workflow.md) · [마무리 절차](process/wrap-up.md) | PM |
 | [reference/](reference/) | 처음 기획은 무엇이었나, 바깥 자료는 | [제안서 원문](reference/proposal.md). 고치지 않는다 | - |
 | [../experiments/](../experiments/) | 실험·측정의 방법과 결과는 | 실험 하나에 폴더 하나, 결과는 `results.md` | 실험 담당 |
 
-코드 디렉토리(`apps/` 등)는 기술 스택이 정해지면 만든다.
+서비스 코드는 저장소 루트의 `web/`에 둔다([D12](decisions/D12.md)).
 
 ## 작업 한 번의 흐름
 
