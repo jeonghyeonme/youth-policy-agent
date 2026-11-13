@@ -2,11 +2,11 @@
 
 > **작업 시작점.** 이 파일은 "지금"만 담고 **덮어쓴다**(80줄 상한). 끝난 일은 지우고 경위는 [log/](log/README.md)로 보낸다.
 > PM이 관리한다. 작업자는 자기 담당 줄의 "상태"만 고치고, 새 일·우선순위 변경은 PM에게 말한다.
-> 마지막 갱신: 2026-11-13 · [log/026](log/026.md)
+> 마지막 갱신: 2026-11-13 · [log/027](log/027.md)
 
 ## 현재 단계
 
-**기획 끝 → 구현 준비.** [5주 구현 계획](plan.md)(시작 가정 11/16, 할 일 T7~T10). `web/`에 Next.js 골격과 정책 로직(T7, 테스트 10개)이 있다. 화면·LLM 연결은 아직 없다. 스택은 Next.js + Vercel([D11](decisions/D11.md)), 코드는 `web/`([D12](decisions/D12.md)). PR마다 CI가 돈다([D3](decisions/D3.md)). 제안서: [reference/proposal.md](reference/proposal.md)
+**기획 끝 → 구현 준비.** [5주 구현 계획](plan.md)(시작 가정 11/16, 할 일 T7~T10). `web/`에 정책 로직(T7)과 `POST /api/chat`(T8, 테스트 23개)이 있다. 화면은 아직 없다. 스택은 Next.js + Vercel([D11](decisions/D11.md)), 코드는 `web/`([D12](decisions/D12.md)). PR마다 CI가 돈다([D3](decisions/D3.md)). 제안서: [reference/proposal.md](reference/proposal.md)
 
 ## 할 일
 
@@ -16,8 +16,7 @@
 | T4 | API별 컨텍스트 소모량 측정 — [결과](../experiments/context-measurement/results.md). 남은 것: Groq 무료 한도 확인(콘솔 Settings → Limits, 사람) | PM | 진행 중 | - | [측정 계획](../experiments/context-measurement/README.md) |
 | T6 | 공공데이터포털 운영계정 신청(시연 전, 활용 사례 등록) | PM | 대기 (서비스가 동작한 뒤) | 시연 전 | [D8](decisions/D8.md) |
 | T5 | GitHub 저장소 공개, 팀원 초대 | PM | 대기 | - | - |
-| T7 | 1주: `web/` 골격·CI, 정책 로직(filter·rank·codeVerdict) 옮기고 테스트, 온통청년 클라이언트 | AI(Claude Code) | 검토 중 (log/025) | 11/22 | [계획](plan.md) |
-| T8 | 2주: Groq 한 턴, 도구 정의, 서술형 판정 프롬프트, `api/chat` (M1) | 미정 | 대기 (T7 후) | 11/29 | [계획](plan.md) |
+| T8 | 2주: Groq 한 턴, 도구 정의, 서술형 판정 프롬프트, `api/chat` (M1) — 코드·테스트 끝(log/027). 남은 것: 실제 키로 질문 A·B 실행(사람, `web/scripts/try-question.ts`), Q9 승인 | AI(Claude Code) | 검토 중 | 11/29 | [계획](plan.md) |
 | T9 | 3주: 채팅 화면, 선택지, 판정 카드, Vercel 첫 배포 (M2) | 미정 | 대기 (T8 후) | 12/6 | [계획](plan.md) |
 | T10 | 4주: LH 연결, 오류 처리, 개인정보 점검, 품질 점검 (M3) | 미정 | 대기 (T9 후) | 12/13 | [계획](plan.md) |
 
@@ -29,6 +28,7 @@
 
 | # | 정할 것 | 선택지 / 추천안 | 올린 사람 | 막고 있는 일 |
 | --- | --- | --- | --- | --- |
+| Q9 | `api/chat` 요청·응답 형식 고정 — 화면(T9)이 기댄다 | **추천: 초안대로.** 요청은 질문 1문장 + 선택지 값(나이, 시군구 코드, 취업·학력·혼인 코드, 특화 요건, 소득 구간 6개, 주택 여부, 가구원 수). 응답은 분류·통과 건수·카드(판정, 이유, 확인 질문, 마감일, 링크)·나머지 건수. [web/lib/chat/types.ts](../web/lib/chat/types.ts) | AI(log/027) | T9 |
 | Q5 | 팀 인원·역할 (LLM은 Groq `openai/gpt-oss-120b`로 정함, [D5](decisions/D5.md)·[D7](decisions/D7.md)) | - | PM | T1 |
 
 ## 열린 위험
