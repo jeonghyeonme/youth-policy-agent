@@ -85,7 +85,8 @@ def fit(p: Policy, q: Question) -> int:
     score = 0
     if q.unemployed and UNEMPLOYED in p["jobCd"]:
         score += 1
-    if p["sprtTrgtAgeLmtYn"] == "Y" and int(p["sprtTrgtMaxAge"] or 99) <= 39:
+    hi = int(p["sprtTrgtMaxAge"].strip() or 0)  # 나이 제한 표시값은 믿지 않는다(log/017)
+    if hi and hi <= 39:
         score += 1
     return score
 

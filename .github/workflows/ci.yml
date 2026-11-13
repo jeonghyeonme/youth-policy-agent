@@ -1,4 +1,4 @@
-# 푸시·PR마다 도는 검사. 공공 API를 호출하지 않고 키도 쓰지 않는다(AGENTS.md "트래픽", "API 키").
+# 푸시·PR마다 도는 검사. 공공 API·Groq를 호출하지 않고 키도 쓰지 않는다(AGENTS.md "트래픽", "API 키").
 name: CI
 
 on:
@@ -22,3 +22,27 @@ jobs:
         run: python -m unittest discover -s experiments/context-measurement -p "test_*.py"
       - name: 문서 상대 링크 확인
         run: python .github/scripts/check_links.py
+
+  web:
+    runs-on: ubuntu-latest
+    timeout-minutes: 10
+    defaults:
+      run:
+        working-directory: web
+    steps:
+      # 테스트가 experiments/의 저장 샘플을 읽으므로 저장소 전체를 체크아웃한다
+      - uses: actions/checkout@v5
+      - uses: actions/setup-node@v5
+        with:
+          node-version: "22"
+          cache: npm
+          cache-dependency-path: web/package-lock.json
+      - run: npm ci
+      - name: 린트
+        run: npm run lint
+      - name: 타입 검사
+        run: npm run typecheck
+      - name: 테스트 (저장 샘플, API 호출 없음)
+        run: npm test
+      - name: 빌드
+        run: npm run build

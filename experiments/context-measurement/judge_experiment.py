@@ -70,10 +70,10 @@ def policy_for_llm(p: rank.Policy) -> dict[str, str]:
 
 
 def selected(key: str) -> list[rank.Policy]:
-    """D9 3단계 상위 8건. A는 키워드로 좁힌 A' 샘플을 쓴다."""
+    """정답표에 있는 정책들(2026-11-08 당시 D9 상위 8건). 순위 함수가 바뀌어도 실험을 다시 만들 수 있게 이름으로 고른다(log/025)."""
     q = {"A": rank.QUESTIONS[1], "B": rank.QUESTIONS[2]}[key]
-    candidates = [p for p in rank.load(q.sample) if rank.eligible(p, q) and rank.is_open(p)]
-    return rank.RANKERS["조합(추천)"](candidates, q)[:8]
+    by_name = {p["plcyNm"].strip(): p for p in rank.load(q.sample)}
+    return [by_name[name.strip()] for name in LABELS["labels"][key]]
 
 
 def call_groq(key: str, api_key: str) -> dict:
