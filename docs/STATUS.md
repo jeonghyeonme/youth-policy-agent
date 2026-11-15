@@ -2,7 +2,7 @@
 
 > **작업 시작점.** 이 파일은 "지금"만 담고 **덮어쓴다**(80줄 상한). 끝난 일은 지우고 경위는 [log/](log/README.md)로 보낸다.
 > PM이 관리한다. 작업자는 자기 담당 줄의 "상태"만 고치고, 새 일·우선순위 변경은 PM에게 말한다.
-> 마지막 갱신: 2026-11-15 · [log/029](log/029.md)
+> 마지막 갱신: 2026-11-15 · [log/030](log/030.md)
 
 ## 현재 단계
 
@@ -16,7 +16,7 @@
 | T4 | API별 컨텍스트 소모량 측정 — [결과](../experiments/context-measurement/results.md). 남은 것: Groq 무료 한도 확인(콘솔 Settings → Limits, 사람) | PM | 진행 중 | - | [측정 계획](../experiments/context-measurement/README.md) |
 | T6 | 공공데이터포털 운영계정 신청(시연 전, 활용 사례 등록) | PM | 대기 (서비스가 동작한 뒤) | 시연 전 | [D8](decisions/D8.md) |
 | T5 | GitHub 저장소 공개, 팀원 초대 | PM | 대기 | - | - |
-| T8 | 2주: Groq 한 턴, 도구 정의, 서술형 판정 프롬프트, `api/chat` (M1) — 질문 A를 실제 키로 확인(M1, log/029). 남은 것: 질문 B 다시 실행(사람, `web/scripts/try-question.ts B`) | AI(Claude Code) | 검토 중 | 11/29 | [계획](plan.md) |
+| T8 | 2주: Groq 한 턴, 도구 정의, 서술형 판정 프롬프트, `api/chat` (M1) — 질문 A·B를 실제 키로 확인(M1, log/029·030). PR 대기 | AI(Claude Code) | 검토 중 | 11/29 | [계획](plan.md) |
 | T9 | 3주: 채팅 화면, 선택지, 판정 카드, Vercel 첫 배포 (M2). 형식은 [D14](decisions/D14.md) | 미정 | 대기 (T8 후) | 12/6 | [계획](plan.md) |
 | T10 | 4주: LH 연결, 오류 처리, 개인정보 점검, 품질 점검 (M3) | 미정 | 대기 (T9 후) | 12/13 | [계획](plan.md) |
 

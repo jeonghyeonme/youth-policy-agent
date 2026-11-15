@@ -39,6 +39,17 @@ const applyEnd = (raw: RawPolicy): Date | null => {
   return new Date(Number(last.slice(0, 4)), Number(last.slice(4, 6)) - 1, Number(last.slice(6, 8)));
 };
 
+/**
+ * 링크 칸을 화면에서 쓸 수 있는 주소로 바꾼다. 데이터에 마크다운(`[www.x](https://x)`)이나 scheme 없는 주소(`www.x.go.kr`)가 섞여 있다(log/030).
+ * http(s) 주소가 있으면 첫 번째 것을, 없으면 도메인처럼 보이는 앞부분에 https://를 붙인다. 그 밖(javascript: 등)은 버린다.
+ */
+export const normalizeUrl = (value: string): string => {
+  const full = value.match(/https?:\/\/[^\s)\]"'<>]+/);
+  if (full) return full[0];
+  const bare = value.trim().match(/^([a-z0-9-]+\.)+[a-z]{2,}(\/[^\s)\]"'<>]*)?$/i);
+  return bare ? `https://${bare[0]}` : "";
+};
+
 /** API 응답 한 건을 Policy로 바꾼다. 나이는 숫자로만 판단하고 0~0이면 제한 없음(log/017). */
 export const parsePolicy = (raw: RawPolicy): Policy => {
   const min = int(raw, "sprtTrgtMinAge");
@@ -63,7 +74,7 @@ export const parsePolicy = (raw: RawPolicy): Policy => {
     extraQualification: text(raw, "addAplyQlfcCndCn"),
     excluded: text(raw, "ptcpPrpTrgtCn"),
     applyMethod: text(raw, "plcyAplyMthdCn"),
-    url: text(raw, "aplyUrlAddr") || text(raw, "refUrlAddr1"),
+    url: normalizeUrl(text(raw, "aplyUrlAddr")) || normalizeUrl(text(raw, "refUrlAddr1")),
   };
 };
 

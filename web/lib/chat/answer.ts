@@ -4,7 +4,7 @@ import type { ChatJson } from "../llm/groq.ts";
 import { estimateTokens, judge, judgeMessages } from "../llm/judge.ts";
 import { understand } from "../llm/understand.ts";
 import { codeCheck, merge } from "../policy/codeVerdict.ts";
-import { passesFilter } from "../policy/filter.ts";
+import { dedupe, passesFilter } from "../policy/filter.ts";
 import { TOP_N, top } from "../policy/rank.ts";
 import type { Policy, Profile } from "../policy/types.ts";
 import type { PolicyPage, PolicyQuery } from "../sources/youthcenter.ts";
@@ -38,7 +38,7 @@ export const answer = async (req: ChatRequest, deps: Deps): Promise<ChatResponse
   // 1단계: 요청 좁히기. 키워드로 좁혀 0건이면 대분류만으로 한 번 더 부른다(호출 최대 2회).
   const base: PolicyQuery = { zipCd: req.profile.sggCode, lclsfNm: u.major };
   const narrowed: PolicyQuery = { ...base, mclsfNm: u.minor ?? undefined, plcyKywdNm: u.keyword ?? undefined };
-  const filterPage = (page: PolicyPage): Policy[] => page.policies.filter((p) => passesFilter(p, profile, deps.today));
+  const filterPage = (page: PolicyPage): Policy[] => dedupe(page.policies.filter((p) => passesFilter(p, profile, deps.today)));
   let matched = filterPage(await deps.fetchPolicies(narrowed));
   if (matched.length === 0 && (u.minor || u.keyword)) matched = filterPage(await deps.fetchPolicies(base));
 

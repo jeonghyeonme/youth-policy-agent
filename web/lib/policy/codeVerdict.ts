@@ -17,6 +17,23 @@ const names = (codes: string[]): string => codes.map((c) => NAMES[c] ?? c).join(
 
 export type Finding = { verdict: Verdict; reason: string; askUser: string | null };
 
+/** 학력 단계(코드정의서 순서). "기타"(0049009)는 순서가 없다. */
+const SCHOOL_LEVEL: Record<string, number> = {
+  "0049001": 1, "0049002": 2, "0049003": 3, "0049004": 4, "0049005": 5, "0049006": 6, "0049007": 7, "0049008": 8,
+};
+
+/**
+ * 학력은 목록에 없다고 바로 "불가"로 하지 않는다(log/030). "고교 졸업"만 적힌 정책은 대개 "고졸 이상"이라 대졸자를 막으면 안 된다.
+ * 사용자 학력이 목록의 가장 낮은 단계보다 낮거나, 목록 범위 안인데 빠져 있으면(일부러 뺀 것) "불가".
+ * 가장 높은 단계보다 높으면 "확인 필요". 순서를 매길 수 없으면 "확인 필요".
+ */
+const schoolGap = (codes: readonly string[], value: string): "불가" | "확인 필요" => {
+  const levels = codes.map((c) => SCHOOL_LEVEL[c]).filter((n): n is number => n !== undefined);
+  const mine = SCHOOL_LEVEL[value];
+  if (mine === undefined || levels.length === 0) return "확인 필요";
+  return mine > Math.max(...levels) ? "확인 필요" : "불가";
+};
+
 const LISTS = [
   { field: "schoolCodes", any: ANY.school, key: "school", label: "학력" },
   { field: "maritalCodes", any: ANY.marital, key: "marital", label: "혼인" },
@@ -37,6 +54,10 @@ export const codeCheck = (p: Policy, profile: Profile): Finding | null => {
     if (value === undefined) {
       unknown ??= { verdict: "확인 필요", reason: `${label} 요건이 있다: ${names(codes)}`, askUser: `${label}이(가) ${names(codes)} 중 하나에 해당하나요?` };
     } else if (!codes.includes(value)) {
+      if (key === "school" && schoolGap(codes, value) === "확인 필요") {
+        unknown ??= { verdict: "확인 필요", reason: `학력 요건이 ${names(codes)}로 적혀 있다(그 이상 학력도 되는지 확인 필요)`, askUser: `학력 요건(${names(codes)})이 "그 이상 학력도 가능"인지 공고에서 확인해 주세요.` };
+        continue;
+      }
       return { verdict: "불가", reason: `${label} 요건(${names(codes)})에 해당하지 않는다`, askUser: null };
     }
   }

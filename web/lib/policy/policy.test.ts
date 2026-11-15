@@ -1,10 +1,10 @@
 // 실험(experiments/context-measurement)과 같은 결과를 내는지 확인한다. 기준 숫자는 log/016·017·019.
 import { test } from "node:test";
 import assert from "node:assert/strict";
-import { parsePolicy, parseResponse } from "../sources/youthcenter.ts";
+import { normalizeUrl, parsePolicy, parseResponse } from "../sources/youthcenter.ts";
 import { readExperiment, readSample, SAMPLE_DAY } from "../test/fixtures.ts";
 import { codeCheck, codeVerdict, combine } from "./codeVerdict.ts";
-import { passesFilter } from "./filter.ts";
+import { dedupe, passesFilter } from "./filter.ts";
 import { top } from "./rank.ts";
 import type { Profile, Verdict } from "./types.ts";
 import { UNEMPLOYED } from "./types.ts";
@@ -55,13 +55,37 @@ test("마감된 정책과 나이가 안 맞는 정책은 거른다", () => {
 
 test("코드 판정은 이유를 단다: 학력 불일치는 '불가', 학력을 모르면 '확인 필요'와 질문", () => {
   const p = parsePolicy({ schoolCd: "0049005,0049006", sbizCd: "0014010", jobCd: "0013010", mrgSttsCd: "0055003" });
-  const no = codeCheck(p, { ...A, school: "0049007" });
+  const no = codeCheck(p, { ...A, school: "0049004" }); // 고교 졸업 < 대학 재학(목록의 가장 낮은 단계)
   assert.equal(no?.verdict, "불가");
   assert.match(no?.reason ?? "", /대학 재학, 대졸 예정/);
   const unknown = codeCheck(p, A);
   assert.equal(unknown?.verdict, "확인 필요");
   assert.match(unknown?.askUser ?? "", /학력/);
   assert.equal(codeCheck(p, { ...A, school: "0049005" }), null);
+});
+
+test("학력은 순서로 본다: 목록보다 높으면 '확인 필요', 낮거나 범위 안에서 빠졌으면 '불가' (log/030)", () => {
+  const base = { sbizCd: "0014010", jobCd: "0013010", mrgSttsCd: "0055003" };
+  const highSchoolOnly = parsePolicy({ ...base, schoolCd: "0049004" });
+  assert.equal(codeVerdict(highSchoolOnly, { ...A, school: "0049007" }), "확인 필요"); // 대졸자에게 "고교 졸업" 요건
+  assert.equal(codeVerdict(highSchoolOnly, { ...A, school: "0049002" }), "불가"); // 고교 재학생
+  const studentsOnly = parsePolicy({ ...base, schoolCd: "0049005,0049006,0049008" });
+  assert.equal(codeVerdict(studentsOnly, { ...A, school: "0049007" }), "불가"); // 범위 안에서 대학 졸업만 빠짐
+});
+
+test("이름과 운영기관이 같은 정책은 최신 것 하나만 남긴다 (log/030)", () => {
+  const old = parsePolicy({ plcyNo: "20240109005400100005", plcyNm: "청년전용 보증부 월세대출", operInstCdNm: "주택도시보증공사" });
+  const now = parsePolicy({ plcyNo: "20260922005400113545", plcyNm: "청년전용  보증부 월세대출", operInstCdNm: "주택도시보증공사" });
+  const other = parsePolicy({ plcyNo: "1", plcyNm: "다른 정책", operInstCdNm: "주택도시보증공사" });
+  assert.deepEqual(dedupe([old, other, now]).map((p) => p.id), ["1", "20260922005400113545"]);
+});
+
+test("링크는 쓸 수 있는 주소로 바꾼다: 마크다운·scheme 없는 주소·위험한 값 (log/030)", () => {
+  assert.equal(normalizeUrl("[www.hf.go.kr](https://www.hf.go.kr)"), "https://www.hf.go.kr");
+  assert.equal(normalizeUrl(" www.khug.or.kr "), "https://www.khug.or.kr");
+  assert.equal(normalizeUrl("http://nhuf.molit.go.kr/FP/x.jsp"), "http://nhuf.molit.go.kr/FP/x.jsp");
+  assert.equal(normalizeUrl("javascript:alert(1)"), "");
+  assert.equal(normalizeUrl("홈페이지 참고"), "");
 });
 
 type Labels = {
