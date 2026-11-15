@@ -19,6 +19,9 @@ test("요청: 모델과 JSON 모드를 쓰고, 키는 헤더에만 있다", asyn
   assert.equal(body.model, MODEL);
   assert.deepEqual(body.response_format, { type: "json_object" });
   assert.ok(!seen!.body.includes("TEST_KEY"));
+  assert.equal(body.reasoning_effort, undefined);
+  await groqChatJson("TEST_KEY", fakeFetch)([], { reasoningEffort: "low" });
+  assert.equal(JSON.parse(seen!.body).reasoning_effort, "low");
 });
 
 test("429는 한도 오류로 바꾼다", async () => {

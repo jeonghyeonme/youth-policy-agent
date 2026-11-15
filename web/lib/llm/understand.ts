@@ -30,4 +30,5 @@ export const parseUnderstanding = (json: unknown): Understanding => {
 };
 
 export const understand = async (question: string, chat: ChatJson): Promise<Understanding> =>
-  parseUnderstanding((await chat(understandMessages(question))).json);
+  // 분류 하나 고르는 쉬운 일이라 추론을 줄인다. 기본값으로는 추론 토큰을 617개 썼다(log/029).
+  parseUnderstanding((await chat(understandMessages(question), { reasoningEffort: "low" })).json);

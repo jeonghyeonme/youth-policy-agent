@@ -3,7 +3,7 @@ import { test } from "node:test";
 import assert from "node:assert/strict";
 import { parsePolicy, parseResponse } from "../sources/youthcenter.ts";
 import { readExperiment, readSample, SAMPLE_DAY } from "../test/fixtures.ts";
-import { codeVerdict, combine } from "./codeVerdict.ts";
+import { codeCheck, codeVerdict, combine } from "./codeVerdict.ts";
 import { passesFilter } from "./filter.ts";
 import { top } from "./rank.ts";
 import type { Profile, Verdict } from "./types.ts";
@@ -51,6 +51,17 @@ test("마감된 정책과 나이가 안 맞는 정책은 거른다", () => {
   const passed = load("probe_kywd_subsidy.json").filter((p) => passesFilter(p, A, SAMPLE_DAY));
   assert.ok(passed.every((p) => !p.closed && (p.applyEnd === null || p.applyEnd >= SAMPLE_DAY)));
   assert.ok(!passed.some((p) => p.name === "고교 취업연계 장려금 지원"), "17~21세 정책이 26살에게 남으면 안 된다");
+});
+
+test("코드 판정은 이유를 단다: 학력 불일치는 '불가', 학력을 모르면 '확인 필요'와 질문", () => {
+  const p = parsePolicy({ schoolCd: "0049005,0049006", sbizCd: "0014010", jobCd: "0013010", mrgSttsCd: "0055003" });
+  const no = codeCheck(p, { ...A, school: "0049007" });
+  assert.equal(no?.verdict, "불가");
+  assert.match(no?.reason ?? "", /대학 재학, 대졸 예정/);
+  const unknown = codeCheck(p, A);
+  assert.equal(unknown?.verdict, "확인 필요");
+  assert.match(unknown?.askUser ?? "", /학력/);
+  assert.equal(codeCheck(p, { ...A, school: "0049005" }), null);
 });
 
 type Labels = {

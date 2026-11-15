@@ -91,6 +91,32 @@ test("판정 프롬프트가 토큰 예산을 넘으면 카드 수를 줄인다"
   assert.ok(estimateTokens(calls[1]) <= JUDGE_INPUT_BUDGET || res.cards.length === 1);
 });
 
+test("서버가 판정을 바꾸면 이유와 확인 질문도 서버가 쓴다: 특화 요건은 대상 목록을 묻는다 (log/029)", async () => {
+  const { chat } = fakeChat({ major: "일자리", keyword: "보조금", terms: ["지원금"] }, "가능");
+  const res = await answer(REQ_A, deps(chat, () => subsidyPage));
+  const care = res.cards.find((c) => c.name === "사회복지시설 돌봄보조 인력 지원");
+  assert.equal(care?.verdict, "확인 필요");
+  assert.match(care?.reason ?? "", /대상 요건/);
+  assert.match(care?.askUser ?? "", /여성/);
+  const ok = res.cards.find((c) => c.name === "2026 취업날개 서비스 지원");
+  assert.deepEqual([ok?.verdict, ok?.reason, ok?.askUser], ["가능", "테스트", null]);
+});
+
+test("이해 단계는 추론 강도를 낮춰(low) 부르고, 판정 단계는 기본값으로 부른다", async () => {
+  const efforts: unknown[] = [];
+  const base = fakeChat({ major: "일자리", keyword: "보조금", terms: [] }).chat;
+  const chat: ChatJson = (messages, options) => {
+    efforts.push(options?.reasoningEffort);
+    return base(messages, options);
+  };
+  await answer(REQ_A, deps(chat, () => subsidyPage));
+  assert.deepEqual(efforts, ["low", undefined]);
+});
+
+test("판정 프롬프트는 단체·고용주 요건과 신청자 요건을 구분하라고 한다 (log/029)", () => {
+  assert.match(judgeMessages(REQ_A.profile, [])[0].content, /청년이 갖출 요건으로만 판정/);
+});
+
 test("판정 결과가 빠지거나 이상하면 '확인 필요'로 둔다", () => {
   const m = parseJudgements({ results: [{ id: "a", verdict: "아마도" }, { id: "x", verdict: "가능" }, { id: "b", verdict: "가능", ask_user: "?" }] }, ["a", "b", "c"]);
   assert.equal(m.get("a")?.verdict, "확인 필요");

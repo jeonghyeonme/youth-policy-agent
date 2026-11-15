@@ -3,7 +3,7 @@
 import type { ChatJson } from "../llm/groq.ts";
 import { estimateTokens, judge, judgeMessages } from "../llm/judge.ts";
 import { understand } from "../llm/understand.ts";
-import { codeVerdict, combine } from "../policy/codeVerdict.ts";
+import { codeCheck, merge } from "../policy/codeVerdict.ts";
 import { passesFilter } from "../policy/filter.ts";
 import { TOP_N, top } from "../policy/rank.ts";
 import type { Policy, Profile } from "../policy/types.ts";
@@ -50,16 +50,16 @@ export const answer = async (req: ChatRequest, deps: Deps): Promise<ChatResponse
 
   const judged = picked.length > 0 ? await judge(req.profile, picked, deps.chat) : new Map();
   const cards: Card[] = picked.map((p) => {
-    const llm = judged.get(p.id) ?? { verdict: "확인 필요" as const, reason: "", askUser: null };
-    const verdict = combine(codeVerdict(p, profile), llm.verdict);
+    const llm = judged.get(p.id) ?? { verdict: "확인 필요" as const, reason: "판정 결과를 받지 못했다", askUser: null };
+    const { verdict, reason, askUser } = merge(codeCheck(p, profile), llm);
     return {
       id: p.id,
       name: p.name,
       operator: p.operator,
       support: p.support.slice(0, 200),
       verdict,
-      reason: llm.reason,
-      askUser: verdict === "확인 필요" ? llm.askUser : null,
+      reason,
+      askUser,
       applyEnd: ymd(p.applyEnd),
       url: p.url,
     };

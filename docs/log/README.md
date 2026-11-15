@@ -34,3 +34,4 @@
 | [026](026.md) | 2026-11-13 | AI(Claude Code) | PM 승인으로 web/AGENTS.md를 커밋하고 D13으로 남겼다 |
 | [027](027.md) | 2026-11-13 | AI(Claude Code) | 질문 한 턴(POST /api/chat)을 만들고 개인정보 규칙을 테스트로 고정했다 (T8) |
 | [028](028.md) | 2026-11-15 | AI(Claude Code) | PM 승인으로 api/chat 형식을 D14로 고정했다 |
+| [029](029.md) | 2026-11-15 | AI(Claude Code) | 실제 키로 질문 A가 끝까지 돌았고(M1), 드러난 문제 셋을 고쳤다 |

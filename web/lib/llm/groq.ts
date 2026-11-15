@@ -18,7 +18,10 @@ export class RateLimitError extends Error {
   }
 }
 
-export type ChatJson = (messages: Message[]) => Promise<{ json: unknown; usage: Usage | null }>;
+/** gpt-oss 추론 강도(Groq reasoning_effort). 추론 토큰도 분당 한도를 먹는 것으로 보인다(log/029). */
+export type ReasoningEffort = "low" | "medium" | "high";
+
+export type ChatJson = (messages: Message[], options?: { reasoningEffort?: ReasoningEffort }) => Promise<{ json: unknown; usage: Usage | null }>;
 
 /** 응답이 ```json 블록으로 싸여 와도 읽는다. */
 export const parseJsonContent = (content: string): unknown => {
@@ -29,11 +32,17 @@ export const parseJsonContent = (content: string): unknown => {
 /** JSON 하나를 돌려받는 호출. 실험(judge_experiment.py)과 같은 설정이다. */
 export const groqChatJson =
   (apiKey: string, fetchImpl: typeof fetch = fetch): ChatJson =>
-  async (messages) => {
+  async (messages, options = {}) => {
     const res = await fetchImpl(URL, {
       method: "POST",
       headers: { Authorization: `Bearer ${apiKey}`, "Content-Type": "application/json" },
-      body: JSON.stringify({ model: MODEL, messages, temperature: 0, response_format: { type: "json_object" } }),
+      body: JSON.stringify({
+        model: MODEL,
+        messages,
+        temperature: 0,
+        response_format: { type: "json_object" },
+        ...(options.reasoningEffort && { reasoning_effort: options.reasoningEffort }),
+      }),
       signal: AbortSignal.timeout(TIMEOUT_MS),
     });
     if (res.status === 429) {
