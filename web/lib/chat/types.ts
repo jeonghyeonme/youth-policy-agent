@@ -1,4 +1,4 @@
-// api/chat 요청·응답 형식 — **초안. PM 승인 전(STATUS Q9).** 화면(T9) 코드가 이 형식에 기댄다.
+// api/chat 요청·응답 형식 — 고정(D14). 화면(T9) 코드가 이 형식에 기댄다. 바꾸려면 PM 승인을 받는다(AGENTS.md "구조").
 // 사용자 값은 모두 선택지로 받는다(D10). 자유 입력은 질문 문장 하나뿐이다.
 import type { Verdict } from "../policy/types.ts";
 

@@ -37,7 +37,7 @@ npm run lint && npm run typecheck && npm test && npm run build
 | `lib/llm/understand.ts` | 질문 → 대분류·중분류·정책 키워드·순위용 단어 | D9 1단계 |
 | `lib/llm/judge.ts` | 서술형 자격 판정 프롬프트와 결과 해석 | D10 2단계 |
 | `lib/llm/groq.ts` | Groq 호출(fetch, JSON 모드), 한도 오류 | D5, D7 |
-| `lib/chat/types.ts` | `api/chat` 요청·응답 형식 — **초안, PM 승인 전(Q9)** | AGENTS.md "구조" |
+| `lib/chat/types.ts` | `api/chat` 요청·응답 형식 — 고정, 바꾸려면 PM 승인 | D14 |
 | `lib/chat/validate.ts` | 요청 본문 검증 | |
 | `lib/chat/answer.ts` | 질문 한 턴: 이해 → 온통청년 → 필터·순위 → 코드 판정 + 서술형 판정 → 카드 | D9, D10 |
 | `app/api/chat/route.ts` | `POST /api/chat`. 키는 여기서만 읽고, 요청 내용은 로그에 남기지 않는다 | D11 |
