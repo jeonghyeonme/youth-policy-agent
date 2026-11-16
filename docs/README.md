@@ -16,7 +16,7 @@
 | [log/](log/README.md) | 과거에 무슨 일이 있었나 | 작업 한 건에 파일 하나(`001.md`), append-only | 작업을 마친 사람 |
 | [plan.md](plan.md) | 앞으로 몇 주 동안 무엇을, 어떤 순서로 만드나 | 주마다 고친다. 할 일은 STATUS의 T 번호로 옮긴다 | PM |
 | [process/](process/) | 일은 어떤 절차로 하나 | [작업 규칙](process/workflow.md) · [마무리 절차](process/wrap-up.md) | PM |
-| [reference/](reference/) | 처음 기획은 무엇이었나, 바깥 자료는 | [제안서 원문](reference/proposal.md). 고치지 않는다 | - |
+| [reference/](reference/) | 처음 기획은 무엇이었나, 바깥 자료는 | [제안서 원문](reference/proposal.md). 고치지 않는다. [다른 작업 브랜치에서 옮긴 기록](reference/prior-work/README.md)도 여기 있다 | - |
 | [../experiments/](../experiments/) | 실험·측정의 방법과 결과는 | 실험 하나에 폴더 하나, 결과는 `results.md` | 실험 담당 |
 
 서비스 코드는 저장소 루트의 `web/`에 둔다([D12](decisions/D12.md)).
