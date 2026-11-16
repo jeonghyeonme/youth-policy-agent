@@ -1,0 +1,17 @@
+{
+  "seconds": 3.4,
+  "usage": {
+    "queue_time": 0.295230747,
+    "prompt_tokens": 1758,
+    "prompt_time": 0.09742754,
+    "completion_tokens": 1246,
+    "completion_time": 2.79367784,
+    "total_tokens": 3004,
+    "total_time": 2.89110538,
+    "completion_tokens_details": {
+      "reasoning_tokens": 847
+    }
+  },
+  "content": "{\"results\":[{\"plcyNm\":\"2026 청년 월세 지원\",\"verdict\":\"확인 필요\",\"reason\":\"소득이 중위소득 150% 이하인지와 일반재산(예금 등) 보유액을 확인해야 함\",\"ask_user\":\"연 소득이 중위소득의 150% 이하인지와 현재 보유하고 있는 일반재산(예금 등) 금액을 알려주실 수 있나요?\"},{\"plcyNm\":\"2026 청년주거 씨앗펀드\",\"verdict\":\"확인 필요\",\"reason\":\"소득이 중위소득 150% 이하인지 확인이 필요함\",\"ask_user\":\"연 소득이 중위소득의 150% 이하인지 알려주실 수 있나요?\"},{\"plcyNm\":\"2026 전월세 안심계약 도움서비스 운영\",\"verdict\":\"가능\",\"reason\":\"연령·취업·학력·혼인 요건에 제한이 없으며, 1인 가구인 사용자가 해당 서비스 대상임\",\"ask_user\":null},{\"plcyNm\":\"2026 청년과 어르신 주거공유(한지붕세대공감)\",\"verdict\":\"가능\",\"reason\":\"학력 요건(대졸)과 연령·취업·혼인 요건을 충족함\",\"ask_user\":null},{\"plcyNm\":\"2026 청년안심주택 공급(매입)\",\"verdict\":\"불가\",\"reason\":\"혼인 요건이 기혼이어야 하는데 사용자는 미혼임\",\"ask_user\":null},{\"plcyNm\":\"귀환 청년 주거지원(공공기관 사택제공)\",\"verdict\":\"불가\",\"reason\":\"대구 귀환 청년을 대상으로 하는 정책으로 사용자는 해당되지 않음\",\"ask_user\":null}]}",
+  "policies_sent": 6
+}

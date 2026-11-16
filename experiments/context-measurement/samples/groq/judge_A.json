@@ -1,0 +1,17 @@
+{
+  "seconds": 4.0,
+  "usage": {
+    "queue_time": 0.318826339,
+    "prompt_tokens": 3626,
+    "prompt_time": 0.164776605,
+    "completion_tokens": 1548,
+    "completion_time": 3.252610148,
+    "total_tokens": 5174,
+    "total_time": 3.417386753,
+    "completion_tokens_details": {
+      "reasoning_tokens": 1140
+    }
+  },
+  "content": "{\"results\":[{\"plcyNm\":\"군장병 전자책 구독·구매 지원\",\"verdict\":\"불가\",\"reason\":\"신청자격이 현역 군인 또는 상근예비역에 한정돼 있어 해당되지 않음.\",\"ask_user\":null},{\"plcyNm\":\"2026 서울형 강소기업 육성 지원\",\"verdict\":\"불가\",\"reason\":\"기업·사업주가 신청하는 지원사업으로 개인은 신청할 수 없음.\",\"ask_user\":null},{\"plcyNm\":\"게임사 프로젝트 현장교육 프로그램\",\"verdict\":\"불가\",\"reason\":\"현장교육은 참여기업에 신규 채용된 청년만 대상이므로 현재 미취업인 사용자는 신청 불가.\",\"ask_user\":null},{\"plcyNm\":\"사회복지시설 돌봄보조 인력 지원\",\"verdict\":\"가능\",\"reason\":\"연령(19~34세), 학력(대학졸업) 등 청년 요건을 모두 충족해 신청 가능.\",\"ask_user\":null},{\"plcyNm\":\"2026 취업날개 서비스 지원\",\"verdict\":\"가능\",\"reason\":\"연령(18~39세) 요건만 충족하고 제한이 없어 신청 가능.\",\"ask_user\":null},{\"plcyNm\":\"청년일자리도약장려금\",\"verdict\":\"불가\",\"reason\":\"기업·사업주가 신청하는 지원사업으로 개인은 신청할 수 없음.\",\"ask_user\":null},{\"plcyNm\":\"유연근무 확대 등 일가정 양립 기업 환경 조성\",\"verdict\":\"불가\",\"reason\":\"기업·사업주가 신청하는 지원사업으로 개인은 신청할 수 없음.\",\"ask_user\":null},{\"plcyNm\":\"클린사업장 조성지원 사업\",\"verdict\":\"불가\",\"reason\":\"기업·사업주가 신청하는 지원사업으로 개인은 신청할 수 없음.\",\"ask_user\":null}]}",
+  "policies_sent": 8
+}

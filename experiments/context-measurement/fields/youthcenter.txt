@@ -1,0 +1,16 @@
+# LLM이 정책을 설명하고 자격을 판단하는 데 필요한 필드 초안 (log/007)
+# 코드 필드(나이·지역·취업·소득 구분)는 서버 필터링에만 쓰고 LLM에는 보내지 않는다는 가정
+plcyNm            # 정책명
+plcyExplnCn       # 정책 설명
+plcySprtCn        # 지원 내용
+lclsfNm           # 대분류
+mclsfNm           # 중분류
+operInstCdNm      # 운영 기관
+sprtTrgtMinAge    # 최소 나이
+sprtTrgtMaxAge    # 최대 나이
+earnEtcCn         # 소득 조건 서술 (earnCndSeCd=기타일 때)
+addAplyQlfcCndCn  # 추가 신청 자격 (서술형)
+ptcpPrpTrgtCn     # 참여 제한 대상 (서술형)
+plcyAplyMthdCn    # 신청 방법
+aplyYmd           # 신청 기간
+refUrlAddr1       # 참고 URL
