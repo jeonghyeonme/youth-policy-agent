@@ -2,11 +2,11 @@
 
 > **작업 시작점.** 이 파일은 "지금"만 담고 **덮어쓴다**(80줄 상한). 끝난 일은 지우고 경위는 [log/](log/README.md)로 보낸다.
 > PM이 관리한다. 작업자는 자기 담당 줄의 "상태"만 고치고, 새 일·우선순위 변경은 PM에게 말한다.
-> 마지막 갱신: 2026-11-15 · [log/030](log/030.md)
+> 마지막 갱신: 2026-11-16 · [log/031](log/031.md)
 
 ## 현재 단계
 
-**기획 끝 → 구현 준비.** [5주 구현 계획](plan.md)(시작 가정 11/16, 할 일 T7~T10). `web/`에 정책 로직(T7)과 `POST /api/chat`(T8, 테스트 23개)이 있다. 화면은 아직 없다. 스택은 Next.js + Vercel([D11](decisions/D11.md)), 코드는 `web/`([D12](decisions/D12.md)). PR마다 CI가 돈다([D3](decisions/D3.md)). 제안서: [reference/proposal.md](reference/proposal.md)
+**기획 끝 → 구현 준비.** [5주 구현 계획](plan.md)(시작 가정 11/16, 할 일 T7~T10). `web/`에 정책 로직(T7)과 `POST /api/chat`(T8, 테스트 23개)이 있다. 화면은 아직 없다. 스택은 Next.js + Vercel([D11](decisions/D11.md)), 코드는 `web/`([D12](decisions/D12.md)). CI 자동 실행은 꺼져 있고 `.github/scripts/check_all.py`로 로컬 검사한다([D15](decisions/D15.md)). 제안서: [reference/proposal.md](reference/proposal.md)
 
 ## 할 일
 
