@@ -6,9 +6,9 @@
 
 1. **PM이 일을 만든다** — STATUS "할 일"에 T 번호로 추가하고, 필요하면 GitHub 이슈도 연다(이슈 제목에 `T4`처럼 번호를 붙인다).
 2. **담당자가 맡는다** — STATUS 자기 줄의 상태를 `진행 중`으로 바꾼다.
-3. **작업 브랜치에서 한다** — `archive/youth-policy`에서 브랜치를 딴다(D1: 청년 정책 작업은 이 브랜치로 간다. `main`은 생필품 가격 컨셉). 이름은 `t4-context-measurement`처럼 T 번호로 시작한다.
-4. **PR을 연다** — `archive/youth-policy` 대상. PR 템플릿을 채운다. **올리기 전에 `py .github/scripts/check_all.py`(macOS·Linux는 `python3`)를 돌려 모두 통과해야 하고, 결과를 PR 설명 "확인"에 적는다**([D15](../decisions/D15.md). GitHub CI 자동 실행은 꺼져 있다).
-   - 팀원이 없는 지금은 리뷰 없이 PM이 병합한다. PM이 PR 템플릿 "체크"(키·개인정보 없음 등)와 로컬 검사 결과를 확인한다([D4](../decisions/D4.md), [D15](../decisions/D15.md)).
+3. **작업 브랜치에서 한다** — `main`에서 브랜치를 딴다([D16](../decisions/D16.md)). 이름은 `t4-context-measurement`처럼 T 번호로 시작한다.
+4. **PR을 연다** — `main` 대상. PR 템플릿을 채운다. **CI가 통과해야 병합한다**([D3](../decisions/D3.md), [D17](../decisions/D17.md)). 올리기 전에 `py .github/scripts/check_all.py`(macOS·Linux는 `python3`)로 같은 검사를 로컬에서 먼저 돌릴 수 있다.
+   - 팀원이 없는 지금은 리뷰 없이 PM이 병합한다. PM이 PR 템플릿 "체크"(키·개인정보 없음 등)를 직접 확인한다([D4](../decisions/D4.md)).
    - 팀원이 생기면(T1) 리뷰어 1명 이상 확인 후 병합한다.
 5. **마무리 기록** — [마무리 절차](wrap-up.md). PR에 `log/NNN.md`가 함께 들어간다.
 6. **PM이 STATUS를 정리한다** — 끝난 줄을 지우고 다음 일을 올린다.

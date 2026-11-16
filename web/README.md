@@ -12,7 +12,7 @@ npm ci
 npm run dev
 ```
 
-## 검사 (CI 대신 로컬, D15)
+## 검사 (CI와 같다)
 
 저장소 루트에서 `py .github/scripts/check_all.py`(macOS·Linux는 `python3`)로 전체를 한 번에 돌린다. `web/`만 돌릴 때:
 
